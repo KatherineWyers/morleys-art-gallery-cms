@@ -12,9 +12,55 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('web-portal/frontpage');
 });
 
-Route::get('/items/demo-item', function () {
-    return view('items/demo-item');
+Route::get('/artists/john-doe/untitled', function () {
+    return view('web-portal/artworks/show');
 });
+
+Route::get('/artists/john-doe/untitled2', function () {
+    return view('web-portal/artworks/show');
+});
+
+Route::get('/artists', function () {
+    return view('web-portal/artists/index');
+});
+
+Route::get('/artists/john-doe', function () {
+    return view('web-portal/artists/show');
+});
+
+Route::get('/gallery', function () {
+    return view('web-portal/gallery');
+});
+
+Route::get('/contact', function () {
+    return view('web-portal/contact');
+});
+Route::get('/artworks', function () {
+    return view('web-portal/artworks/menu');
+});
+
+Route::get('/exhibitions', function () {
+    return view('web-portal/exhibitions/index');
+});
+
+Route::get('/exhibitions/past/2015', function () {
+    return view('web-portal/exhibitions/past/index');
+});
+
+Route::get('/exhibitions/past/2016', function () {
+    return view('web-portal/exhibitions/past/index');
+});
+
+Route::get('/exhibitions/past/2017', function () {
+    return view('web-portal/exhibitions/past/index');
+});
+
+Route::get('/news', function () {
+    return view('web-portal/news/index');
+});
+
+
+
