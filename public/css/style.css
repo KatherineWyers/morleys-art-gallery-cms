@@ -9,7 +9,7 @@
 body { 
 	/*position: relative;*/
 	padding-top: 51px;
-	background:url("image.jpg");
+	background:url("#");
 	background-size: cover;       /* For flexibility */
 }
 
@@ -21,15 +21,6 @@ body {
 img {
 	padding-top:20px;
 	padding-bottom:20px;
-}
-
-.sherpa-icon {
-	padding-top: 0px; 
-	padding-bottom: 0px; 
-	width: 40px; 
-	height: 40px;
-	border: 1px solid #333333;
-	border-radius: 3px;
 }
 
 .buffer-sm{
@@ -70,7 +61,7 @@ p {
 	height:500px;
 	color: #000; 
 
-	background-image: url("#");  
+	background-image: url("/img/placeholders/1240x700.png");  
 	background-size: cover;
 }
 
@@ -174,6 +165,42 @@ footer p{
 	text-align: center;
 }
 
+
+/* standard-page-1 */
+
+#standard-page-1 {
+	padding-top:70px;
+	height:500px;
+	color: #000; 
+
+	background-image: url("/img/placeholders/1240x700.png");  
+	background-size: cover;
+}
+
+#standard-page-1 h1{
+	color: #eaeab4;
+	font-size: 40px;
+	font-weight: bold;
+	text-align: center;
+
+	text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+#standard-page-1 h2{
+	color: #eaeab4;
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+
+	text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+#standard-page-1 img{
+	margin-left: auto;
+    margin-right: auto;
+}
+
+
 /*==================================================
 =            Bootstrap 3 Media Queries             =
 ==================================================*/
@@ -234,6 +261,23 @@ footer p{
 		}
 
 
+
+		#standard-page-1 {
+			padding-top:110px;
+			height:600px;
+		}
+
+		#standard-page-1 h1{
+			font-size: 70px;
+		}
+
+		#standard-page-1 h2{
+			font-size: 40px;
+		}
+
+
+
+
     }
 
     /* Small Devices, Tablets */
@@ -288,6 +332,22 @@ footer p{
 		#front-page-6 {
 			height:300px;
 		}
+
+
+
+
+		#standard-page-1 {
+			padding-top:110px;
+			height:600px;
+		}
+
+		#standard-page-1 h1{
+			font-size: 100px;
+		}
+
+		#standard-page-1 h2{
+			font-size: 40px;
+		}
     }
 
     /* Medium Devices, Desktops */
@@ -313,7 +373,7 @@ footer p{
 		}
 
 		#front-page-2 {
-			height: 800px;
+			height: 1000px;
 		}
 
 		#front-page-3 {
@@ -321,16 +381,23 @@ footer p{
 		}
 
 		#front-page-4 {
-			height:800px;
+			height:1400px;
 		}
 
-		#front-page-5 {
-			height:500px;
+
+		#standard-page-1 {
+			padding-top:110px;
+			height:700px;
 		}
 
-		#front-page-6 {
-			height:400px;
+		#standard-page-1 h1{
+			font-size: 30px;
 		}
+
+		#standard-page-1 h2{
+			font-size: 20px;
+		}
+
 
     }
 

@@ -20,7 +20,7 @@ class ArtistsTest extends DuskTestCase
             $browser->visit('/artists')
                     ->assertSee('John Doe')
                     ->clickLink('John Doe')
-                    ->assertPathIs('/artists/john-doe');
+                    ->assertPathIs('/artists/1');
         });
     }
 
@@ -33,7 +33,7 @@ class ArtistsTest extends DuskTestCase
     public function testArtistPageHasCorrectText()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/artists/john-doe')
+            $browser->visit('/artists/1')
                     ->assertSee('John Doe')
                     ->assertSee('John Doe began his career as a metal-worker his family home in Arles, France.')
                     ->assertSee('In Focus')

@@ -15,11 +15,15 @@ Route::get('/', function () {
     return view('web-portal/frontpage');
 });
 
-Route::get('/artists/john-doe/untitled', function () {
+Route::get('/artworks', function () {
+    return view('web-portal/artworks/menu');
+});
+
+Route::get('/artworks/1', function () {
     return view('web-portal/artworks/show');
 });
 
-Route::get('/artists/john-doe/untitled2', function () {
+Route::get('/artworks/2', function () {
     return view('web-portal/artworks/show');
 });
 
@@ -27,7 +31,7 @@ Route::get('/artists', function () {
     return view('web-portal/artists/index');
 });
 
-Route::get('/artists/john-doe', function () {
+Route::get('/artists/1', function () {
     return view('web-portal/artists/show');
 });
 
@@ -38,12 +42,13 @@ Route::get('/gallery', function () {
 Route::get('/contact', function () {
     return view('web-portal/contact');
 });
-Route::get('/artworks', function () {
-    return view('web-portal/artworks/menu');
-});
 
 Route::get('/exhibitions', function () {
     return view('web-portal/exhibitions/index');
+});
+
+Route::get('/exhibitions/1', function () {
+    return view('web-portal/exhibitions/show');
 });
 
 Route::get('/exhibitions/past/2015', function () {

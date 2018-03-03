@@ -6,7 +6,7 @@ use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class ArtworkPageTest extends DuskTestCase
+class ArtworkTest extends DuskTestCase
 {
     /**
      * @group web-portal
@@ -35,9 +35,9 @@ class ArtworkPageTest extends DuskTestCase
     public function testArtworkShowHasCorrectTextElements()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/artists/john-doe/untitled')
+            $browser->visit('/artworks/1')
                     ->assertSee('John Doe')
-                    ->assertSee('Untitled (2016)')
+                    ->assertSee('Untitled')
                     ->assertSee('Oil on canvas')
                     ->assertSee('177.8cm x 152cm')
                     ->assertSee('70in x 60in')
@@ -54,12 +54,12 @@ class ArtworkPageTest extends DuskTestCase
     public function testArtworkShowHasCorrectNextLink()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/artists/john-doe/untitled')
+            $browser->visit('/artworks/1')
                     ->assertSee('Next')
                     ->clickLink('Next')
-                    ->assertPathIs('/artists/john-doe/untitled2')
+                    ->assertPathIs('/artworks/2')
                     ->assertSee('John Doe')
-                    ->assertSee('Untitled (2016)');
+                    ->assertSee('Untitled');
         });
     }
 }

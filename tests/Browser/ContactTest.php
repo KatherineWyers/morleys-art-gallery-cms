@@ -20,7 +20,8 @@ class ContactTest extends DuskTestCase
                 ->assertSee('+44 1234 5678')
                 ->assertSee('37 Marlborough Court')
                 ->assertSee('Straford-upon-Avon')
-                ->assertSee('EI1 6NJ');
+                ->assertSee('EI1 6NJ')
+                ->assertSee('Opening Times');
         });
     }
 }

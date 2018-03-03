@@ -31,7 +31,7 @@ class FrontpageTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                     ->clickLink('Full details')
-                    ->assertPathIs('/artists/john-doe/untitled');
+                    ->assertPathIs('/artworks/1');
         });
     }
 
