@@ -43,10 +43,9 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
-                    <h1>John Doe</h1>
-                    <p>John Doe began his career as a metal-worker his family home in Arles, France. Lorem ipsum dolor sit amet, illum ignota ius eu. Molestie oportere mea in. Everti numquam sea no. Aeterno vidisse meliore ne vix, eum ubique cotidieque ut, per in explicari vituperatoribus. At eum option deseruisse, nam blandit apeirian no.</p>
-                    <p>Has te dicta tollit. Ferri errem pro cu. Ad appetere reprehendunt vim, facilisis delicatissimi ex vim, simul diceret mea ex. Vel falli maiestatis et. Patrioque efficiendi id sit, te qui utamur feugiat expetenda.</p>
-                    <p>Ut liber facilisi assueverit quo, pri an cibo minim sadipscing, usu ne vivendum accusata. Sea partem definiebas cu, ei sumo veniam imperdiet vel, agam aeterno tamquam ea eam. Sit dolorem ponderum ne, sea fugit consectetuer ei. Dicant tritani liberavisse ea vis. Ad his purto euismod, elit mundi his an.</p>
+                    <h1>{{ $artist->name }}</h1>
+                    <p>{{ $artist->desc_1 }}</p>
+                    <p>{{ $artist->desc_2 }}</p>
                     <h2>In Focus</h2>
                     <h3>New York Times, Oct 21st 2017</h3>
                     <p>John Doe is a fantastic sculptor. Invidunt referrentur ut quo, ut reque fabellas suscipiantur pri. Ullum soleat erroribus ad ius, stet iriure adipisci no qui, vix eu reque consul probatus. Ei nec unum animal electram, recusabo interesset in eos. Id nam wisi veniam, vidit quando docendi te vim. Malis efficiantur pro ex, eu cum nobis ceteros molestie. No his nobis forensibus constituto.</p>

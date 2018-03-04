@@ -21,3 +21,14 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Artist::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+        'featured_artwork_img_lg' => '1240x700.png',
+        'featured_artwork_img_sm' => '300x300.png',
+        'profile_img' => '400x600.png',
+        'desc_1' => $faker->text(990),
+        'desc_2' => $faker->text(990),
+    ];
+});

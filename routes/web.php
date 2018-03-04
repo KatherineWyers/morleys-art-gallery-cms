@@ -27,13 +27,15 @@ Route::get('/artworks/2', function () {
     return view('web-portal/artworks/show');
 });
 
-Route::get('/artists', function () {
-    return view('web-portal/artists/index');
-});
+Route::resource('artists', 'ArtistsController');
 
-Route::get('/artists/1', function () {
-    return view('web-portal/artists/show');
-});
+// Route::get('/artists', function () {
+//     return view('web-portal/artists/index');
+// });
+
+// Route::get('/artists/1', function () {
+//     return view('web-portal/artists/show');
+// });
 
 Route::get('/gallery', function () {
     return view('web-portal/gallery');

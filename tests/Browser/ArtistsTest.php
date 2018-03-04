@@ -18,8 +18,8 @@ class ArtistsTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/artists')
-                    ->assertSee('John Doe')
-                    ->clickLink('John Doe')
+                    ->assertSee('Random name')
+                    ->clickLink('Random name')
                     ->assertPathIs('/artists/1');
         });
     }
@@ -34,7 +34,7 @@ class ArtistsTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/artists/1')
-                    ->assertSee('John Doe')
+                    ->assertSee('Random name')
                     ->assertSee('John Doe began his career as a metal-worker his family home in Arles, France.')
                     ->assertSee('In Focus')
                     ->assertSee('New York Times')
