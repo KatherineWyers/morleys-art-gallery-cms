@@ -37,16 +37,17 @@ $factory->define(App\Artwork::class, function (Faker $faker) {
     return [
         'title' => $faker->text(20),
         'artist_id' => 1,
-        'year_created' => 2017,
+        'year_created' => rand(2000,2018),
         'medium' => 'Oil on canvas',
-        'width_cm' => 12.6,
-        'height_cm' => 14,
-        'width_in' => 5,
-        'height_in' => 6,
-        'price' => 2400,
+        'width_cm' => rand(5.0,20.0),
+        'height_cm' => rand(5.0,20.0),
+        'width_in' => rand(5.0,20.0),
+        'height_in' => rand(5.0,20.0),
+        'price' => (rand(5,100) * 100),
         'img_1' => '400x600.png',
         'img_2' => '400x600.png',
         'img_3' => '400x600.png',
+        'img_sq' => '300x300.png',
         'desc_1' => $faker->text(990),
     ];
 });

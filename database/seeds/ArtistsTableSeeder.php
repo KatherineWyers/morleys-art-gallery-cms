@@ -24,7 +24,7 @@ class ArtistsTableSeeder extends Seeder
                     $category_id = rand(1,5);
                     // ensure that the same category_id isn't assigned to the same artwork twice
                     if(!in_array($category_id, $used_categories)) {
-                        ArtworkCategory::create(['artwork_id' => $artwork->id, 'category_id' => rand(1, 5)]);
+                        ArtworkCategory::create(['artwork_id' => $artwork->id, 'category_id' => $category_id]);
                         array_push($used_categories, $category_id);    
                     }
                 }

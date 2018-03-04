@@ -18,36 +18,14 @@
         <div class="wrapper">
             <h1>Featured Artworks
             <div class="row">
+                @forelse($featured_artworks as $artwork)
                 <div class="col-xs-12 col-sm-4">
-                    <img src="/img/placeholders/300x300.png" class="img-responsive">
-                    <p>John Doe - Untitled (2017)</p>
-                    <a href="/artworks/1" class="btn btn-lg btn-success">Full details</a>
+                    <img src="/img/artworks/{{ $artwork->img_sq }}" class="img-responsive">
+                    <p>{{ $artwork->artist->name }} - {{ $artwork->title }} ({{ $artwork->year_created }})</p>
+                    <a href="/artworks/{{ $artwork->id }}" class="btn btn-lg btn-success">Full details</a>
                 </div>
-                <div class="col-xs-12 col-sm-4">
-                    <img src="/img/placeholders/300x300.png" class="img-responsive">
-                    <p>John Doe - Untitled (2017)</p>
-                    <a href="/artworks/1" class="btn btn-lg btn-success">Full details</a>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <img src="/img/placeholders/300x300.png" class="img-responsive">
-                    <p>John Doe - Untitled (2017)</p>
-                    <a href="/artworks/1" class="btn btn-lg btn-success">Full details</a>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <img src="/img/placeholders/300x300.png" class="img-responsive">
-                    <p>John Doe - Untitled (2017)</p>
-                    <a href="/artworks/1" class="btn btn-lg btn-success">Full details</a>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <img src="/img/placeholders/300x300.png" class="img-responsive">
-                    <p>John Doe - Untitled (2017)</p>
-                    <a href="/artworks/1" class="btn btn-lg btn-success">Full details</a>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <img src="/img/placeholders/300x300.png" class="img-responsive">
-                    <p>John Doe - Untitled (2017)</p>
-                    <a href="/artworks/1" class="btn btn-lg btn-success">Full details</a>
-                </div>
+                @empty
+                @endforelse
             </div>
         </div>
     </section>

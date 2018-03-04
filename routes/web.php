@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('web-portal/frontpage');
-});
+Route::get('/', ['as' => 'web-portal.frontpage', 'uses' => 'PagesController@frontpage']);
 
 Route::resource('artworks', 'ArtworksController');
 Route::resource('artists', 'ArtistsController');

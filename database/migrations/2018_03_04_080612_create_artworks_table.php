@@ -27,6 +27,7 @@ class CreateArtworksTable extends Migration
             $table->string('img_1');
             $table->string('img_2');
             $table->string('img_3');
+            $table->string('img_sq');
             $table->string('desc_1', 1000);
             $table->timestamps();
         });
