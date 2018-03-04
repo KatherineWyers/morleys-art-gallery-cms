@@ -32,3 +32,21 @@ $factory->define(App\Artist::class, function (Faker $faker) {
         'desc_2' => $faker->text(990),
     ];
 });
+
+$factory->define(App\Artwork::class, function (Faker $faker) {
+    return [
+        'title' => $faker->text(20),
+        'artist_id' => 1,
+        'year_created' => 2017,
+        'medium' => 'Oil on canvas',
+        'width_cm' => 12.6,
+        'height_cm' => 14,
+        'width_in' => 5,
+        'height_in' => 6,
+        'price' => 2400,
+        'img_1' => '400x600.png',
+        'img_2' => '400x600.png',
+        'img_3' => '400x600.png',
+        'desc_1' => $faker->text(990),
+    ];
+});

@@ -15,27 +15,8 @@ Route::get('/', function () {
     return view('web-portal/frontpage');
 });
 
-Route::get('/artworks', function () {
-    return view('web-portal/artworks/menu');
-});
-
-Route::get('/artworks/1', function () {
-    return view('web-portal/artworks/show');
-});
-
-Route::get('/artworks/2', function () {
-    return view('web-portal/artworks/show');
-});
-
+Route::resource('artworks', 'ArtworksController');
 Route::resource('artists', 'ArtistsController');
-
-// Route::get('/artists', function () {
-//     return view('web-portal/artists/index');
-// });
-
-// Route::get('/artists/1', function () {
-//     return view('web-portal/artists/show');
-// });
 
 Route::get('/gallery', function () {
     return view('web-portal/gallery');

@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Artist;
+use App\Artwork;
+use App\ArtworkCategory;
 
 class ArtistsTableSeeder extends Seeder
 {
@@ -12,8 +14,21 @@ class ArtistsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($x = 0; $x <= 40; $x++) {
-            factory(App\Artist::class)->create([]);
+        for ($i = 0; $i <= 40; $i++) {
+            $artist = factory(App\Artist::class)->create([]);
+            for ($j = 0; $j <= 4; $j++) {
+                $artwork = factory(App\Artwork::class)->create(['artist_id' => $artist->id]);
+
+                $used_categories = array();
+                for($k = 0; $k <= rand(1,3); $k++){
+                    $category_id = rand(1,5);
+                    // ensure that the same category_id isn't assigned to the same artwork twice
+                    if(!in_array($category_id, $used_categories)) {
+                        ArtworkCategory::create(['artwork_id' => $artwork->id, 'category_id' => rand(1, 5)]);
+                        array_push($used_categories, $category_id);    
+                    }
+                }
+            } 
         } 
     }
 }
