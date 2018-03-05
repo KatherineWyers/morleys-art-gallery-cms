@@ -12,4 +12,9 @@ class NewsArticle extends Model
      * @var array
      */
     protected $fillable = ['title', 'content', 'img_1', 'created_at', 'updated_at'];
+
+    public function publication_date() 
+    {
+        return date('D d-M-Y', strtotime($this->created_at)) ;
+    }
 }

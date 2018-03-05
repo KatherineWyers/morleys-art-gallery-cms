@@ -9,7 +9,7 @@ class NewsArticlesController extends Controller
 {
     public function index()
     {        
-        $news_articles=NewsArticle::orderBy('created_at', 'desc')->paginate(10);
+        $news_articles=NewsArticle::orderBy('created_at', 'desc')->paginate(8);
         return view('web-portal.news_articles.index', compact('news_articles'));
     }
 

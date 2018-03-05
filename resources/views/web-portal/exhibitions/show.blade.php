@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <h1>{{ $exhibition->title }}</h1>
-                    <h2>{{ $exhibition->start_date }} till {{ $exhibition->end_date }}</h2>
+                    <h2>{{ $exhibition->daterange() }}</h2>
                 </div>
                 <div class="col-xs-12 col-md-8">
                     <p>{{ $exhibition->desc_1 }}</p>

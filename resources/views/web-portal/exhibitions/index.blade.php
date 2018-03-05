@@ -14,10 +14,10 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <h2>{{ $exhibition->title }}</h2>
-                    <p>{{ $exhibition->start_date }} till {{ $exhibition->end_date }}</p>
+                    <p>{{ $exhibition->daterange() }}</p>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-8">
-                    <p>{{ $exhibition->desc_1 }}</p>
+                    <p>{{ str_limit($exhibition->desc_1, $limit = 300, $end = '...') }}</p>
                     <p><a href="/exhibitions/{{ $exhibition->id }}" class="btn btn-lg btn-success">Full details</a></p>
                 </div>    
             </div>
@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <p>{{ $exhibition->title }}</p>
-                            <p>{{ $exhibition->start_date }} till {{ $exhibition->end_date }}</p>
+                            <p>{{ $exhibition->daterange() }}</p>
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <p><a href="/exhibitions/{{ $exhibition-> id }}" class="btn btn-lg btn-success">Full details</a></p>

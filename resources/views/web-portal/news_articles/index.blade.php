@@ -11,9 +11,9 @@
                     <img src="/img/news_articles/{{ $news_article->img_1 }}" class="img-responsive">
                 </div>
                 <div class="col-xs-12 col-md-8">
-                    <h2>{{ $news_article->title }}</h2>
+                    <h1>{{ $news_article->title }}</h1>
                     <h2>Published at: {{ $news_article->created_at }}</h2>
-                    <p>{{ $news_article->content }}</p>
+                    <p>{{ str_limit($news_article->content, $limit = 300, $end = '...') }}</p>
                     <p><a href="/news_articles/{{ $news_article->id }}" class="btn btn-lg btn-success">Read full article</a></p>
                 </div>    
             </div>

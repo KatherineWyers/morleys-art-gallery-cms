@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Exhibition extends Model
 {
@@ -12,6 +13,11 @@ class Exhibition extends Model
      * @var array
      */
     protected $fillable = ['title', 'start_date', 'end_date', 'desc_1', 'img_1', 'img_2', 'created_at', 'updated_at'];
+
+    public function daterange() 
+    {
+        return date('D d-M-Y', strtotime($this->start_date)) . ' till ' . date('D d-M-Y', strtotime($this->end_date));
+    }
 
     public function scopeCurrent($query) 
     {

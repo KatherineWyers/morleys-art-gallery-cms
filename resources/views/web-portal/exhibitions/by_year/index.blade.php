@@ -18,8 +18,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-8">
                     <h2>{{ $exhibition->title }}</h2>
-                    <p>{{ $exhibition->start_date }} till {{ $exhibition->end_date }}</p>
-                    <p>{{ $exhibition->desc_1 }}</p>
+                    <p>{{ $exhibition->daterange() }}</p>
+                    <p>{{ str_limit($exhibition->desc_1, $limit = 300, $end = '...') }}</p>
                     <a href="/exhibitions/{{ $exhibition->id }}" class="btn btn-lg btn-info">Full details</a>
                 </div>
             </div>
