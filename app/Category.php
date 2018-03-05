@@ -21,4 +21,8 @@ class Category extends Model
     return $this->belongsToMany('App\Artwork', 'artwork_categories', 'category_id');
   }
 
+  public function scopeByCategory($query, $category_id) 
+  {
+    return $query->where('id', $category_id);
+  }
 }

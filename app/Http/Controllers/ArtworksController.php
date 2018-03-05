@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Artwork;
+use App\Category;
 
 class ArtworksController extends Controller
 {
@@ -12,10 +13,26 @@ class ArtworksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($category_id = 0)
     {
-        $artworks = Artwork::orderBy('created_at', 'desc')->paginate(50);
-        return view('web-portal.artworks.index', compact('artworks'));
+        $categories = Category::orderBy('id', 'asc')->get();
+        if($category_id >= 1 && $category_id <= 6){
+            $category = Category::find($category_id);
+            $category_title = ': ' . $category->title;
+            $artworks = $category->artworks()->paginate(50);
+        } else {
+            $artworks = Artwork::orderBy('created_at', 'desc')->paginate(50);
+            $category_title = '';
+        }
+        return view('web-portal.artworks.index', compact('artworks', 'categories', 'category_title'));
+    }
+
+    public function indexUnderMaxPrice($max_price = 2500)
+    {
+        $categories = Category::orderBy('id', 'asc')->get();
+        $category_title = ': Under £' . $max_price;
+        $artworks = Artwork::where('price', '<=', $max_price)->orderBy('created_at', 'desc')->paginate(50);
+        return view('web-portal.artworks.index', compact('artworks', 'categories', 'category_title'));
     }
 
     /**

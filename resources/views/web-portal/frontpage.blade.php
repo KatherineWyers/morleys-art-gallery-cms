@@ -8,6 +8,14 @@
                 </div>              
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <h2>Art Gallery, Straford-upon-Avon</h2>
+                    <div class="row">
+                        <div class = "col-xs-12 col-sm-4 col-sm-offset-2">
+                            <a href="/artworks" class="btn btn-lg btn-success btn-block">Artworks</a>
+                        </div>
+                        <div class = "col-xs-12 col-sm-4">
+                            <a href="/artists" class="btn btn-lg btn-success btn-block">Artists</a>
+                        </div>
+                    </div>
                 </div>   
             </div>
 

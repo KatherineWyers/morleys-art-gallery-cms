@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-xs-12 col-md-8">
                     <h1>{{ $news_article->title }}</h1>
-                    <h2>Published on: {{ $news_article->created_at }}</h2>
+                    <h2>Publication Date: {{ $news_article->publication_date() }}</h2>
                     <p>{{ $news_article->content }}</p>
                 </div>
             </div>

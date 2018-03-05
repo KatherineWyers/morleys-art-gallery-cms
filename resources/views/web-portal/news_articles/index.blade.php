@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-xs-12 col-md-8">
                     <h1>{{ $news_article->title }}</h1>
-                    <h2>Published at: {{ $news_article->created_at }}</h2>
+                    <h2>Publication Date: {{ $news_article->publication_date() }}</h2>
                     <p>{{ str_limit($news_article->content, $limit = 300, $end = '...') }}</p>
                     <p><a href="/news_articles/{{ $news_article->id }}" class="btn btn-lg btn-success">Read full article</a></p>
                 </div>    

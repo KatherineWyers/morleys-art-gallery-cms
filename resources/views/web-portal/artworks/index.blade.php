@@ -2,7 +2,15 @@
 @section('content')
     <section id="item" class="container-fluid">
         <div class="wrapper">
-            <h1>Artworks</h1>
+            <h1>Artworks {{ $category_title }}</h1>            
+            <p>
+                <a href="/artworks/c/0">All</a> | 
+                @forelse($categories as $category)
+                <a href="/artworks/c/{{ $category->id }}">{{ $category->title }}</a> | 
+                @empty
+                @endforelse
+                <a href="/artworks/max-price/1000">Under £1000</a>
+            </p>
             <div class="row">
                 @forelse($artworks as $artwork)
                 <div class="col-xs-6 col-sm-3 col-md-2">
