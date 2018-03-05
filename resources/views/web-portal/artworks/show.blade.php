@@ -5,22 +5,19 @@
         <div class="wrapper">
             <div class="row">
                 <div class="col-xs-12 col-md-6">
-                    <img src="/img/placeholders/400x600.png" class="img-responsive">
+                    <img src="/img/artworks/{{ $artwork->img_1 }}" class="img-responsive">
                     <div class="row">
                         <div class="col-xs-4 col-sm-3">
-                            <img src="/img/placeholders/400x600.png" class="img-responsive"> 
+                            <img src="/img/artworks/{{ $artwork->img_2 }}" class="img-responsive"> 
                         </div>
                         <div class="col-xs-4 col-sm-3">
-                            <img src="/img/placeholders/400x600.png" class="img-responsive"> 
-                        </div>
-                        <div class="col-xs-4 col-sm-3">
-                            <img src="/img/placeholders/400x600.png" class="img-responsive">  
+                            <img src="/img/artworks/{{ $artwork->img_3 }}" class="img-responsive"> 
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <h1>{{ $artwork->title }}</h1>
-                    <h2>{{ $artwork->artist->name }}</h2>
+                    <h2><a href="/artists/{{ $artwork->artist->id }}">{{ $artwork->artist->name }}</a></h2>
                     <p>
                         @forelse($artwork->categories as $category)
                             <a href="/artworks/c/{{ $category->id }}">{{ $category->title }}</a>, 
@@ -35,9 +32,6 @@
                         <li>Price: £{{ $artwork->price }}</li>
                     </ul>
                 </div>
-            </div>
-            <div class="row">
-                <a href="/artworks/2">Next</a>
             </div>
         </div>
     </section>
