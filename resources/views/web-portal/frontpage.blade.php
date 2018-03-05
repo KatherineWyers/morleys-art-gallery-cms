@@ -33,65 +33,79 @@
     <section id="front-page-3" class="container-fluid">
         <div class="transparency">
             <div class="wrapper">
+                @forelse($current_exhibitions as $exhibition)
                 <h1>Current Exhibition</h1>
                 <div class="row">
                     <div class="col-xs-12">
-                        <img src="/img/placeholders/1200x300.png" class="img-responsive">
+                        <img src="/img/exhibitions/{{ $exhibition->img_1 }}" class="img-responsive">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-4">
-                        <p>John Doe's Exhibition</p>
-                        <p>March 1st - 2th 2018</p>
+                        <h2>{{ $exhibition->title }}</h2>
+                        <p>{{ $exhibition->start_date }} till {{ $exhibition->end_date }}</p>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <p>John Doe's sculptures have been widely acclaimed by critics around the world.</p>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <p><a href="/exhibitions" class="btn btn-lg btn-success">View all exhibitions</a></p>
-                    </div>      
+                    <div class="col-xs-12 col-sm-6 col-md-8">
+                        <p>{{ $exhibition->desc_1 }}</p>
+                        <p><a href="/exhibitions/{{ $exhibition->id }}" class="btn btn-lg btn-success">Full details</a></p>
+                    </div>    
                 </div>
+                @empty
+                @endforelse
+
+                <div class="row">
+                    @forelse($upcoming_exhibitions as $exhibition)
+                    <div class="col-xs-12 col-sm-6">
+                        <img src="/img/exhibitions/{{ $exhibition->img_2 }}" class="img-responsive">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <p>{{ $exhibition->title }}</p>
+                                <p>{{ $exhibition->start_date }} till {{ $exhibition->end_date }}</p>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <p><a href="/exhibitions/{{ $exhibition-> id }}" class="btn btn-lg btn-success">Full details</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    @endforelse
+                </div>
+
             </div>
         </div>
     </section>
 
+
+
+
+
+
+
+
+
+
+
+
     <section id="front-page-4" class="container-fluid">
         <div class="wrapper">
             <h1>News</h1>
+
+            @forelse($latest_news_articles as $news_article)
             <div class="row">
                 <div class="col-xs-12 col-md-4">
-                    <img src="/img/placeholders/300x300.png" class="img-responsive">
+                    <img src="/img/news_articles/{{ $news_article->img_1 }}" class="img-responsive">
                 </div>
                 <div class="col-xs-12 col-md-8">
-                    <h2>British sculptor John Doe New York Times exclusive.</h2>
-                    <p>Lorem ipsum dolor sit amet, illum ignota ius eu. Molestie oportere mea in. Everti numquam sea no. Aeterno vidisse meliore ne vix, eum ubique cotidieque ut, per in explicari vituperatoribus. At eum option deseruisse, nam blandit apeirian no.</p>
-                    <p>Has te dicta tollit. Ferri errem pro cu. Ad appetere reprehendunt vim, facilisis delicatissimi ex vim, simul diceret mea ex. Vel falli maiestatis et. Patrioque efficiendi id sit, te qui utamur feugiat expetenda.</p>
-                    <p><a href="/news/1" class="btn btn-lg btn-success">Read full article</a></p>
-                </div>    
+                    <h2>{{ $news_article->title }}</h2>
+                    <h2>Published at: {{ $news_article->created_at }}</h2>
+                    <p>{{ $news_article->content }}</p>
+                    <p><a href="/news_articles/{{ $news_article->id }}" class="btn btn-lg btn-success">Read full article</a></p>
+                </div>  
             </div>
             <hr />
-            <div class="row">
-                <div class="col-xs-12 col-md-4">
-                    <img src="/img/placeholders/300x300.png" class="img-responsive">
-                </div>
-                <div class="col-xs-12 col-md-8">
-                    <h2>British sculptor John Doe New York Times exclusive.</h2>
-                    <p>Lorem ipsum dolor sit amet, illum ignota ius eu. Molestie oportere mea in. Everti numquam sea no. Aeterno vidisse meliore ne vix, eum ubique cotidieque ut, per in explicari vituperatoribus. At eum option deseruisse, nam blandit apeirian no.</p>
-                    <p>Has te dicta tollit. Ferri errem pro cu. Ad appetere reprehendunt vim, facilisis delicatissimi ex vim, simul diceret mea ex. Vel falli maiestatis et. Patrioque efficiendi id sit, te qui utamur feugiat expetenda.</p>
-                    <p><a href="/news/1" class="btn btn-lg btn-success">Read full article</a></p>
-                </div>    
-            </div>
-            <hr />            <div class="row">
-                <div class="col-xs-12 col-md-4">
-                    <img src="/img/placeholders/300x300.png" class="img-responsive">
-                </div>
-                <div class="col-xs-12 col-md-8">
-                    <h2>British sculptor John Doe New York Times exclusive.</h2>
-                    <p>Lorem ipsum dolor sit amet, illum ignota ius eu. Molestie oportere mea in. Everti numquam sea no. Aeterno vidisse meliore ne vix, eum ubique cotidieque ut, per in explicari vituperatoribus. At eum option deseruisse, nam blandit apeirian no.</p>
-                    <p>Has te dicta tollit. Ferri errem pro cu. Ad appetere reprehendunt vim, facilisis delicatissimi ex vim, simul diceret mea ex. Vel falli maiestatis et. Patrioque efficiendi id sit, te qui utamur feugiat expetenda.</p>
-                    <p><a href="/news/1" class="btn btn-lg btn-success">Read full article</a></p>
-                </div>    
-            </div>
+            @empty
+            @endforelse
+
         </div>
     </section>
 

@@ -42,14 +42,15 @@ class ExhibitionsTest extends DuskTestCase
      * @group exhibitions
      * @return void
      */
-    public function testHasPastExhibitions()
+    public function testHasExhibitionsByYear()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/exhibitions')
-                    ->assertSee('Past Exhibitions')
+                    ->assertSee('Exhibitions By Year')
                     ->assertSee('2015')
                     ->assertSee('2016')
-                    ->assertSee('2017');
+                    ->assertSee('2017')
+                    ->assertSee('2018');
         });
     }
 

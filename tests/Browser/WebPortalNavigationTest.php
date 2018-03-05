@@ -42,7 +42,7 @@ class WebPortalNavigationTest extends DuskTestCase
      * @group navigation
      * @return void
      */
-    public function testFrontpageNews()
+    public function testFrontpageNewsArticles()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
@@ -132,12 +132,12 @@ class WebPortalNavigationTest extends DuskTestCase
      * @group navigation
      * @return void
      */
-    public function testStandardpageNews()
+    public function testStandardpageNewsArticles()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/artists')
                     ->clickLink('News')
-                    ->assertPathIs('/news')
+                    ->assertPathIs('/news_articles')
                     ->assertSee('News');
         });
     }

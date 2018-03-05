@@ -19,14 +19,12 @@ Route::resource('artists', 'ArtistsController');
 Route::get('/exhibitions/by-year/{yyyy}', 'ExhibitionsController@indexByYear');
 Route::resource('exhibitions', 'ExhibitionsController');
 
+Route::resource('news_articles', 'NewsArticlesController');
+
 Route::get('/gallery', function () {
     return view('web-portal/gallery');
 });
 
 Route::get('/contact', function () {
     return view('web-portal/contact');
-});
-
-Route::get('/news', function () {
-    return view('web-portal/news/index');
 });

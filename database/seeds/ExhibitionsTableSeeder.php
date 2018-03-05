@@ -46,5 +46,6 @@ class ExhibitionsTableSeeder extends Seeder
             $end_date = Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addDays(20);
             factory(App\Exhibition::class)->create(['start_date' => $start_date, 'end_date' => $end_date]);
         } 
+
     }
 }

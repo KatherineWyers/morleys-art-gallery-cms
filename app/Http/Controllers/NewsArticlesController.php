@@ -3,19 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Artwork;
+use App\NewsArticle;
 
-class ArtworksController extends Controller
+class NewsArticlesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
-    {
-        $artworks = Artwork::orderBy('created_at', 'desc')->paginate(50);
-        return view('web-portal.artworks.index', compact('artworks'));
+    {        
+        $news_articles=NewsArticle::orderBy('created_at', 'desc')->paginate(10);
+        return view('web-portal.news_articles.index', compact('news_articles'));
     }
 
     /**
@@ -47,8 +42,8 @@ class ArtworksController extends Controller
      */
     public function show($id)
     {
-        $artwork=Artwork::find($id);
-        return view('web-portal/artworks/show', compact('artwork'));
+        $news_article=NewsArticle::find($id);
+        return view('web-portal.news_articles.show', compact('news_article'));
     }
 
     /**

@@ -16,8 +16,8 @@ class ExhibitionsController extends Controller
 
     public function indexByYear($yyyy)
     {        
-        $exhibitions_by_year=Exhibition::whereYear('start_date', $yyyy)->get();
-        return view('web-portal.exhibitions.by-year.index', compact('yyyy', 'exhibitions_by_year'));
+        $exhibitions_by_year=Exhibition::whereYear('start_date', $yyyy)->paginate(10);
+        return view('web-portal.exhibitions.by_year.index', compact('yyyy', 'exhibitions_by_year'));
     }
 
     /**

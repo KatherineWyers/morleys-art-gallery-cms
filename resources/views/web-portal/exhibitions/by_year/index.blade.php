@@ -25,6 +25,8 @@
             </div>
             @empty
             @endforelse
+            
+            {{ $exhibitions_by_year->links()}}
 
         </div>
     </section>

@@ -15,5 +15,7 @@
                 @empty
                 @endforelse
             </div>
+
+            {{ $artworks->links()}}
         </div>
     </section>

@@ -35,7 +35,7 @@
                             <li><a href='/artists'>Artists</a></li>
                             <li><a href='/artworks'>Artworks</a></li>
                             <li><a href='/exhibitions'>Exhibitions</a></li>
-                            <li><a href='/news'>News</a></li>
+                            <li><a href='/news_articles'>News</a></li>
                             <li><a href='/gallery'>Gallery</a></li>
                             <li><a href='/contact'>Contact</a></li>
                         </ul>

@@ -66,3 +66,14 @@ $factory->define(App\Exhibition::class, function (Faker $faker) {
         'img_2' => '600x300.png',
     ];
 });
+
+$factory->define(App\NewsArticle::class, function (Faker $faker) {
+        $date_today = date('Y-m-d');
+        $end_date = Carbon::createFromFormat('Y-m-d', $date_today)->addDays(20); 
+
+    return [
+        'title' => $faker->text(20),
+        'content' => $faker->text(990),
+        'img_1' => '300x300.png',
+    ];
+});
