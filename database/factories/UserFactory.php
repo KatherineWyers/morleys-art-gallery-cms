@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,5 +50,19 @@ $factory->define(App\Artwork::class, function (Faker $faker) {
         'img_3' => '400x600.png',
         'img_sq' => '300x300.png',
         'desc_1' => $faker->text(990),
+    ];
+});
+
+$factory->define(App\Exhibition::class, function (Faker $faker) {
+        $date_today = date('Y-m-d');
+        $end_date = Carbon::createFromFormat('Y-m-d', $date_today)->addDays(20); 
+
+    return [
+        'title' => $faker->text(20),
+        'start_date' => $date_today,
+        'end_date' => $end_date,
+        'desc_1' => $faker->text(990),
+        'img_1' => '1200x300.png',
+        'img_2' => '600x300.png',
     ];
 });

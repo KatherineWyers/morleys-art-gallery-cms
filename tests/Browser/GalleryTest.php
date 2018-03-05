@@ -17,7 +17,7 @@ class GalleryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/gallery')
-                    ->assertSee('The gallery was founded in 1976.');
+                    ->assertSee('Gallery');
         });
     }
 }

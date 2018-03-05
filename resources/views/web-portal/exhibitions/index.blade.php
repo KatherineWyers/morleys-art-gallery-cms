@@ -4,109 +4,59 @@
     <section id="item" class="container-fluid">
         <div class="wrapper">
             <h1>Current Exhibition</h1>
+
+            @forelse($current_exhibitions as $exhibition)
             <div class="row">
                 <div class="col-xs-12">
-                    <img src="/img/placeholders/1200x300.png" class="img-responsive">
+                    <img src="/img/exhibitions/{{ $exhibition->img_1 }}" class="img-responsive">
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-4">
-                    <h2>John Doe's Exhibition</h2>
-                    <p>March 1st - 2th 2018</p>
+                    <h2>{{ $exhibition->title }}</h2>
+                    <p>{{ $exhibition->start_date }} till {{ $exhibition->end_date }}</p>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-8">
-                    <p>Ut liber facilisi assueverit quo, pri an cibo minim sadipscing, usu ne vivendum accusata. Sea partem definiebas cu, ei sumo veniam imperdiet vel, agam aeterno tamquam ea eam. Sit dolorem ponderum ne, sea fugit consectetuer ei. Dicant tritani liberavisse ea vis. Ad his purto euismod, elit mundi his an.</p>
-                    <p>Invidunt referrentur ut quo, ut reque fabellas suscipiantur pri. Ullum soleat erroribus ad ius, stet iriure adipisci no qui, vix eu reque consul probatus. Ei nec unum animal electram, recusabo interesset in eos. Id nam wisi veniam, vidit quando docendi te vim. Malis efficiantur pro ex, eu cum nobis ceteros molestie. No his nobis forensibus constituto.</p>
-                    <p><a href="/exhibitions/1" class="btn btn-lg btn-success">Full details</a></p>
+                    <p>{{ $exhibition->desc_1 }}</p>
+                    <p><a href="/exhibitions/{{ $exhibition->id }}" class="btn btn-lg btn-success">Full details</a></p>
                 </div>    
             </div>
+            @empty
+            @endforelse
+
 
             <h1>Future Exhibitions</h1>
             <div class="row">
+                @forelse($exhibitions_in_the_next_365_days as $exhibition)
                 <div class="col-xs-12 col-sm-6">
-                    <img src="/img/placeholders/600x300.png" class="img-responsive">
+                    <img src="/img/exhibitions/{{ $exhibition->img_2 }}" class="img-responsive">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
-                            <p>John Doe's Exhibition</p>
-                            <p>March l5th - 28th 2018</p>
+                            <p>{{ $exhibition->title }}</p>
+                            <p>{{ $exhibition->start_date }} till {{ $exhibition->end_date }}</p>
                         </div>
                         <div class="col-xs-12 col-sm-6">
-                            <p><a href="/exhibitions/1" class="btn btn-lg btn-success">Full details</a></p>
+                            <p><a href="/exhibitions/{{ $exhibition-> id }}" class="btn btn-lg btn-success">Full details</a></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6">
-                    <img src="/img/placeholders/600x300.png" class="img-responsive">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6">
-                            <p>John Doe's Exhibition</p>
-                            <p>March l5th - 28th 2018</p>
-                        </div>
-                        <div class="col-xs-12 col-sm-6">
-                            <p><a href="/exhibitions/1" class="btn btn-lg btn-success">Full details</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <img src="/img/placeholders/600x300.png" class="img-responsive">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6">
-                            <p>John Doe's Exhibition</p>
-                            <p>March l5th - 28th 2018</p>
-                        </div>
-                        <div class="col-xs-12 col-sm-6">
-                            <p><a href="/exhibitions/1" class="btn btn-lg btn-success">Full details</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <img src="/img/placeholders/600x300.png" class="img-responsive">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6">
-                            <p>John Doe's Exhibition</p>
-                            <p>March l5th - 28th 2018</p>
-                        </div>
-                        <div class="col-xs-12 col-sm-6">
-                            <p><a href="/exhibitions/1" class="btn btn-lg btn-success">Full details</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <img src="/img/placeholders/600x300.png" class="img-responsive">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6">
-                            <p>John Doe's Exhibition</p>
-                            <p>March l5th - 28th 2018</p>
-                        </div>
-                        <div class="col-xs-12 col-sm-6">
-                            <p><a href="/exhibitions/1" class="btn btn-lg btn-success">Full details</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <img src="/img/placeholders/600x300.png" class="img-responsive">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6">
-                            <p>John Doe's Exhibition</p>
-                            <p>March l5th - 28th 2018</p>
-                        </div>
-                        <div class="col-xs-12 col-sm-6">
-                            <p><a href="/exhibitions/1" class="btn btn-lg btn-success">Full details</a></p>
-                        </div>
-                    </div>
-                </div>
+                @empty
+                @endforelse
             </div>
 
-            <h1>Past Exhibitions</h1>
+            <h1>Exhibitions By Year</h1>
             <div class="row">
                 <div class="col-xs-12 col-sm-3">
-                    <p><a href="/exhibitions/past/2015" class="btn btn-lg btn-info">2015</a></p>
+                    <p><a href="/exhibitions/by-year/2015" class="btn btn-lg btn-info">2015</a></p>
                 </div>
                 <div class="col-xs-12 col-sm-3">
-                    <p><a href="/exhibitions/past/2016" class="btn btn-lg btn-info">2016</a></p>
+                    <p><a href="/exhibitions/by-year/2016" class="btn btn-lg btn-info">2016</a></p>
                 </div>
                 <div class="col-xs-12 col-sm-3">
-                    <p><a href="/exhibitions/past/2017" class="btn btn-lg btn-info">2017</a></p>
+                    <p><a href="/exhibitions/by-year/2017" class="btn btn-lg btn-info">2017</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <p><a href="/exhibitions/by-year/2018" class="btn btn-lg btn-info">2018</a></p>
                 </div>
             </div>
 

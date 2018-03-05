@@ -23,19 +23,6 @@ class FrontpageTest extends DuskTestCase
     }
 
     /**
-     * @group frontpage
-     * @return void
-     */
-    public function testArtworksLink()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->clickLink('Full details')
-                    ->assertPathIs('/artworks/1');
-        });
-    }
-
-    /**
      * @group web-portal
      * @group frontpage
      * @return void
@@ -47,7 +34,6 @@ class FrontpageTest extends DuskTestCase
                     ->assertSee('Current Exhibition');
         });
     }
-
 
     /**
      * @group web-portal

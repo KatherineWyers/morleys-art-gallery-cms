@@ -5,6 +5,7 @@ namespace Tests\Browser;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Artist;
 
 class ArtistsTest extends DuskTestCase
 {
@@ -17,28 +18,13 @@ class ArtistsTest extends DuskTestCase
     public function testHasLinkToArtist()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/artists')
-                    ->assertSee('Random name')
-                    ->clickLink('Random name')
-                    ->assertPathIs('/artists/1');
-        });
-    }
+            $artist = Artist::first();
 
-    /**
-     * @group web-portal
-     * @group artists
-     *
-     * @return void
-     */
-    public function testArtistPageHasCorrectText()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/artists/1')
-                    ->assertSee('Random name')
-                    ->assertSee('John Doe began his career as a metal-worker his family home in Arles, France.')
-                    ->assertSee('In Focus')
-                    ->assertSee('New York Times')
-                    ->assertSee('John Doe is a fantastic sculptor.');
+            $browser->visit('/artists')
+                    ->assertSee($artist->name)
+                    ->clickLink($artist->name)
+                    ->assertPathIs('/artists/' . $artist->id)
+                    ->assertSee($artist->name);
         });
     }
 }

@@ -5,6 +5,7 @@ namespace Tests\Browser;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Artwork;
 
 class ArtworkTest extends DuskTestCase
 {
@@ -13,36 +14,20 @@ class ArtworkTest extends DuskTestCase
      * @group artworks
      * @return void
      */
-    public function testArtworksIndexHasCorrectCategories()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/artworks')
-                    ->assertSee('Modern British')
-                    ->assertSee('Contemporary')
-                    ->assertSee('Prints')
-                    ->assertSee('Sculptures')
-                    ->assertSee('Ceramics')
-                    ->assertSee('Under £1000');
-        });
-    }
-
-
-    /**
-     * @group web-portal
-     * @group artworks
-     * @return void
-     */
     public function testArtworkShowHasCorrectTextElements()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/artworks/1')
-                    ->assertSee('John Doe')
-                    ->assertSee('Untitled')
-                    ->assertSee('Oil on canvas')
-                    ->assertSee('177.8cm x 152cm')
-                    ->assertSee('70in x 60in')
-                    ->assertSee('£2540')
-                    ->assertSee('Next');
+            $artwork = Artwork::first();
+
+            $browser->visit('/artworks')
+                    ->assertSee($artwork->title)
+                    ->clickLink($artwork->title)
+                    ->assertPathIs('/artworks/' . $artwork->id)
+                    ->assertSee($artwork->title)
+                    ->assertSee($artwork->medium)
+                    ->assertSee($artwork->year_created)
+                    ->assertSee($artwork->price)
+                    ->assertSee($artwork->artist->name);
         });
     }
 
@@ -53,13 +38,6 @@ class ArtworkTest extends DuskTestCase
      */
     public function testArtworkShowHasCorrectNextLink()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/artworks/1')
-                    ->assertSee('Next')
-                    ->clickLink('Next')
-                    ->assertPathIs('/artworks/2')
-                    ->assertSee('John Doe')
-                    ->assertSee('Untitled');
-        });
+        // todo
     }
 }
