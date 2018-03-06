@@ -33,13 +33,35 @@
                         <ul class="nav navbar-nav">
                             <li><a href='#front-page-2'>Artworks</a></li>
                             <li><a href='#front-page-3'>Exhibitions</a></li>
-                            <li><a href='#front-page-4'>News</a></li>
+                            <li><a href='#front-page-4'>News</a></li>                      
                         </ul>
 
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href='/gallery'>Gallery</a></li>
                             <li><a href='/contact'>Contact</a></li>
+                            @guest
+                            @else
+                            <li><a href='#'>Appointments</a></li>
+                            <li><a href='#'>IMS</a></li>     
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ Auth::user()->name }} ({{ Auth::user()->role }}) <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                            @endguest
                         </ul>
                     </div>
                 </div>
@@ -58,7 +80,7 @@
                         <p>Phone: +44 1234 5678</p>
                     </div>
                     <div class="col-xs-12">
-                        <p>Morley's Art Gallery (c) 2018</p>
+                        <p>Morley's Art Gallery (c) 2018 | <a href="/login">Login</a></p>
                     </div>
                 </div>
             </div>

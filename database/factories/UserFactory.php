@@ -30,7 +30,6 @@ $factory->define(App\Artist::class, function (Faker $faker) {
         'featured_artwork_img_sm' => '300x300.png',
         'profile_img' => '400x600.png',
         'desc_1' => $faker->text(990),
-        'desc_2' => $faker->text(990),
     ];
 });
 

@@ -79,7 +79,7 @@
 
     <section id="front-page-4" class="container-fluid">
         <div class="wrapper">
-            <h1>Lastest News</h1>
+            <h1>Latest News</h1>
             <div class="row">
             @forelse($latest_news_articles as $news_article)
                 <div class="col-xs-12 col-md-6">

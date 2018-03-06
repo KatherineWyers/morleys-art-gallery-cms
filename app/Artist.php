@@ -11,7 +11,7 @@ class Artist extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'featured_artwork_img_lg', 'featured_artwork_img_sm', 'profile_img', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'featured_artwork_img_lg', 'featured_artwork_img_sm', 'profile_img', 'desc_1', 'created_at', 'updated_at'];
 
 	/**
 	* Get the artworks

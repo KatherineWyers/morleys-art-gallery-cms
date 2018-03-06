@@ -20,7 +20,6 @@ class CreateArtistsTable extends Migration
             $table->string('featured_artwork_img_sm');
             $table->string('profile_img');
             $table->string('desc_1', 1000);
-            $table->string('desc_2', 1000);
             $table->timestamps();
         });
     }

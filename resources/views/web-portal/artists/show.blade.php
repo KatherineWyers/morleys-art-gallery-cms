@@ -18,7 +18,6 @@
                 <div class="col-xs-12 col-md-6">
                     <h1>{{ $artist->name }}</h1>
                     <p>{{ $artist->desc_1 }}</p>
-                    <p>{{ $artist->desc_2 }}</p>
                 </div>
             </div>
         </div>

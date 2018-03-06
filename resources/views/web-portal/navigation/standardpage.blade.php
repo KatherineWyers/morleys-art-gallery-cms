@@ -39,6 +39,32 @@
                             <li><a href='/gallery'>Gallery</a></li>
                             <li><a href='/contact'>Contact</a></li>
                         </ul>
+
+                        <!-- Right Side Of Navbar -->
+                        <ul class="nav navbar-nav navbar-right">
+                            @guest
+                            @else
+                            <li><a href='#'>Appointments</a></li>
+                            <li><a href='#'>IMS</a></li>     
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ Auth::user()->name }} ({{ Auth::user()->role }}) <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                            @endguest
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -48,7 +74,7 @@
 
         <footer>
             <div class="wrapper">
-                <p>Morley's Art Gallery (c) 2018</p>
+                <p>Morley's Art Gallery (c) 2018 | <a href="/login">Login</a></p>
             </div>
         </footer>
     </div>

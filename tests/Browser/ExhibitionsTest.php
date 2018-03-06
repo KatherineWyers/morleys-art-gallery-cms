@@ -53,15 +53,4 @@ class ExhibitionsTest extends DuskTestCase
                     ->assertSee('2018');
         });
     }
-
-
-    /**
-     * @group web-portal
-     * @group exhibitions
-     * @return void
-     */
-    public function testLinkToPastExhibitionIsValid()
-    {
-        // todo
-    }
 }
