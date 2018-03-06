@@ -14,6 +14,7 @@
 Route::get('/', ['as' => 'web-portal.frontpage', 'uses' => 'PagesController@frontpage']);
 
 Route::get('/artworks/c/{category_id}', 'ArtworksController@index');
+Route::get('/artworks/{id}/{img?}', 'ArtworksController@show');
 Route::get('/artworks/max-price/{max_price}', 'ArtworksController@indexUnderMaxPrice');
 Route::resource('artworks', 'ArtworksController');
 Route::resource('artists', 'ArtistsController');

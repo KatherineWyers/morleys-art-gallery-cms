@@ -62,10 +62,21 @@ class ArtworksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $img = 1)
     {
         $artwork=Artwork::find($id);
-        return view('web-portal/artworks/show', compact('artwork'));
+        switch ($img){
+            case 1:
+                $featured_img = $artwork->img_1;
+            case 2:
+                $featured_img = $artwork->img_2;
+            case 3:
+                $featured_img = $artwork->img_3;
+            default:
+                $featured_img = $artwork->img_1;
+        }
+        
+        return view('web-portal/artworks/show', compact('artwork', 'featured_img'));
     }
 
     /**
