@@ -5,6 +5,10 @@
         <div class="wrapper">
             <div class="row">
                 <div class="col-xs-12 col-md-6">
+                    @guest
+                    @else
+                    <p><a href="/artists/{{ $artist->id }}/edit" class="btn btn-lg btn-warning">Edit</a></p>
+                    @endguest
                     <p><img src="/img/artists/{{ $artist->profile_img }}" class="img-responsive"></p>
                     <div class="row">
                         @forelse($artist->artworks as $artwork)
@@ -17,7 +21,7 @@
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <h1>{{ $artist->name }}</h1>
-                    <p>{{ $artist->desc_1 }}</p>
+                    <p>{!! nl2br(e($artist->desc_1)) !!}</p>
                 </div>
             </div>
         </div>
