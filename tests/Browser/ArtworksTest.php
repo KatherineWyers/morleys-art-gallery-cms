@@ -9,4 +9,116 @@ use App\Artwork;
 
 class ArtworkTest extends DuskTestCase
 {
+
+
+    /**
+     * @group cms
+     * @group artworks
+     * @return void
+     */
+    public function testGuestCannotOpenCreateNewArtwork()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('/artworks/create')
+                    ->assertDontSee('Create'); 
+        });
+    }
+
+    /**
+     * @group cms
+     * @group artworks
+     * @return void
+     */
+    public function testGuestCannotSeeLinkToCreateNewArtwork()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('/')
+                    ->clickLink('Artworks')
+                    ->assertDontSee("+ Add New Artwork");
+        });
+    }
+
+    /**
+     * @group cms
+     * @group artworks
+     * @return void
+     */
+    public function testGuestCannotSeeLinkToEditArtwork()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('/artworks/1')
+                    ->assertDontSee("Edit");
+        });
+    }
+
+    /**
+     * @group cms
+     * @group artworks
+     * @return void
+     */
+    public function testStaffCanSeeLinkToCreateNewArtwork()
+    {
+    	$this->loginAsStaff();
+        $this->browse(function ($browser) {
+            $browser->visit('/')
+                    ->clickLink('Artworks')
+                    ->assertSee("+ Add New Artwork");
+        });
+    	$this->logout();
+    }
+
+
+    /**
+     * @group cms
+     * @group artworks
+     * @return void
+     */
+    public function testStaffCreateNewArtworkAndViewInTheIndex()
+    {
+        // KW:: to do
+    }
+
+    /**
+     * @group cms
+     * @group artworks
+     * @return void
+     */
+    public function testStaffCanSeeLinkToEditArtwork()
+    {
+    	$this->loginAsStaff();
+        $this->browse(function ($browser) {
+            $browser->visit('/artworks/1')
+                    ->assertSee("Edit");
+        });
+    	$this->logout();
+    }
+
+
+    /**
+     * @group cms
+     * @group artworks
+     * @return void
+     */
+    public function testStaffEditArtworkAndViewChangesInTheIndex()
+    {
+        // KW:: to do
+    }
+
+	private function loginAsStaff() {
+        $this->browse(function ($browser) {
+            $browser->visit('/')
+                    ->clickLink('Login')
+                    ->assertPathIs('/login')
+                    ->value('#email', 'staff1@morleysgallery.com')
+                    ->value('#password', 'secret')
+                    ->click('button[type="submit"]');
+        });	
+	}
+
+	private function logout() {
+        $this->browse(function ($browser) {
+            $browser->visit('/logout')->logout();
+        });	
+	}
+
 }
