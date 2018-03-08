@@ -60,8 +60,7 @@ class ArtworkTest extends DuskTestCase
     {
     	$this->loginAsStaff();
         $this->browse(function ($browser) {
-            $browser->visit('/')
-                    ->clickLink('Artworks')
+            $browser->visit('/artworks')
                     ->assertSee("+ Add New Artwork");
         });
     	$this->logout();
@@ -111,13 +110,16 @@ class ArtworkTest extends DuskTestCase
                     ->assertPathIs('/login')
                     ->value('#email', 'staff1@morleysgallery.com')
                     ->value('#password', 'secret')
-                    ->click('button[type="submit"]');
+                    ->click('button[type="submit"]')
+                    ->assertSee("Appointments");
         });	
 	}
 
 	private function logout() {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')->logout();
+            $browser->visit('/logout')
+                    ->logout()
+                    ->assertDontSee("Appointments");
         });	
 	}
 

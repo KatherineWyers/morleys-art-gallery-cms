@@ -2,7 +2,11 @@
 @section('content')
     <section id="item" class="container-fluid">
         <div class="wrapper">
-            <h1>Artworks {{ $category_title }}</h1>            
+            <h1>Artworks {{ $category_title }}</h1>   
+            @guest
+            @else
+            <p><a href="/artworks/create" class="btn btn-lg btn-warning">+ Add New Artwork</a></p>
+            @endguest         
             <p>
                 <a href="/artworks/c/0">All</a> | 
                 @forelse($categories as $category)

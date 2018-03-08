@@ -4,7 +4,11 @@
     <section id="item" class="container-fluid">
         <div class="wrapper">
             <div class="row">
-                <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12 col-md-6">                   
+                    @guest
+                    @else
+                    <p><a href="/artworks/{{ $artwork->id }}/edit" class="btn btn-lg btn-warning">Edit</a></p>
+                    @endguest
                     <img src="/img/artworks/{{ $featured_img }}" class="img-responsive">
 
                 </div>

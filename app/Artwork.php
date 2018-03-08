@@ -11,7 +11,7 @@ class Artwork extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'artist_id', 'year_created', 'medium', 'width_cm', 'height_cm', 'width_in', 'height_in', 'price_gbp', 'img_1', 'img_2', 'img_3', 'desc_1', 'created_at', 'updated_at'];
+    protected $fillable = ['title', 'artist_id', 'year_created', 'desc_1', 'medium', 'width_cm', 'height_cm', 'width_in', 'height_in', 'price', 'img_1', 'img_2', 'img_3', 'img_sq', 'created_at', 'updated_at'];
 
 
   /**
@@ -25,7 +25,24 @@ class Artwork extends Model
    * Get the categories    
    */
   public function categories() {
-    return $this->belongsToMany('App\Category', 'artwork_categories', 'artwork_id');
+    return $this->belongsToMany('App\Category', 'artwork_categories', 'artwork_id'); 
   }
+
+    /**
+    * hasCategory
+    * @param $category_id
+    * @return boolean
+    */
+    public function hasCategory($category_id)
+    {
+        foreach($this->categories as $category)
+        {
+            if($category->id == $category_id)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
