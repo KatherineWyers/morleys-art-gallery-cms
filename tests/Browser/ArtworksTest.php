@@ -32,8 +32,7 @@ class ArtworkTest extends DuskTestCase
     public function testGuestCannotSeeLinkToCreateNewArtwork()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/')
-                    ->clickLink('Artworks')
+            $browser->visit('/artworks')
                     ->assertDontSee("+ Add New Artwork");
         });
     }

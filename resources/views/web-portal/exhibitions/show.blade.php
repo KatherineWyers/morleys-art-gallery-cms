@@ -4,6 +4,10 @@
     <section id="standard-page" class="container-fluid">
         <div class="wrapper">
             <div class="row">
+                @guest
+                @else
+                <p><a href="/exhibitions/{{ $exhibition->id }}/edit" class="btn btn-lg btn-warning">Edit</a></p>
+                @endguest
                 <div class="col-xs-12">
                     <img src="/img/exhibitions/{{ $exhibition->img_1 }}" class="img-responsive">
                 </div>
@@ -14,7 +18,7 @@
                     <h2>{{ $exhibition->daterange() }}</h2>
                 </div>
                 <div class="col-xs-12 col-md-8">
-                    <p>{{ $exhibition->desc_1 }}</p>
+                    <p>{!! nl2br(e($exhibition->desc_1)) !!}</p>
                 </div>
             </div>
         </div>

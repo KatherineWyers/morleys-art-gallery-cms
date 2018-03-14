@@ -17,7 +17,7 @@ class PagesController extends Controller
     public function frontpage()
     {        
         $featured_artworks=Artwork::orderBy('created_at', 'desc')->limit(6)->get();
-        $current_exhibitions=Exhibition::current()->get();
+        $current_exhibitions=Exhibition::current()->limit(2)->get();
         $latest_news_articles=NewsArticle::orderBy('created_at', 'desc')->limit(2)->get();
         return view('web-portal.frontpage', compact('featured_artworks', 'current_exhibitions', 'latest_news_articles'));
     }

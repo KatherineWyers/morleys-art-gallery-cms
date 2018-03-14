@@ -28,6 +28,7 @@
                         <li>{{ $artwork->width_in }}in x {{ $artwork->height_in }}in</li>
                         <li>Price: £{{ $artwork->price }}</li>
                     </ul>
+                    <p>{!! nl2br(e($artwork->desc_1)) !!}</p>
                     <div class="row">
                         <div class="col-xs-6 col-sm-4">
                             <a href="/artworks/{{ $artwork->id }}/1"><img src="/img/artworks/{{ $artwork->img_1 }}" class="img-responsive"></a>

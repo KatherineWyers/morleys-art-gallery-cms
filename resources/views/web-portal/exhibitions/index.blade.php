@@ -3,18 +3,24 @@
 
     <section id="item" class="container-fluid">
         <div class="wrapper">
+            @guest
+            @else
+            <p><a href="/exhibitions/create" class="btn btn-lg btn-warning">+ Add New Exhibition</a></p>
+            @endguest
             <h1>Current Exhibition</h1>
 
             @forelse($current_exhibitions as $exhibition)
             <div class="row">
                 <div class="col-xs-12">
-                    <img src="/img/exhibitions/{{ $exhibition->img_1 }}" class="img-responsive">
+                    <a href="/exhibitions/{{ $exhibition->id }}"><img src="/img/exhibitions/{{ $exhibition->img_1 }}" class="img-responsive"></a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="/exhibitions/{{ $exhibition->id }}">
                     <h2>{{ $exhibition->title }}</h2>
                     <p>{{ $exhibition->daterange() }}</p>
+                    </a>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-8">
                     <p>{{ str_limit($exhibition->desc_1, $limit = 300, $end = '...') }}</p>
@@ -22,6 +28,12 @@
                 </div>    
             </div>
             @empty
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>There are no exhibitions currently at the gallery</p>
+                    </a>
+                </div>
+            </div>
             @endforelse
 
 
@@ -29,11 +41,13 @@
             <div class="row">
                 @forelse($exhibitions_in_the_next_365_days as $exhibition)
                 <div class="col-xs-12 col-sm-6">
-                    <img src="/img/exhibitions/{{ $exhibition->img_2 }}" class="img-responsive">
+                    <a href="/exhibitions/{{ $exhibition->id }}"><img src="/img/exhibitions/{{ $exhibition->img_2 }}" class="img-responsive"></a>
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
-                            <p>{{ $exhibition->title }}</p>
-                            <p>{{ $exhibition->daterange() }}</p>
+                        <a href="/exhibitions/{{ $exhibition->id }}">
+                        <p>{{ $exhibition->title }}</p>
+                        <p>{{ $exhibition->daterange() }}</p>
+                        </a>
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <p><a href="/exhibitions/{{ $exhibition-> id }}" class="btn btn-lg btn-success">Full details</a></p>

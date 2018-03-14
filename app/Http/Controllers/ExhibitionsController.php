@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Exhibition;
 
 class ExhibitionsController extends Controller
 {
+    /**
+     * Enforce middleware.
+     */
+    public function __construct()
+    {
+        $this->middleware('ismanageroradmin', ['except' => ['index', 'show']]);
+    }
+    
     public function index()
     {        
         $current_exhibitions=Exhibition::current()->get();
@@ -27,7 +36,7 @@ class ExhibitionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('web-portal.exhibitions.create');
     }
 
     /**
@@ -38,7 +47,39 @@ class ExhibitionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:30',
+            'start_date' => 'required|date|date_format:Y-m-d|before:end_date',
+            'end_date' => 'required|date|date_format:Y-m-d|after:start_date',
+            'img_1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:width=1200,height=300',
+            'img_2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:width=600,height=300',
+            'desc_1' => 'required|max:1000',
+        ]);
+
+        $exhibition=$request->all();
+        $exhibition = Exhibition::create($exhibition);
+
+        if(!is_null(Input::file('img_1'))) {
+            $file_img_1 = Input::file('img_1');
+            $filename_img_1 = $exhibition->id . '-img_1.' . $file_img_1->getClientOriginalExtension();
+            $destinationPath = 'img/exhibitions';
+            $uploadSuccess = $file_img_1->move($destinationPath, $filename_img_1);
+            $exhibition->img_1 = $exhibition->id . '-img_1.' . $file_img_1->getClientOriginalExtension();
+        }
+        
+        $exhibition->save();
+
+        if(!is_null(Input::file('img_2'))) {
+            $file_img_2 = Input::file('img_2');
+            $filename_img_2 = $exhibition->id . '-img_2.' . $file_img_2->getClientOriginalExtension();
+            $destinationPath = 'img/exhibitions';
+            $uploadSuccess = $file_img_2->move($destinationPath, $filename_img_2);
+            $exhibition->img_2 = $exhibition->id . '-img_2.' . $file_img_2->getClientOriginalExtension();
+        }
+        
+        $exhibition->save();
+
+        return redirect('/exhibitions/' . $exhibition->id);
     }
 
     /**
@@ -61,7 +102,8 @@ class ExhibitionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $exhibition=Exhibition::find($id);
+        return view('web-portal.exhibitions.edit',compact('exhibition'));
     }
 
     /**
@@ -73,7 +115,41 @@ class ExhibitionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:30',
+            'start_date' => 'required|date|date_format:Y-m-d|before:end_date',
+            'end_date' => 'required|date|date_format:Y-m-d|after:start_date',
+            // images are not required. If they are null, they will not be updated later
+            'img_1' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:width=1200,height=300',
+            'img_2' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:width=600,height=300',
+            'desc_1' => 'required|max:1000',
+        ]);
+
+        $exhibitionUpdate=$request->all();
+        $exhibition=Exhibition::find($id);
+        $exhibition->update($exhibitionUpdate);
+
+        if(!is_null(Input::file('img_1'))) {
+            $file_img_1 = Input::file('img_1');
+            $filename_img_1 = $exhibition->id . '-img_1.' . $file_img_1->getClientOriginalExtension();
+            $destinationPath = 'img/exhibitions';
+            $uploadSuccess = $file_img_1->move($destinationPath, $filename_img_1);
+            $exhibition->img_1 = $exhibition->id . '-img_1.' . $file_img_1->getClientOriginalExtension();
+        }
+        
+        $exhibition->save();
+
+        if(!is_null(Input::file('img_2'))) {
+            $file_img_2 = Input::file('img_2');
+            $filename_img_2 = $exhibition->id . '-img_2.' . $file_img_2->getClientOriginalExtension();
+            $destinationPath = 'img/exhibitions';
+            $uploadSuccess = $file_img_2->move($destinationPath, $filename_img_2);
+            $exhibition->img_2 = $exhibition->id . '-img_2.' . $file_img_2->getClientOriginalExtension();
+        }
+        
+        $exhibition->save();
+
+        return redirect('/exhibitions/' . $exhibition->id);
     }
 
     /**

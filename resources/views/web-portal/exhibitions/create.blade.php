@@ -1,4 +1,4 @@
-@extends('web-portal.navigation.standardpage')
+@extends('web-portal.navigation.formwithdatepicker')
 @section('content')
 
     @if ($errors->any())
@@ -7,33 +7,35 @@
 
     <section id="item" class="container-fluid">
         <div class="wrapper">
-            <h1>Create a new Artist</h1>
+            <h1>Create a new Exhibition</h1>
             <div class="row">
-                {!! Form::open(['url' => '/artists', 'files' => 'true']) !!}
+                {!! Form::open(['url' => '/exhibitions', 'files' => 'true']) !!}
                 <div class="col-xs-12 col-md-6">
-                    <h2>Profile Picture</h2>
-                    <p>Photo must be a minimum 400px width and 400px height</p>
+                    <h2>Large Picture for current exhibition and for show-page</h2>
+                    <p>Photo must be exactly 1200px width and 300px height</p>
                     <div class="form-group">
                         *** No Photo Submitted ***                       
-                        {!! Form::file('profile_img') !!}
+                        {!! Form::file('img_1') !!}
                     </div>
-                    <h2>Large Background Picture for /artists page</h2>
-                    <p>Photo must be exactly 1240px width and 700px height</p>
+                    <h2>Medium Picture for future exhibitions</h2>
+                    <p>Photo must be exactly 600px width and 300px height</p>
                     <div class="form-group">
                         *** No Photo Submitted ***                       
-                        {!! Form::file('featured_artwork_img_lg') !!}
-                    </div>
-                    <h2>Square Picture for /artists page</h2>
-                    <p>Photo must be exactly 300px width and 300px height</p>
-                    <div class="form-group">
-                        *** No Photo Submitted ***                       
-                        {!! Form::file('featured_artwork_img_sm') !!}
+                        {!! Form::file('img_2') !!}
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                        {!! Form::label('name', 'Name:') !!}
-                        {!! Form::text('name',null,['class'=>'form-control', 'required' => 'required']) !!}
+                        {!! Form::label('title', 'Title:') !!}
+                        {!! Form::text('title',null,['class'=>'form-control', 'required' => 'required']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('start_date', 'Start Date:') !!}
+                        {{ Form::text('start_date', '', array('id' => 'start_date_picker')) }}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('end_date', 'End Date:') !!}
+                        {{ Form::text('end_date', '', array('id' => 'end_date_picker')) }}
                     </div>
                     <div class="form-group">
                         {!! Form::label('desc_1', 'Description:') !!}Maximum 1000 characters. Remaining: <span id="chars_1"></span>

@@ -53,8 +53,8 @@
     <section id="front-page-3" class="container-fluid">
         <div class="transparency">
             <div class="wrapper">
-                @forelse($current_exhibitions as $exhibition)
                 <h1>Current Exhibition</h1>
+                @forelse($current_exhibitions as $exhibition)
                 <div class="row">
                     <div class="col-xs-12">
                         <a href="/exhibitions/{{ $exhibition->id }}">
@@ -65,6 +65,12 @@
                     </div>
                 </div>
                 @empty
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p>There are no exhibitions currently at the gallery</p>
+                        </a>
+                    </div>
+                </div>
                 @endforelse
 
                 <div class="row">
