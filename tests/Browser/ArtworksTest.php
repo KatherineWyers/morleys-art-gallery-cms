@@ -45,7 +45,8 @@ class ArtworkTest extends DuskTestCase
     public function testGuestCannotSeeLinkToEditArtwork()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/artworks/1')
+            $artwork = Artwork::where('visible', TRUE)->first();
+            $browser->visit('/artworks/' . $artwork->id)
                     ->assertDontSee("Edit");
         });
     }
@@ -66,15 +67,15 @@ class ArtworkTest extends DuskTestCase
     }
 
 
-    /**
-     * @group cms
-     * @group artworks
-     * @return void
-     */
-    public function testStaffCreateNewArtworkAndViewInTheIndex()
-    {
-        // KW:: to do
-    }
+    // /**
+    //  * @group cms
+    //  * @group artworks
+    //  * @return void
+    //  */
+    // public function testStaffCreateNewArtworkAndViewInTheIndex()
+    // {
+    //     // KW:: to do
+    // }
 
     /**
      * @group cms
@@ -85,22 +86,23 @@ class ArtworkTest extends DuskTestCase
     {
     	$this->loginAsStaff();
         $this->browse(function ($browser) {
-            $browser->visit('/artworks/1')
+            $artwork = Artwork::where('visible', TRUE)->first();
+            $browser->visit('/artworks/' . $artwork->id)
                     ->assertSee("Edit");
         });
     	$this->logout();
     }
 
 
-    /**
-     * @group cms
-     * @group artworks
-     * @return void
-     */
-    public function testStaffEditArtworkAndViewChangesInTheIndex()
-    {
-        // KW:: to do
-    }
+    // /**
+    //  * @group cms
+    //  * @group artworks
+    //  * @return void
+    //  */
+    // public function testStaffEditArtworkAndViewChangesInTheIndex()
+    // {
+    //     // KW:: to do
+    // }
 
 	private function loginAsStaff() {
         $this->browse(function ($browser) {
@@ -110,7 +112,7 @@ class ArtworkTest extends DuskTestCase
                     ->value('#email', 'staff1@morleysgallery.com')
                     ->value('#password', 'secret')
                     ->click('button[type="submit"]')
-                    ->assertSee("Appointments");
+                    ->assertSee("IMS");
         });	
 	}
 
@@ -118,7 +120,7 @@ class ArtworkTest extends DuskTestCase
         $this->browse(function ($browser) {
             $browser->visit('/logout')
                     ->logout()
-                    ->assertDontSee("Appointments");
+                    ->assertDontSee("IMS");
         });	
 	}
 

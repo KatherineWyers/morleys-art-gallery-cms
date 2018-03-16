@@ -11,7 +11,7 @@
                     <h2>Address</h2>
                     <ul>
                         <li>37 Marlborough Court,</li>
-                        <li>Straford-upon-Avon,</li>
+                        <li>Stratford-upon-Avon,</li>
                         <li>EI1 6NJ</li>
                         <li>Phone: +44 1234 5678</li>
                     </ul>

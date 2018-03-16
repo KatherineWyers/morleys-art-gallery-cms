@@ -19,7 +19,6 @@ class ArtistsTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $artist = Artist::first();
-
             $browser->visit('/artists')
                     ->assertSee($artist->name)
                     ->clickLink($artist->name)
@@ -63,7 +62,8 @@ class ArtistsTest extends DuskTestCase
     public function testGuestCannotSeeLinkToEditArtist()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/artists/1')
+            $artist = Artist::all()->first();
+            $browser->visit('/artists/' . $artist->id)
                     ->assertDontSee("Edit");
         });
     }
@@ -85,15 +85,30 @@ class ArtistsTest extends DuskTestCase
     }
 
 
-    /**
-     * @group cms
-     * @group artists
-     * @return void
-     */
-    public function testStaffCreateNewArtistAndViewInTheIndex()
-    {
-        // KW:: to do
-    }
+    // /**
+    //  * @group cms
+    //  * @group artists
+    //  * @return void
+    //  */
+    // public function testStaffCreateNewArtistAndViewInTheIndex()
+    // {
+    //     // KW:: to do
+    // }
+
+    // /**
+    //  * @group cms
+    //  * @group artists
+    //  * @return void
+    //  */
+    // public function testStaffEditArtistAndViewChangesInTheIndex()
+    // {
+    //     // KW:: to do
+    // }
+
+
+
+
+    
 
     /**
      * @group cms
@@ -104,20 +119,11 @@ class ArtistsTest extends DuskTestCase
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
-            $browser->visit('/artists/1')
+            $artist = Artist::all()->first();
+            $browser->visit('/artists/' . $artist->id)
                     ->assertSee("Edit");
         });
         $this->logout();
-    }
-
-    /**
-     * @group cms
-     * @group artists
-     * @return void
-     */
-    public function testStaffEditArtistAndViewChangesInTheIndex()
-    {
-        // KW:: to do
     }
 
     private function loginAsStaff() {
@@ -128,7 +134,7 @@ class ArtistsTest extends DuskTestCase
                     ->value('#email', 'staff1@morleysgallery.com')
                     ->value('#password', 'secret')
                     ->click('button[type="submit"]')
-                    ->assertSee("Appointments");
+                    ->assertSee("IMS");
         }); 
     }
 
@@ -136,7 +142,7 @@ class ArtistsTest extends DuskTestCase
         $this->browse(function ($browser) {
             $browser->visit('/logout')
                     ->logout()
-                    ->assertDontSee("Appointments");
+                    ->assertDontSee("IMS");
         }); 
     }
 }

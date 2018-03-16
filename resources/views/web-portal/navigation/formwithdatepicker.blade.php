@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Morley's Art Gallery, Straford-upon-Avon</title>
+    <title>Morley's Art Gallery, Stratford-upon-Avon</title>
 
     <!-- Styles -->
     <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->

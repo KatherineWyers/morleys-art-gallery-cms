@@ -7,7 +7,7 @@
 
     <section id="item" class="container-fluid">
         <div class="wrapper">
-            <h1>Create a new Exhibition</h1>
+            <h1>Edit Exhibition</h1>
             <div class="row">
                 {!! Form::model($exhibition, ['method' => 'patch', 'files' => true, 'route' => ['exhibitions.update', $exhibition->id]]) !!}
                 <div class="col-xs-12 col-md-6">

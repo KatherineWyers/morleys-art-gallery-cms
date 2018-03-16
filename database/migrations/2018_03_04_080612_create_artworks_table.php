@@ -29,6 +29,7 @@ class CreateArtworksTable extends Migration
             $table->string('img_3');
             $table->string('img_sq');
             $table->string('desc_1', 1000);
+            $table->boolean('visible')->default(TRUE);
             $table->timestamps();
         });
     }

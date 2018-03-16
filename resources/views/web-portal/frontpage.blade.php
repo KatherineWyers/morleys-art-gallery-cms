@@ -7,7 +7,7 @@
                     <img src="img/logo-315x249.png" class="img-responsive">
                 </div>              
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <h2>Art Gallery, Straford-upon-Avon</h2>
+                    <h2>Art Gallery, Stratford-upon-Avon</h2>
                     <div class="row">
                         <div class = "col-xs-12 col-sm-4 col-sm-offset-2">
                             <a href="/#front-page-2" class="btn btn-lg btn-warning btn-block">Featured Artworks <span class="glyphicon glyphicon-chevron-down"></span></a>

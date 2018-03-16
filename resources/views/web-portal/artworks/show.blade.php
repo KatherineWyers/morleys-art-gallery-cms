@@ -7,7 +7,10 @@
                 <div class="col-xs-12 col-md-6">                   
                     @guest
                     @else
-                    <p><a href="/artworks/{{ $artwork->id }}/edit" class="btn btn-lg btn-warning">Edit</a></p>
+                    <p>
+                        <a href="/artworks/{{ $artwork->id }}/edit" class="btn btn-lg btn-warning">Edit</a>
+                        <a href="/ims/pos/{{ $artwork->id }}" class="btn btn-lg btn-danger">Process Sale</a>
+                    </p>
                     @endguest
                     <img src="/img/artworks/{{ $featured_img }}" class="img-responsive">
 
@@ -35,7 +38,7 @@
 
 
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#exampleModal">
                       Call, LiveChat or Skype
                     </button>
 

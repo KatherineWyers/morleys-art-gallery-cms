@@ -76,3 +76,13 @@ $factory->define(App\NewsArticle::class, function (Faker $faker) {
         'img_1' => '300x300.png',
     ];
 });
+
+$factory->define(App\Sale::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+        'email' => $faker->email,
+        'phone_number' => $faker->phoneNumber, 
+        'artwork_id' => 1,
+        'seller_id' => 1
+    ];
+});

@@ -27,22 +27,27 @@ class Artwork extends Model
   public function categories() {
     return $this->belongsToMany('App\Category', 'artwork_categories', 'artwork_id'); 
   }
+  
+  /**
+  * hasCategory
+  * @param $category_id
+  * @return boolean
+  */
+  public function hasCategory($category_id)
+  {
+      foreach($this->categories as $category)
+      {
+          if($category->id == $category_id)
+          {
+              return true;
+          }
+      }
+      return false;
+  }
 
-    /**
-    * hasCategory
-    * @param $category_id
-    * @return boolean
-    */
-    public function hasCategory($category_id)
-    {
-        foreach($this->categories as $category)
-        {
-            if($category->id == $category_id)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+  public function scopeVisible($query) 
+  {
+    return $query->where('artworks.visible', TRUE);
+  }
 
 }

@@ -17,7 +17,7 @@ class ArtworksController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('ismanageroradmin', ['except' => ['index', 'show']]);
+        $this->middleware('ismanageroradmin', ['except' => ['index', 'indexUnderMaxPrice', 'show']]);
     }
 
     /**
@@ -31,9 +31,9 @@ class ArtworksController extends Controller
         if($category_id >= 1 && $category_id <= 6){
             $category = Category::find($category_id);
             $category_title = ': ' . $category->title;
-            $artworks = $category->artworks()->paginate(50);
+            $artworks = $category->artworks()->visible()->paginate(50);
         } else {
-            $artworks = Artwork::orderBy('created_at', 'desc')->paginate(50);
+            $artworks = Artwork::visible()->orderBy('created_at', 'desc')->paginate(50);
             $category_title = '';
         }
         return view('web-portal.artworks.index', compact('artworks', 'categories', 'category_title'));
@@ -43,7 +43,7 @@ class ArtworksController extends Controller
     {
         $categories = Category::orderBy('id', 'asc')->get();
         $category_title = ': Under £' . $max_price;
-        $artworks = Artwork::where('price', '<=', $max_price)->orderBy('created_at', 'desc')->paginate(50);
+        $artworks = Artwork::visible()->where('price', '<=', $max_price)->orderBy('created_at', 'desc')->paginate(50);
         return view('web-portal.artworks.index', compact('artworks', 'categories', 'category_title'));
     }
 
@@ -147,6 +147,11 @@ class ArtworksController extends Controller
     public function show($id, $img = 1)
     {
         $artwork=Artwork::find($id);
+
+        if($artwork->visible==FALSE) {
+            return redirect('/');
+        }
+
         switch ($img){
             case 1:
                 $featured_img = $artwork->img_1;

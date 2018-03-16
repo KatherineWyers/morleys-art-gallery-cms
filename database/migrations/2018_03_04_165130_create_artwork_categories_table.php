@@ -17,6 +17,7 @@ class CreateArtworkCategoriesTable extends Migration
             $table->increments('id');
             $table->integer('artwork_id')->unsigned();
             $table->integer('category_id')->unsigned();
+            $table->boolean('visible')->default(FALSE);
             $table->timestamps();
         });
     }

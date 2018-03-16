@@ -8,6 +8,7 @@
 
     <section id="item" class="container-fluid">
         <div class="wrapper">
+            <h1>Create a new Artwork</h1>
             {!! Form::open(['url' => 'artworks', 'files' => 'true']) !!}
             <div class="row">
                 <div class="col-xs-12 col-md-6">

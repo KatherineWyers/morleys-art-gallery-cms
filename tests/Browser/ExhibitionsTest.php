@@ -5,6 +5,7 @@ namespace Tests\Browser;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Exhibition;
 
 class ExhibitionsTest extends DuskTestCase
 {
@@ -90,7 +91,8 @@ class ExhibitionsTest extends DuskTestCase
     public function testGuestCannotSeeLinkToEditExhibition()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/exhibitions/1')
+            $exhibition = Exhibition::all()->first();
+            $browser->visit('/exhibitions/' . $exhibition->id)
                     ->assertDontSee("Edit");
         });
     }
@@ -111,15 +113,15 @@ class ExhibitionsTest extends DuskTestCase
     }
 
 
-    /**
-     * @group cms
-     * @group exhibitions
-     * @return void
-     */
-    public function testStaffCreateNewExhibitionAndViewInTheIndex()
-    {
-        // KW:: to do
-    }
+    // /**
+    //  * @group cms
+    //  * @group exhibitions
+    //  * @return void
+    //  */
+    // public function testStaffCreateNewExhibitionAndViewInTheIndex()
+    // {
+    //     // KW:: to do
+    // }
 
     /**
      * @group cms
@@ -130,22 +132,23 @@ class ExhibitionsTest extends DuskTestCase
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
-            $browser->visit('/exhibitions/1')
+            $exhibition = Exhibition::all()->first();
+            $browser->visit('/exhibitions/' . $exhibition->id)
                     ->assertSee("Edit");
         });
         $this->logout();
     }
 
 
-    /**
-     * @group cms
-     * @group exhibitions
-     * @return void
-     */
-    public function testStaffEditExhibitionAndViewChangesInTheIndex()
-    {
-        // KW:: to do
-    }
+    // /**
+    //  * @group cms
+    //  * @group exhibitions
+    //  * @return void
+    //  */
+    // public function testStaffEditExhibitionAndViewChangesInTheIndex()
+    // {
+    //     // KW:: to do
+    // }
 
     private function loginAsStaff() {
         $this->browse(function ($browser) {
@@ -155,7 +158,7 @@ class ExhibitionsTest extends DuskTestCase
                     ->value('#email', 'staff1@morleysgallery.com')
                     ->value('#password', 'secret')
                     ->click('button[type="submit"]')
-                    ->assertSee("Appointments");
+                    ->assertSee("IMS");
         }); 
     }
 
@@ -163,7 +166,7 @@ class ExhibitionsTest extends DuskTestCase
         $this->browse(function ($browser) {
             $browser->visit('/logout')
                     ->logout()
-                    ->assertDontSee("Appointments");
+                    ->assertDontSee("IMS");
         }); 
     }
 

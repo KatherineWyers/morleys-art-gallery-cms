@@ -21,10 +21,10 @@ class CmsLoginTest extends DuskTestCase
                     ->value('#email', 'staff1@morleysgallery.com')
                     ->value('#password', 'secret')
                     ->click('button[type="submit"]')
-                    ->assertSee("Appointments")
+                    ->assertSee("IMS")
                     ->visit('/logout')
                     ->logout()
-                    ->assertDontSee("Appointments");
+                    ->assertDontSee("IMS");
         }); 
     }
 }

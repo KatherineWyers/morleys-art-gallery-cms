@@ -13,7 +13,7 @@ class ExhibitionsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('ismanageroradmin', ['except' => ['index', 'show']]);
+        $this->middleware('ismanageroradmin', ['except' => ['index', 'indexByYear', 'show']]);
     }
     
     public function index()

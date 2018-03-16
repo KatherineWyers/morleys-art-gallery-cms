@@ -40,3 +40,10 @@ Route::get('/gallery', function () {
 Route::get('/contact', function () {
     return view('web-portal/contact');
 });
+
+
+Route::get('/ims', 'ImsController@home');
+
+Route::get('/ims/pos/{artwork_id}', 'SalesController@create');
+Route::post('/ims/sales', 'SalesController@store');
+Route::get('/ims/sales', 'SalesController@index');

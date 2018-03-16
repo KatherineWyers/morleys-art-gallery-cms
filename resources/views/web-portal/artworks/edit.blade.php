@@ -8,6 +8,7 @@
 
     <section id="item" class="container-fluid">
         <div class="wrapper">
+            <h1>Edit the Artwork</h1>
             {!! Form::model($artwork, ['method' => 'patch', 'files' => true, 'route' => ['artworks.update', $artwork->id]]) !!}
             <div class="row">
                 <div class="col-xs-12 col-md-6">

@@ -59,7 +59,7 @@ class FrontpageTest extends DuskTestCase
             $browser->visit('/')
                     ->assertSee('+44 1234 5678')
                     ->assertSee('37 Marlborough Court')
-                    ->assertSee('Straford-upon-Avon')
+                    ->assertSee('Stratford-upon-Avon')
                     ->assertSee('EI1 6NJ');
         });
     }

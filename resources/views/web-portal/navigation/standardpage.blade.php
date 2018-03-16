@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Morley's Art Gallery, Straford-upon-Avon</title>
+    <title>Morley's Art Gallery, Stratford-upon-Avon</title>
 
     <!-- Styles -->
     <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
@@ -44,8 +44,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             @guest
                             @else
-                            <li><a href='#'>Appointments</a></li>
-                            <li><a href='#'>IMS</a></li>     
+                            <li><a href='/ims'>IMS</a></li>       
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ Auth::user()->name }} ({{ Auth::user()->role }}) <span class="caret"></span>
