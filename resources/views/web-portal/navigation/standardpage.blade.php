@@ -73,7 +73,12 @@
 
         <footer>
             <div class="wrapper">
-                <p>Morley's Art Gallery (c) 2018 | <a href="/login">Login</a></p>
+                <p>Morley's Art Gallery (c) 2018
+                @guest
+                 | <a href="/login">Staff Login</a>
+                @else
+                @endguest
+                </p>
             </div>
         </footer>
     </div>

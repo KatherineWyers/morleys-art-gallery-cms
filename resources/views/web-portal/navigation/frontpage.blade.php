@@ -79,7 +79,12 @@
                         <p>Phone: +44 1234 5678</p>
                     </div>
                     <div class="col-xs-12">
-                        <p>Morley's Art Gallery (c) 2018 | <a href="/login">Login</a></p>
+                        <p>Morley's Art Gallery (c) 2018
+                        @guest
+                         | <a href="/login">Staff Login</a>
+                        @else
+                        @endguest
+                        </p>
                     </div>
                 </div>
             </div>
