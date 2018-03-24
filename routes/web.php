@@ -47,3 +47,7 @@ Route::get('/ims', 'ImsController@home');
 Route::get('/ims/pos/{artwork_id}', 'SalesController@create');
 Route::post('/ims/sales', 'SalesController@store');
 Route::get('/ims/sales', 'SalesController@index');
+
+Route::get('/ims/timeslots', 'TimeslotsController@index');
+Route::get('/ims/timeslots/edit', 'TimeslotsController@edit');
+Route::post('/ims/timeslots/edit', 'TimeslotsController@update');
