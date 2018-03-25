@@ -42,6 +42,10 @@
                       Call, LiveChat or Skype
                     </button>
 
+                    <a href="/timeslots/{{ $artwork->id }}" class="btn btn-lg btn-success">
+                      Book an Appointment Online
+                    </a>
+
                     <div class="row">
                         <div class="col-xs-6 col-sm-4">
                             <a href="/artworks/{{ $artwork->id }}/1"><img src="/img/artworks/{{ $artwork->img_1 }}" class="img-responsive"></a>

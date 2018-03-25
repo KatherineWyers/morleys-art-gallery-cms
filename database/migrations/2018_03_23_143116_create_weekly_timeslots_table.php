@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Timeslot;
+use App\WeeklyTimeslot;
 
-class CreateTimeslotsTable extends Migration
+class CreateWeeklyTimeslotsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateTimeslotsTable extends Migration
      */
     public function up()
     {
-        Schema::create('timeslots', function (Blueprint $table) {
+        Schema::create('weekly_timeslots', function (Blueprint $table) {
             $table->increments('id');
             $table->string('day', 10);
             $table->integer('hour');
@@ -26,7 +26,7 @@ class CreateTimeslotsTable extends Migration
         $days = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
         foreach($days as $day){
             for($i = 0; $i <= 23; $i++){
-                Timeslot::create(['day' => $day, 'hour' => $i]);            
+                WeeklyTimeslot::create(['day' => $day, 'hour' => $i]);            
             }            
         }
     }
@@ -38,6 +38,6 @@ class CreateTimeslotsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('timeslots');
+        Schema::dropIfExists('weekly_timeslots');
     }
 }

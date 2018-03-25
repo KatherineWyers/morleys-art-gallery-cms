@@ -48,6 +48,9 @@ Route::get('/ims/pos/{artwork_id}', 'SalesController@create');
 Route::post('/ims/sales', 'SalesController@store');
 Route::get('/ims/sales', 'SalesController@index');
 
-Route::get('/ims/timeslots', 'TimeslotsController@index');
-Route::get('/ims/timeslots/edit', 'TimeslotsController@edit');
-Route::post('/ims/timeslots/edit', 'TimeslotsController@update');
+Route::get('/ims/weekly_timeslots', 'WeeklyTimeslotsController@index');
+Route::get('/ims/weekly_timeslots/edit', 'WeeklyTimeslotsController@edit');
+Route::post('/ims/weekly_timeslots/edit', 'WeeklyTimeslotsController@update');
+
+//Appointments and timeslots
+Route::get('/timeslots/{artwork_id}/{date?}/{month?}/{year?}', 'TimeslotsController@indexForDate');

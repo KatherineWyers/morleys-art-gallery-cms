@@ -11,10 +11,22 @@ class Timeslot extends Model
      *
      * @var array
      */
-    protected $fillable = ['day', 'hour', 'checked'];
+    protected $fillable = ['datetime', 'appointment'];
 
-    public function dayHour() 
+    public function isAvailable() 
     {
-        return $this->day . " - " . $this->hour . ":00";
+        return !(($this->hasAppointment) && !($this->isHoliday()));
+    }
+
+    // dates can be disabled by setting them as holiday
+    // timeslots cannot be assigned during holidays
+    private function isHoliday()
+    {
+        return FALSE;
+    }
+
+    private function hasAppointment()
+    {
+        return ($this->appointment != NULL);  
     }
 }
