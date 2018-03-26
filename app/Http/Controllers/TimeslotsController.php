@@ -28,10 +28,10 @@ class TimeslotsController extends Controller
             $calendar->datetime->hour = $weekly_timeslot->hour;
             $timeslot = new Timeslot;
             $timeslot->datetime = $calendar->datetime->toDateTimeString();
-
-            // get appointment_id for the timeslot datetime, or set as NULL
-            $timeslot->appointment_id = NULL;
+            if($timeslot->isAvailable())
+            {
             array_push($timeslots, $timeslot);
+            }                
         }
 
         $artwork = Artwork::find($artwork_id);

@@ -1,6 +1,7 @@
 @extends('web-portal.navigation.standardpage')
 @section('content')
 
+
     <section id="item" class="container-fluid">
         <div class="wrapper">
 
@@ -32,9 +33,17 @@
 
                         <div class='col-sm-{{ $calendar->firstDayOfMonth()->dayOfWeek }}'>&nbsp;</div><!-- Offset the first day of the month -->
                     @for ($date = 1; $date < $calendar->daysInMonth(); $date++)
+                        
+                        @if ($date == $calendar->datetime->day)
+                        <div class="col-sm-1">
+                            <a href="#" class="text-warning">[{{ $date }}]</a>
+                        </div> 
+                        @else
                         <div class="col-sm-1">
                             <a href="/timeslots/{{ $artwork->id }}/{{ $date }}/{{ $calendar->datetime->month }}/{{ $calendar->datetime->year }}">{{ $date }}</a>
                         </div> 
+                        @endif
+                       
                         @php 
                         $date_with_offset = $calendar->firstDayOfMonth()->dayOfWeek + $date;
                         if($date_with_offset%7 == 0) 
@@ -50,7 +59,7 @@
                     @forelse($timeslots as $timeslot)
                     <div class="row">
                         <div class="col-xs-12 col-md-8">
-                            <p>{{ $timeslot->datetime }}</p>
+                            <p><a href="/appointments/create/{{ $artwork->id }}/{{ $timeslot->datetime()->year }}/{{ $timeslot->datetime()->month }}/{{ $timeslot->datetime()->day }}/{{ $timeslot->datetime()->hour }}">{{ $timeslot->datetime()->format('l jS \\of F Y h:i A') }}</a></p>
                         </div>    
                     </div>
                     <hr /> 

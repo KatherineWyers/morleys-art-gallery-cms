@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Timeslot extends Model
 {
@@ -11,11 +12,20 @@ class Timeslot extends Model
      *
      * @var array
      */
-    protected $fillable = ['datetime', 'appointment'];
+    protected $fillable = ['datetime'];
+
+    public function getAppointment()
+    {
+        return Appointment::where('datetime', '=', $this->datetime)->first();
+    }
 
     public function isAvailable() 
-    {
-        return !(($this->hasAppointment) && !($this->isHoliday()));
+        {
+        if(($this->hasAppointment())||($this->isHoliday())||($this->datetime()->isPast()))
+        {
+            return FALSE;
+        }
+        return TRUE;
     }
 
     // dates can be disabled by setting them as holiday
@@ -27,6 +37,15 @@ class Timeslot extends Model
 
     private function hasAppointment()
     {
-        return ($this->appointment != NULL);  
+        if($this->getAppointment() == NULL)
+        {
+            return FALSE;
+        }
+        return TRUE; 
+    }
+
+    public function datetime()
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->datetime, 'Europe/London');
     }
 }

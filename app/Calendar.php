@@ -22,7 +22,7 @@ class Calendar extends Model
 
     public function firstDayOfMonth()
     {
-        $first_day_of_month = $this->datetime;
+        $first_day_of_month = $this->datetime->copy();
         $first_day_of_month->day = 1;
         return $first_day_of_month;
     }

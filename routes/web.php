@@ -54,3 +54,5 @@ Route::post('/ims/weekly_timeslots/edit', 'WeeklyTimeslotsController@update');
 
 //Appointments and timeslots
 Route::get('/timeslots/{artwork_id}/{date?}/{month?}/{year?}', 'TimeslotsController@indexForDate');
+Route::get('/appointments/create/{artwork_id}/{year}/{month}/{date}/{hour}', 'AppointmentsController@create');
+Route::post('/appointments', 'AppointmentsController@store');
