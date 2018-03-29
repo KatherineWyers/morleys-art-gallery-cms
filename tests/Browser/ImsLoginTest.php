@@ -13,6 +13,7 @@ class ImsLoginTest extends DuskTestCase
 
     /**
      * @group ims
+     * @group login
      * @return void
      */
     public function testGuestCannotAccessIms() {
@@ -24,6 +25,7 @@ class ImsLoginTest extends DuskTestCase
 
     /**
      * @group ims
+     * @group login
      * @return void
      */
     public function testGuestCannotAccessImsPos() {
@@ -36,6 +38,21 @@ class ImsLoginTest extends DuskTestCase
 
     /**
      * @group ims
+     * @group login
+     * @return void
+     */
+    public function testGuestCannotAccessImsAppointments() {
+        $this->browse(function ($browser) {
+            $artwork = Artwork::where('visible', TRUE)->first();
+            $browser->visit('/ims/appointments')
+                    ->assertSee('Unauthorized');
+        }); 
+    }
+
+
+    /**
+     * @group ims
+     * @group login
      * @return void
      */
     public function testStaffCanSeeImsAndLogout() {
@@ -60,6 +77,7 @@ class ImsLoginTest extends DuskTestCase
 
     /**
      * @group ims
+     * @group login
      * @return void
      */
     public function testStaffLoginsInCanSeeSalesBtnInArtworksShowAndLogout() {
@@ -78,6 +96,7 @@ class ImsLoginTest extends DuskTestCase
 
     /**
      * @group ims
+     * @group login
      * @return void
      */
     public function testStaffCanReachImsPos() {
@@ -99,7 +118,27 @@ class ImsLoginTest extends DuskTestCase
 
     /**
      * @group ims
-     * @group current
+     * @group login
+     * @return void
+     */
+    public function testStaffCanReachImsAppointments() {
+        $this->browse(function ($browser) {
+            $artwork = Artwork::where('visible', TRUE)->first();
+            $browser->visit('/')
+                    ->clickLink('Login')
+                    ->value('#email', 'staff1@morleysgallery.com')
+                    ->value('#password', 'secret')
+                    ->click('button[type="submit"]')
+                    ->visit('/ims/appointments')
+                    ->assertSee('Appointments')
+                    ->assertDontSee('Unauthorized')
+                    ->logout();
+        }); 
+    }
+
+    /**
+     * @group ims
+     * @group login
      * @return void
      */
     public function testStaffCanProcessSaleInImsPos() {

@@ -7,9 +7,30 @@ use Carbon\Carbon;
 use App\Artwork;
 use App\Timeslot;
 use App\Appointment;
+use App\Calendar;
 
 class AppointmentsController extends Controller
 {
+
+    /**
+     * Enforce middleware.
+     */
+    public function __construct()
+    {
+        $this->middleware('ismanageroradmin', ['except' => ['create', 'store']]);
+    }
+
+    public function indexForDate($date = 26, $month = 3, $year = 2018)
+    {        
+
+        $calendar = new Calendar;
+        $calendar->setDatetime($date, $month, $year);
+
+        $appointments = Appointment::onDate($calendar->datetime->toDateString())->get();
+
+        return view('ims.appointments.index', compact('appointments', 'calendar'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
