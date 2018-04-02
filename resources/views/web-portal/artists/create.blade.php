@@ -1,13 +1,15 @@
 @extends('web-portal.navigation.standardpage')
 @section('content')
 
-    @if ($errors->any())
-        <p class="text-danger">{{ implode('', $errors->all(':message')) }}</p>
-    @endif
 
     <section id="item" class="container-fluid">
         <div class="wrapper">
             <h1>Create a new Artist</h1>
+
+        @if ($errors->any())
+            <p class="text-danger">{{ implode('', $errors->all(':message')) }}</p>
+        @endif
+
             <div class="row">
                 {!! Form::open(['url' => '/artists', 'files' => 'true']) !!}
                 <div class="col-xs-12 col-md-6">

@@ -85,15 +85,69 @@ class ArtistsTest extends DuskTestCase
     }
 
 
-    // /**
-    //  * @group cms
-    //  * @group artists
-    //  * @return void
-    //  */
-    // public function testStaffCreateNewArtistAndViewInTheIndex()
-    // {
-    //     // KW:: to do
-    // }
+    /**
+     * @group cms
+     * @group artists
+     * @return void
+     */
+    public function testStaffCreateNewArtistAndViewInTheIndex()
+    {
+        $this->loginAsStaff();
+        $this->browse(function ($browser) {
+            //create a new Artist to determine the current autoincrement
+            $artist = factory(\App\Artist::class)->create([]);
+            $next_id = $artist->id + 1;
+
+            // create a new artist
+            $browser->visit('/artists/create')
+                    ->attach('profile_img', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('featured_artwork_img_lg', 'C:/Databases/morleys/public/img/placeholders/1240x700.png')
+                    ->attach('featured_artwork_img_sm', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
+                    ->type('name', 'Random Name')
+                    ->type('desc_1', 'Lorum ipsum Text')
+                    ->click('input[type="submit"]')
+                    ->assertPathIs('/artists/' . $next_id);
+        });
+
+        $this->logout();
+    }
+
+
+    /**
+     * @group cms
+     * @group artists
+     * @return void
+     */
+    public function testStaffCreateNewArtistPhotoIsTheWrongSize()
+    {
+        $this->loginAsStaff();
+        $this->browse(function ($browser) {
+            //create a new Artist to determine the current autoincrement
+            $artist = factory(\App\Artist::class)->create([]);
+            $next_id = $artist->id + 1;
+
+            // create a new artist
+            $browser->visit('/artists/create')
+                    ->attach('profile_img', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('featured_artwork_img_lg', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
+                    ->attach('featured_artwork_img_sm', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
+                    ->type('name', 'Random Name')
+                    ->type('desc_1', 'Lorum ipsum Text')
+                    ->click('input[type="submit"]')
+                    ->assertSee('The featured artwork img lg has invalid image dimensions');
+        });
+
+        $this->logout();
+    }
+
+
+
+
+
+
+
+
+
 
     // /**
     //  * @group cms
