@@ -15,7 +15,7 @@ class ExhibitionsTest extends DuskTestCase
      * @group exhibitions
      * @return void
      */
-    public function testHasCurrentExhibition()
+    public function test_Should_DisplayCurrentExhibitionText_When_UserIsGuest()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/exhibitions')
@@ -29,7 +29,7 @@ class ExhibitionsTest extends DuskTestCase
      * @group exhibitions
      * @return void
      */
-    public function testHasFutureExhibitions()
+    public function test_Should_DisplayFutureExhibitionsText_When_UserIsGuest()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/exhibitions')
@@ -43,7 +43,7 @@ class ExhibitionsTest extends DuskTestCase
      * @group exhibitions
      * @return void
      */
-    public function testHasExhibitionsByYear()
+    public function test_Should_DisplayExhibitionsByYear_When_UserIsGuest()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/exhibitions')
@@ -62,11 +62,11 @@ class ExhibitionsTest extends DuskTestCase
      * @group exhibitions
      * @return void
      */
-    public function testGuestCannotOpenCreateNewExhibition()
+    public function test_Should_DisplayUnauthorizedInCreateForm_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
             $browser->visit('/exhibitions/create')
-                    ->assertDontSee('Create'); 
+                    ->assertSee('Unauthorized'); 
         });
     }
 
@@ -75,7 +75,7 @@ class ExhibitionsTest extends DuskTestCase
      * @group exhibitions
      * @return void
      */
-    public function testGuestCannotSeeLinkToCreateNewExhibition()
+    public function test_Should_NotDisplayCreateButton_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
             $browser->visit('/exhibitions')
@@ -88,7 +88,7 @@ class ExhibitionsTest extends DuskTestCase
      * @group exhibitions
      * @return void
      */
-    public function testGuestCannotSeeLinkToEditExhibition()
+    public function test_Should_NotDisplayEditButton_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
             $exhibition = Exhibition::all()->first();
@@ -102,7 +102,7 @@ class ExhibitionsTest extends DuskTestCase
      * @group exhibitions
      * @return void
      */
-    public function testStaffCanSeeLinkToCreateNewExhibition()
+    public function test_Should_DisplayCreateButton_When_UserIsStaff()
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
@@ -112,23 +112,48 @@ class ExhibitionsTest extends DuskTestCase
         $this->logout();
     }
 
+    /**
+     * @group cms
+     * @group exhibitions
+     * @return void
+     */
+    public function test_Should_CreateArtwork_When_FormDataIsValid()
+    {
+        $this->loginAsStaff();
+        $this->browse(function ($browser) {
 
-    // /**
-    //  * @group cms
-    //  * @group exhibitions
-    //  * @return void
-    //  */
-    // public function testStaffCreateNewExhibitionAndViewInTheIndex()
-    // {
-    //     // KW:: to do
-    // }
+
+            $title = $this->generateRandomString(10);
+            $desc_1 = $this->generateRandomString(10);
+
+            $exhibition = factory(\App\Exhibition::class)->create([]);
+            $next_id = $exhibition->id + 1;
+
+            $browser->visit('/exhibitions/create')
+                    ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/1200x300.png')
+                    ->attach('img_2', 'C:/Databases/morleys/public/img/placeholders/600x300.png')
+                    ->value('input[name=title]',$title)
+                    ->type('start_date', '2018-06-09')
+                    ->type('end_date', '2018-06-22')
+                    ->type('desc_1', $desc_1)
+                    ->click('input[type="submit"]')
+                    ->assertPathIs('/exhibitions/' . $next_id)
+                    ->assertSee($title)
+                    ->assertSee('09-Jun-2018')
+                    ->assertSee('22-Jun-2018')
+                    ->assertSee($desc_1);
+
+        });
+        $this->logout();
+    }
+
 
     /**
      * @group cms
      * @group exhibitions
      * @return void
      */
-    public function testStaffCanSeeLinkToEditExhibition()
+    public function test_Should_DisplayEditButton_When_UserIsStaff()
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
@@ -139,16 +164,39 @@ class ExhibitionsTest extends DuskTestCase
         $this->logout();
     }
 
+    /**
+     * @group cms
+     * @group exhibitions
+     * @return void
+     */
+    public function test_Should_EditExhibition_When_FormDataIsValid()
+    {
+        $this->loginAsStaff();
+        $this->browse(function ($browser) {
+            $title = $this->generateRandomString(10);
+            $desc_1 = $this->generateRandomString(10);
 
-    // /**
-    //  * @group cms
-    //  * @group exhibitions
-    //  * @return void
-    //  */
-    // public function testStaffEditExhibitionAndViewChangesInTheIndex()
-    // {
-    //     // KW:: to do
-    // }
+            $exhibition = factory(\App\Exhibition::class)->create([]);
+
+            $browser->visit('/exhibitions/' . $exhibition->id . '/edit')
+                    ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/1200x300.png')
+                    ->attach('img_2', 'C:/Databases/morleys/public/img/placeholders/600x300.png')
+                    ->value('input[name=title]',$title)
+                    ->type('start_date', '2018-06-10')
+                    ->type('end_date', '2018-06-23')
+                    ->type('desc_1', $desc_1)
+                    ->click('input[type="submit"]')
+                    ->assertPathIs('/exhibitions/' . $exhibition->id)
+                    ->assertSee($title)
+                    ->assertSee('10-Jun-2018')
+                    ->assertSee('23-Jun-2018')
+                    ->assertSee($desc_1);
+        });
+
+        $this->logout();
+    }
+
+
 
     private function loginAsStaff() {
         $this->browse(function ($browser) {
@@ -169,5 +217,17 @@ class ExhibitionsTest extends DuskTestCase
                     ->assertDontSee("IMS");
         }); 
     }
+
+
+    private function generateRandomString($length = 10) {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
 
 }

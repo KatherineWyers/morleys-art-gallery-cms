@@ -1,17 +1,19 @@
 @extends('web-portal.navigation.standardpage')
 @section('content')
 
+    <section id="item" class="container-fluid">
+        <div class="wrapper">
+<br /><br /><br /><br />
     @if ($errors->any())
         <p class="text-danger">{{ implode('', $errors->all(':message')) }}</p>
     @endif
 
-
-    <section id="item" class="container-fluid">
-        <div class="wrapper">
             <h1>Create a new Artwork</h1>
+
             {!! Form::open(['url' => 'artworks', 'files' => 'true']) !!}
             <div class="row">
                 <div class="col-xs-12 col-md-6">
+
                     <h2>Image 1</h2>
                     <p>Photo must be a minimum 400px width and 400px height</p>
                     <div class="form-group">
@@ -38,12 +40,11 @@
                     </div>
                 </div>
                 <div class="col-xs-4 col-sm-6">
-                    <h1>
-                        <div class="form-group">
-                            {!! Form::label('title', 'Title:') !!}
-                            {!! Form::text('title',null,['class'=>'form-control', 'required' => 'required']) !!}
-                        </div>
-                    </h1>
+                    <div class="form-group">
+                        {!! Form::label('title', 'Title:') !!}
+                        {!! Form::text('title',null,['class'=>'form-control', 'required' => 'required']) !!}
+                    </div>
+
                     <div class="form-group">
                         {!! Form::label('artist_id', 'Artist:') !!}
                         {!! Form::select('artist_id', $artists, null, ['placeholder' => 'Select Artist', 'required' => 'required']) !!}

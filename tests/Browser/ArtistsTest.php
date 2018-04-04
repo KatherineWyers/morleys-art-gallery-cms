@@ -15,7 +15,7 @@ class ArtistsTest extends DuskTestCase
      *
      * @return void
      */
-    public function testHasLinkToArtist()
+    public function test_Should_DisplayLink_When_UserIsGuest()
     {
         $this->browse(function (Browser $browser) {
             $artist = Artist::first();
@@ -32,11 +32,11 @@ class ArtistsTest extends DuskTestCase
      * @group artists
      * @return void
      */
-    public function testGuestCannotOpenCreateNewArtist()
+    public function test_Should_DisplayUnauthorized_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
             $browser->visit('/artists/create')
-                    ->assertDontSee('Create'); 
+                    ->assertSee('Unauthorized'); 
         });
     }
 
@@ -45,7 +45,7 @@ class ArtistsTest extends DuskTestCase
      * @group artists
      * @return void
      */
-    public function testGuestCannotSeeLinkToCreateNewArtist()
+    public function test_Should_NotDisplayCreateButton_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
             $browser->visit('/')
@@ -59,7 +59,7 @@ class ArtistsTest extends DuskTestCase
      * @group artists
      * @return void
      */
-    public function testGuestCannotSeeLinkToEditArtist()
+    public function test_Should_NotDisplayEditButton_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
             $artist = Artist::all()->first();
@@ -73,7 +73,7 @@ class ArtistsTest extends DuskTestCase
      * @group artists
      * @return void
      */
-    public function testStaffCanSeeLinkToCreateNewArtist()
+    public function test_Should_DisplayCreateButton_When_UserIsStaff()
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
@@ -90,7 +90,7 @@ class ArtistsTest extends DuskTestCase
      * @group artists
      * @return void
      */
-    public function testStaffCreateNewArtistAndViewInTheIndex()
+    public function test_Should_CreateArtist_When_FormDataIsValid()
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
@@ -112,13 +112,12 @@ class ArtistsTest extends DuskTestCase
         $this->logout();
     }
 
-
     /**
      * @group cms
      * @group artists
      * @return void
      */
-    public function testStaffCreateNewArtistPhotoIsTheWrongSize()
+    public function test_Should_DisplayError_When_ImageSizeIsWrong()
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
@@ -142,34 +141,66 @@ class ArtistsTest extends DuskTestCase
 
 
 
+    /**
+     * @group cms
+     * @group artists
+     * @return void
+     */
+    public function test_Should_EditArtist_When_FormDataIsValid()
+    {
+        $this->loginAsStaff();
+        $this->browse(function ($browser) {
+            //create a new Artist to determine the current autoincrement
+            $artist = factory(\App\Artist::class)->create([]);
 
+            // create a new artist
+            $browser->visit('/artists/' . $artist->id . '/edit')
+                    ->type('name', 'Test Name')
+                    ->type('desc_1', 'Test Description of the Artist')
+                    ->click('input[type="submit"]')
+                    ->visit('/artists/' . $artist->id)
+                    ->assertSee('Test Name')
+                    ->assertSee('Test Description of the Artist');
+        });
 
-
-
-
-
-
-    // /**
-    //  * @group cms
-    //  * @group artists
-    //  * @return void
-    //  */
-    // public function testStaffEditArtistAndViewChangesInTheIndex()
-    // {
-    //     // KW:: to do
-    // }
-
-
-
-
-    
+        $this->logout();
+    }
 
     /**
      * @group cms
      * @group artists
      * @return void
      */
-    public function testStaffCanSeeLinkToEditArtist()
+    public function test_Should_DisplayError_When_EditImageSizeIsWrong()
+    {
+        $this->loginAsStaff();
+        $this->browse(function ($browser) {
+            //create a new Artist to determine the current autoincrement
+            $artist = factory(\App\Artist::class)->create([]);
+
+            // edit the new artist
+            $browser->visit('/artists/' . $artist->id . '/edit')
+                    ->attach('profile_img', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
+                    ->attach('featured_artwork_img_lg', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('featured_artwork_img_sm', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->type('name', 'Random Name')
+                    ->type('desc_1', 'Lorum ipsum Text')
+                    ->click('input[type="submit"]')
+                    ->assertSee('The profile img has invalid image dimensions')
+                    ->assertSee('The featured artwork img lg has invalid image dimensions')
+                    ->assertSee('The featured artwork img sm has invalid image dimensions');
+        });
+
+        $this->logout();
+    }
+
+
+    /**
+     * @group cms
+     * @group artists
+     * @return void
+     */
+    public function test_Should_DisplayEditButton_When_UserIsStaff()
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
