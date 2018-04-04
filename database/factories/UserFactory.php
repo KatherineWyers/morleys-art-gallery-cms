@@ -86,3 +86,15 @@ $factory->define(App\Sale::class, function (Faker $faker) {
         'seller_id' => 1
     ];
 });
+
+$factory->define(App\Appointment::class, function (Faker $faker) {
+    $artwork = App\Artwork::visible()->first();
+    $user = App\User::Admins()->first();
+    return [
+        'name' => $faker->name,
+        'email' => $faker->email,
+        'phone_number' => $faker->phoneNumber, 
+        'artwork_id' => $artwork->id,
+        'datetime' => '2100-01-01-14:00'
+    ];
+});

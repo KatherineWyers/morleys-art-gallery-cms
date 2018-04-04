@@ -76,6 +76,30 @@ class AppointmentsController extends Controller
         return redirect('/artworks');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $appointment=Appointment::find($id);
+        return view('ims.appointments.delete', compact('appointment'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Appointment::where('id',$id)->delete();
+        return redirect('/appointments');
+    }
+
     private function addLeadingZero($input)
     {
         if($input < 10)

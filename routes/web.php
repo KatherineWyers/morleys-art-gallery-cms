@@ -54,16 +54,23 @@ Route::post('/ims/sales', 'SalesController@store');
 Route::get('/ims/sales', 'SalesController@index');
 
 //APPOINTMENTS AND TIMESLOTS: Web
-Route::get('/timeslots/{artwork_id}/{date?}/{month?}/{year?}', 'TimeslotsController@indexForDate');
+
 Route::get('/appointments/create/{artwork_id}/{year}/{month}/{date}/{hour}', 'AppointmentsController@create');
 Route::post('/appointments', 'AppointmentsController@store');
 
+Route::get('/timeslots/{artwork_id}/{date?}/{month?}/{year?}', 'TimeslotsController@indexForDate');
+
 //Ims
+
+Route::get('/ims/appointments/delete/{id?}', 'AppointmentsController@delete');
+Route::get('/ims/appointments/destroy/{id?}', 'AppointmentsController@destroy');
+Route::get('/ims/appointments/{date?}/{month?}/{year?}', 'AppointmentsController@indexForDate');
+
+
 Route::get('/ims/weekly_timeslots', 'WeeklyTimeslotsController@index');
 Route::get('/ims/weekly_timeslots/edit', 'WeeklyTimeslotsController@edit');
 Route::post('/ims/weekly_timeslots/edit', 'WeeklyTimeslotsController@update');
 
-Route::get('/ims/appointments/{date?}/{month?}/{year?}', 'AppointmentsController@indexForDate');
 
 
 

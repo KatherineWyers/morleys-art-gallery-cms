@@ -1,7 +1,6 @@
 @extends('web-portal.navigation.standardpage')
 @section('content')
 
-
     <section id="item" class="container-fluid">
         <div class="wrapper">
 
@@ -60,7 +59,9 @@
                                 Customer name: {{ $appointment->name }}<br />
                                 Customer phone no.: {{ $appointment->phone_number }}<br />
                                 Customer email: {{ $appointment->email }}
+                                <a href="/ims/appointments/delete/{{ $appointment->id }}" class="btn btn-lg btn-danger">Delete</a>
                             </p>
+
                         </div>    
                     </div>
                     <hr /> 
