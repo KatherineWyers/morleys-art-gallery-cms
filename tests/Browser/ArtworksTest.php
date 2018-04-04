@@ -61,6 +61,7 @@ class ArtworkTest extends DuskTestCase
     public function test_Should_DisplayCreateButton_When_UserIsStaff()
     {
     	$this->loginAsStaff();
+
         $this->browse(function ($browser) {
             $browser->visit('/artworks')
                     ->assertSee("+ Add New Artwork");

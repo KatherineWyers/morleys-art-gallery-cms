@@ -17,6 +17,8 @@
 
             <div class="row">
                 <div class="col-xs-12">
+                    <p>{{ $user->sales_report(2018, 05)->toString() }}</p>
+                    <p>{{ $user->sales_report(2018, 04)->toString() }}</p>
                     <p>{{ $user->sales_report(2018, 03)->toString() }}</p>
                     <p>{{ $user->sales_report(2018, 02)->toString() }}</p>
                     <p>{{ $user->sales_report(2018, 01)->toString() }}</p>

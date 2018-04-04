@@ -76,4 +76,19 @@ class User extends Authenticatable
         $sales_report = new SalesReport(['seller_id' => $this->id, 'year' => $year, 'month' => $month, 'item_count' => $item_count, 'sales_figure' => $sales_figure]);
         return $sales_report;
     }
+
+    public function scopeAdmins($query) 
+    {
+        return $query->where('role', '=', 'Admin');
+    }
+
+    public function scopeManagers($query) 
+    {
+        return $query->where('role', '=', 'Manager');
+    }
+
+    public function scopeAdminsAndManagers($query) 
+    {
+        return $query->where('role', '=', 'Admin')->orWhere('role', '=', 'Manager');
+    }
 }

@@ -23,4 +23,25 @@ class SalesReport extends Model
     	return 'Month: ' . $this->year . '-' . $this->month . ', Total Items Sold: ' . $this->item_count . ', Sales: ' . $this->sales_figure;
     }
 
+    /**
+     * itemCount
+     *
+     * @return integer
+     */
+    public function itemCount()
+    {
+        return $this->item_count;
+    }
+
+    /**
+     * salesFigure
+     *
+     * @return integer
+     */
+    public function salesFigure()
+    {
+        return $this->sales_figure;
+    }
+
+
 }

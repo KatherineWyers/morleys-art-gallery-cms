@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use App\Sale;
 use App\Artwork;
 use App\User;
+use Auth;
 
 class SalesController extends Controller
 {
@@ -25,7 +26,12 @@ class SalesController extends Controller
      */
     public function index()
     {        
-        $users = User::all();
+        $current_user = User::find(Auth::user()->id);
+        if($current_user->isManager() == TRUE){
+            $users = User::all();            
+        } else {
+            $users = User::where('id', '=', $current_user->id)->get();
+        }
         return view('ims.sales.index', compact('users'));
     }
 
