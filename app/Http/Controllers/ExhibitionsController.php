@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Exhibition;
 
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use App\Visit;
+
 class ExhibitionsController extends Controller
 {
     /**
@@ -16,17 +20,19 @@ class ExhibitionsController extends Controller
         $this->middleware('ismanageroradmin', ['except' => ['index', 'indexByYear', 'show']]);
     }
     
-    public function index()
+    public function index(Request $request)
     {        
         $current_exhibitions=Exhibition::current()->get();
         $exhibitions_in_the_next_365_days=Exhibition::inthenext365days()->get();
-        return view('web-portal.exhibitions.index', compact('current_exhibitions', 'exhibitions_in_the_next_365_days'));
+        $response = response()->view('web-portal.exhibitions.index', compact('current_exhibitions', 'exhibitions_in_the_next_365_days'));
+        return $this->handleVisit($request, $response);
     }
 
-    public function indexByYear($yyyy)
+    public function indexByYear(Request $request, $yyyy)
     {        
         $exhibitions_by_year=Exhibition::whereYear('start_date', $yyyy)->paginate(10);
-        return view('web-portal.exhibitions.by_year.index', compact('yyyy', 'exhibitions_by_year'));
+        $response = response()->view('web-portal.exhibitions.by_year.index', compact('yyyy', 'exhibitions_by_year'));
+        return $this->handleVisit($request, $response);
     }
 
     /**
@@ -88,10 +94,11 @@ class ExhibitionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $exhibition=Exhibition::find($id);
-        return view('web-portal/exhibitions/show', compact('exhibition'));
+        $response = response()->view('web-portal/exhibitions/show', compact('exhibition'));
+        return $this->handleVisit($request, $response);
     }
 
     /**
@@ -152,14 +159,19 @@ class ExhibitionsController extends Controller
         return redirect('/exhibitions/' . $exhibition->id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    private function handleVisit(Request $request, Response $response){
+        $visitor_id = $request->cookie('visitor_id');
+        if(is_null($visitor_id)) {
+            //log visit by new visitor and set cookie
+            $visitor_id = DB::table('visits')->max('visitor_id') + 1;
+            $cookie_notification = "We use cookies to ensure that we give you the best experience on our website. If you continue to use the website, we'll assume that you are happy to receive cookies on the Morley's website.";
+            \Session::flash('flash_message',$cookie_notification);
+            return redirect($request->url())->withCookie(cookie('visitor_id', $visitor_id, 262800));//redirect to this same page without creating a visit
+        } else {
+            //log visit by cookied visitor
+            Visit::create(['visitor_id' => $visitor_id, 'url' => $request->url()]);//create new visit entry
+            $response->withCookie(cookie('visitor_id', $visitor_id, 262800));//update the cookie with the new timer
+        }
+        return $response;
     }
 }

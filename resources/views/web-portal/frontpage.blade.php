@@ -22,6 +22,8 @@
         </div>
     </section>
 
+
+
     <section id="front-page-2" class="container-fluid">
         <div class="wrapper">
             <h1>Featured Artworks

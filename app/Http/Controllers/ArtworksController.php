@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\Input;
 use App\Artist;
 use App\Artwork;
 use App\Category;
+
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use App\Visit;
 
 class ArtworksController extends Controller
 {
@@ -25,7 +28,7 @@ class ArtworksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($category_id = 0)
+    public function index(Request $request, $category_id = 0)
     {
         $categories = Category::orderBy('id', 'asc')->get();
         if($category_id >= 1 && $category_id <= 6){
@@ -36,15 +39,17 @@ class ArtworksController extends Controller
             $artworks = Artwork::visible()->orderBy('created_at', 'desc')->paginate(50);
             $category_title = '';
         }
-        return view('web-portal.artworks.index', compact('artworks', 'categories', 'category_title'));
+        $response = response()->view('web-portal.artworks.index', compact('artworks', 'categories', 'category_title'));
+        return $this->handleVisit($request, $response);
     }
 
-    public function indexUnderMaxPrice($max_price = 2500)
+    public function indexUnderMaxPrice(Request $request, $max_price = 2500)
     {
         $categories = Category::orderBy('id', 'asc')->get();
         $category_title = ': Under £' . $max_price;
         $artworks = Artwork::visible()->where('price', '<=', $max_price)->orderBy('created_at', 'desc')->paginate(50);
-        return view('web-portal.artworks.index', compact('artworks', 'categories', 'category_title'));
+        $response = response()->view('web-portal.artworks.index', compact('artworks', 'categories', 'category_title'));
+        return $this->handleVisit($request, $response);
     }
 
     /**
@@ -144,7 +149,7 @@ class ArtworksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $img = 1)
+    public function show(Request $request, $id, $img = 1)
     {
         $artwork=Artwork::find($id);
 
@@ -167,7 +172,8 @@ class ArtworksController extends Controller
                 break;
         }
         
-        return view('web-portal/artworks/show', compact('artwork', 'featured_img'));
+        $response = response()->view('web-portal/artworks/show', compact('artwork', 'featured_img'));
+        return $this->handleVisit($request, $response);
     }
 
     /**
@@ -264,18 +270,22 @@ class ArtworksController extends Controller
             $category = Category::find($category_id);
             $artwork->categories()->save($category);
         }
-
         return redirect('/artworks/' . $artwork->id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    private function handleVisit(Request $request, Response $response){
+        $visitor_id = $request->cookie('visitor_id');
+        if(is_null($visitor_id)) {
+            //log visit by new visitor and set cookie
+            $visitor_id = DB::table('visits')->max('visitor_id') + 1;
+            $cookie_notification = "We use cookies to ensure that we give you the best experience on our website. If you continue to use the website, we'll assume that you are happy to receive cookies on the Morley's website.";
+            \Session::flash('flash_message',$cookie_notification);
+            return redirect($request->url())->withCookie(cookie('visitor_id', $visitor_id, 262800));//redirect to this same page without creating a visit
+        } else {
+            //log visit by cookied visitor
+            Visit::create(['visitor_id' => $visitor_id, 'url' => $request->url()]);//create new visit entry
+            $response->withCookie(cookie('visitor_id', $visitor_id, 262800));//update the cookie with the new timer
+        }
+        return $response;
     }
 }

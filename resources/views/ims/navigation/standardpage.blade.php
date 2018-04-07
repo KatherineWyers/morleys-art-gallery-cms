@@ -34,6 +34,7 @@
                             <li><a href="/ims">IMS-Dashboard</a></li>
                             <li><a href="/ims/sales">Sales</a></li>
                             <li><a href="/ims/weekly_timeslots">WeeklyTimeslots</a></li>
+                            <li><a href="/ims/visits">PageVisits</a></li>
                             <!--<li><a href="#">Appointments</a></li>-->
                         </ul>
 

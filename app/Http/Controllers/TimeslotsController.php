@@ -9,10 +9,14 @@ use Carbon\Carbon;
 use App\Artwork;
 use App\Calendar;
 
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use App\Visit;
+
 class TimeslotsController extends Controller
 {
 
-    public function indexForDate($artwork_id, $date = 26, $month = 3, $year = 2018)
+    public function indexForDate(Request $request, $artwork_id, $date = 5, $month = 4, $year = 2018)
     {        
 
         $calendar = new Calendar;
@@ -36,36 +40,23 @@ class TimeslotsController extends Controller
 
         $artwork = Artwork::find($artwork_id);
 
-        return view('web-portal.timeslots.index', compact('timeslots', 'artwork', 'calendar'));
+        $response = response()->view('web-portal.timeslots.index', compact('timeslots', 'artwork', 'calendar'));
+        return $this->handleVisit($request, $response);
     }
 
-    // public function indexForMonth($artwork_id, $month = 3, $year = 2018)
-    // {        
-    //     $days_in_month = cal_days_in_month(CAL_GREGORIAN,$month,$year);
-        
-
-    //     // create array of all available timeslots
-    //     $timeslots = array();
-    //     for($i = 1; $i <= $days_in_month; $i++)
-    //     {
-    //         //clear the array
-    //         $timeslots_this_date= array();
-    //         $datetime = Carbon::create($year, $month, $i, 0, 0, 0, 'Europe/London');
-    //         $weekly_timeslots_this_date = WeeklyTimeslot::onDay($datetime->dayOfWeek)->get();
-
-    //         foreach($weekly_timeslots_this_date as $weekly_timeslot)
-    //         {
-    //             $datetime->hour = $weekly_timeslot->hour;
-    //             $timeslot = new Timeslot;
-    //             $timeslot->datetime = $datetime->toDateTimeString();
-    //             $timeslot->appointment_id = NULL;
-    //             array_push($timeslots, $timeslot);
-    //         }
-
-    //     }
-    //     $artwork = Artwork::find($artwork_id);
-
-    //     return view('web-portal.timeslots.index', compact('timeslots', 'artwork', 'days_in_month', 'date', 'month', 'year', 'month_title', 'first_day_of_month'));
-    // }
-
+    private function handleVisit(Request $request, Response $response){
+        $visitor_id = $request->cookie('visitor_id');
+        if(is_null($visitor_id)) {
+            //log visit by new visitor and set cookie
+            $visitor_id = DB::table('visits')->max('visitor_id') + 1;
+            $cookie_notification = "We use cookies to ensure that we give you the best experience on our website. If you continue to use the website, we'll assume that you are happy to receive cookies on the Morley's website.";
+            \Session::flash('flash_message',$cookie_notification);
+            return redirect($request->url())->withCookie(cookie('visitor_id', $visitor_id, 262800));//redirect to this same page without creating a visit
+        } else {
+            //log visit by cookied visitor
+            Visit::create(['visitor_id' => $visitor_id, 'url' => $request->url()]);//create new visit entry
+            $response->withCookie(cookie('visitor_id', $visitor_id, 262800));//update the cookie with the new timer
+        }
+        return $response;
+    }
 }

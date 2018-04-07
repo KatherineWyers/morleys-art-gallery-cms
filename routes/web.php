@@ -71,6 +71,5 @@ Route::get('/ims/weekly_timeslots', 'WeeklyTimeslotsController@index');
 Route::get('/ims/weekly_timeslots/edit', 'WeeklyTimeslotsController@edit');
 Route::post('/ims/weekly_timeslots/edit', 'WeeklyTimeslotsController@update');
 
-
-
+Route::get('/ims/visits','VisitsController@index');
 

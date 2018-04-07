@@ -9,6 +9,8 @@ use App\Artwork;
 use App\User;
 use Auth;
 
+
+
 class SalesController extends Controller
 {
     /**
