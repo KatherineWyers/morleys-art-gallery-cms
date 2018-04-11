@@ -4,14 +4,16 @@
     <section id="item" class="container-fluid">
         <div class="wrapper">
             <div class="row">
-                <div class="col-xs-12 col-md-6">                   
+                <div class="col-xs-12 col-md-6">      
                     @guest
                     @else
-                    <p>
-                        <a href="/artworks/{{ $artwork->id }}/edit" class="btn btn-lg btn-warning">Edit</a>
-                        <a href="/ims/pos/{{ $artwork->id }}" class="btn btn-lg btn-danger">Process Sale</a>
-                    </p>
-                    @endguest
+                        @if  (Auth::user()->isManagerOrAdmin() == TRUE)
+                          <p>
+                              <a href="/artworks/{{ $artwork->id }}/edit" class="btn btn-lg btn-warning">Edit</a>
+                              <a href="/ims/pos/{{ $artwork->id }}" class="btn btn-lg btn-danger">Process Sale</a>
+                          </p>
+                        @endif
+                    @endguest 
                     <img src="/img/artworks/{{ $featured_img }}" class="img-responsive">
 
                 </div>
@@ -45,6 +47,11 @@
                     <a href="/timeslots/{{ $artwork->id }}" class="btn btn-lg btn-success">
                       Book an Appointment Online
                     </a>
+
+                    <a href="/wishlists/add/{{ $artwork->id }}" class="btn btn-lg btn-success">
+                      Add to my Wishlist
+                    </a>
+
 
                     <div class="row">
                         <div class="col-xs-6 col-sm-4">

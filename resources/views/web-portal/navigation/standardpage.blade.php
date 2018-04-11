@@ -41,6 +41,12 @@
                             <li><a href='/artworks'>Artworks</a></li>
                             <li><a href='/exhibitions'>Exhibitions</a></li>
                             <li><a href='/news_articles'>News</a></li>
+                            @guest    
+                            @else               
+                                @if  (Auth::user()->isCustomer() == TRUE)
+                                    <li><a href='/wishlists/my_wishlist'>My Wishlist</a></li> 
+                                @endif
+                            @endguest
                             <li><a href='/gallery'>Gallery</a></li>
                             <li><a href='/contact'>Contact</a></li>
                         </ul>
@@ -48,25 +54,27 @@
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
                             @guest
-                            @else
-                            <li><a href='/ims'>IMS</a></li>       
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->name }} ({{ Auth::user()->role }}) <span class="caret"></span>
-                                </a>
+                                <li><a href='/login'>Login</a></li>
+                            @else   
+                                @if  (Auth::user()->isManagerOrAdmin() == TRUE)
+                                    <li><a href='/ims'>IMS</a></li> 
+                                @endif
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ Auth::user()->name }}<span class="caret"></span>
+                                    </a>                                                   
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
 
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
                             @endguest
                         </ul>
                     </div>

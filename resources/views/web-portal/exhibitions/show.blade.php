@@ -6,8 +6,10 @@
             <div class="row">
                 @guest
                 @else
-                <p><a href="/exhibitions/{{ $exhibition->id }}/edit" class="btn btn-lg btn-warning">Edit</a></p>
-                @endguest
+                    @if  (Auth::user()->isManagerOrAdmin() == TRUE)
+                        <p><a href="/exhibitions/{{ $exhibition->id }}/edit" class="btn btn-lg btn-warning">Edit</a></p>
+                    @endif
+                @endguest 
                 <div class="col-xs-12">
                     <img src="/img/exhibitions/{{ $exhibition->img_1 }}" class="img-responsive">
                 </div>

@@ -22,6 +22,13 @@ class Artwork extends Model
   }
 
   /**
+   * Get the wishlists
+   */
+  public function wishlists() {
+    return $this->belongsToMany('App\Wishlist', 'artwork_wishlists', 'artwork_id'); 
+  }
+
+  /**
    * Get the categories    
    */
   public function categories() {

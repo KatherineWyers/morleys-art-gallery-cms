@@ -5,7 +5,9 @@
             <h1>Artworks {{ $category_title }}</h1>   
             @guest
             @else
-            <p><a href="/artworks/create" class="btn btn-lg btn-warning">+ Add New Artwork</a></p>
+                @if  (Auth::user()->isManagerOrAdmin() == TRUE)
+                    <p><a href="/artworks/create" class="btn btn-lg btn-warning">+ Add New Artwork</a></p>
+                @endif
             @endguest         
             <p>
                 <a href="/artworks/c/0">All</a> | 

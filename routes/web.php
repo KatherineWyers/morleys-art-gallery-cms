@@ -73,3 +73,6 @@ Route::post('/ims/weekly_timeslots/edit', 'WeeklyTimeslotsController@update');
 
 Route::get('/ims/visits','VisitsController@index');
 
+Route::get('/wishlists/add/{artwork_id}', 'WishlistsController@addArtwork');
+Route::get('/wishlists/my_wishlist', 'WishlistsController@myWishlist');
+Route::get('/wishlists/{id}', 'WishlistsController@show');

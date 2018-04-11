@@ -5,8 +5,10 @@
         <div class="wrapper">
             @guest
             @else
-            <p><a href="/exhibitions/create" class="btn btn-lg btn-warning">+ Add New Exhibition</a></p>
-            @endguest
+                @if  (Auth::user()->isManagerOrAdmin() == TRUE)
+                    <p><a href="/exhibitions/create" class="btn btn-lg btn-warning">+ Add New Exhibition</a></p>
+                @endif
+            @endguest 
             <h1>Current Exhibition</h1>
 
             @forelse($current_exhibitions as $exhibition)

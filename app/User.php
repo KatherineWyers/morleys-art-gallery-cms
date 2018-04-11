@@ -30,6 +30,20 @@ class User extends Authenticatable
     ];
 
     /**
+     * isCustomer
+     *
+     * @return boolean
+     */
+    public function isCustomer()
+    {
+        if ($this->role == 'Customer')
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * isAdmin
      *
      * @return boolean
@@ -57,6 +71,20 @@ class User extends Authenticatable
         return false;
     }
 
+
+    /**
+     * isManagerOrAdmin
+     *
+     * @return boolean
+     */
+    public function isManagerOrAdmin()
+    {
+        if (($this->role == 'Manager') || ($this->role == 'Admin'))
+        {
+            return true;
+        }
+        return false;
+    }
         
 
     /**
@@ -75,6 +103,11 @@ class User extends Authenticatable
         }
         $sales_report = new SalesReport(['seller_id' => $this->id, 'year' => $year, 'month' => $month, 'item_count' => $item_count, 'sales_figure' => $sales_figure]);
         return $sales_report;
+    }
+
+    public function scopeCustomers($query) 
+    {
+        return $query->where('role', '=', 'Customer');
     }
 
     public function scopeAdmins($query) 

@@ -7,8 +7,11 @@
                 <div class="col-xs-12 col-md-6">
                     @guest
                     @else
-                    <p><a href="/artists/{{ $artist->id }}/edit" class="btn btn-lg btn-warning">Edit</a></p>
-                    @endguest
+                        @if  (Auth::user()->isManagerOrAdmin() == TRUE)
+                            <p><a href="/artists/{{ $artist->id }}/edit" class="btn btn-lg btn-warning">Edit</a></p>
+                        @endif
+                    @endguest 
+
                     <p><img src="/img/artists/{{ $artist->profile_img }}" class="img-responsive"></p>
                     <div class="row">
                         @forelse($artist->artworks as $artwork)

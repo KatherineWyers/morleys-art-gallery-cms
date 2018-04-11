@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRoleToUsers extends Migration
+class CreateWishlistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddRoleToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table) {
-            $table->string('role')->default('Customer');
+        Schema::create('wishlists', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('customer_id')->unsigned()->unique();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class AddRoleToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function(Blueprint $table) {
-            $table->dropColumn('role');
-        });
+        Schema::dropIfExists('wishlists');
     }
 }
