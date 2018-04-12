@@ -26,3 +26,39 @@
         @endforelse
         </div>
     </section>
+
+    <section id="item" class="container-fluid">
+        <div class="wrapper">
+        <h1>Send Wishlist</h1>
+        {!! Form::open(['url' => '/wishlists']) !!}
+        <input type="hidden" name="wishlist_id" value="{{ $wishlist->id }}">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4">
+                <div class="form-group">
+                    {!! Form::label('name', 'Name:') !!}
+                    {!! Form::text('name',null,['class'=>'form-control', 'required' => 'required']) !!}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-4">
+                <div class="form-group">
+                    {!! Form::label('email', 'Email:') !!}
+                    {!! Form::text('email',null,['class'=>'form-control', 'required' => 'required']) !!}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-4">
+                <div class="form-group">
+                    {!! Form::submit('Save', ['class' => 'btn btn-success form-control']) !!}
+                </div>
+            </div>
+        </div>
+        {!! Form::close() !!}
+
+
+        </div>
+
+        </div>
+    </section>

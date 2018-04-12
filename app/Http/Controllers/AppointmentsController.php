@@ -29,9 +29,7 @@ class AppointmentsController extends Controller
 
         $calendar = new Calendar;
         $calendar->setDatetime($date, $month, $year);
-
         $appointments = Appointment::onDate($calendar->datetime->toDateString())->get();
-
         return view('ims.appointments.index', compact('appointments', 'calendar'));
     }
 

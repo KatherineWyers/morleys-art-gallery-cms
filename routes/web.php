@@ -57,14 +57,16 @@ Route::get('/ims/sales', 'SalesController@index');
 
 Route::get('/appointments/create/{artwork_id}/{year}/{month}/{date}/{hour}', 'AppointmentsController@create');
 Route::post('/appointments', 'AppointmentsController@store');
+Route::get('/ims/appointments/delete/{id?}', 'AppointmentsController@delete');
+Route::get('/ims/appointments/destroy/{id?}', 'AppointmentsController@destroy');
+Route::get('/ims/appointments/{date?}/{month?}/{year?}', 'AppointmentsController@indexForDate');
+
 
 Route::get('/timeslots/{artwork_id}/{date?}/{month?}/{year?}', 'TimeslotsController@indexForDate');
 
 //Ims
 
-Route::get('/ims/appointments/delete/{id?}', 'AppointmentsController@delete');
-Route::get('/ims/appointments/destroy/{id?}', 'AppointmentsController@destroy');
-Route::get('/ims/appointments/{date?}/{month?}/{year?}', 'AppointmentsController@indexForDate');
+
 
 
 Route::get('/ims/weekly_timeslots', 'WeeklyTimeslotsController@index');
@@ -76,3 +78,4 @@ Route::get('/ims/visits','VisitsController@index');
 Route::get('/wishlists/add/{artwork_id}', 'WishlistsController@addArtwork');
 Route::get('/wishlists/my_wishlist', 'WishlistsController@myWishlist');
 Route::get('/wishlists/{id}', 'WishlistsController@show');
+Route::post('/wishlists', 'WishlistsController@send');

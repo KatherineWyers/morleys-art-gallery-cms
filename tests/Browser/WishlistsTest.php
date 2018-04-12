@@ -112,6 +112,76 @@ class WishlistsTest extends DuskTestCase
         $this->logout();
     }
 
+    /**
+     * @group wishlists
+     * @group current
+     * @return void
+     */
+    public function testShould_SendWishlist_When_CustomerSendsEmail()
+    {
+        $artwork1 = Artwork::visible()->first();
+        $artwork2 = Artwork::visible()->skip(1)->first();
+        $artwork3 = Artwork::visible()->skip(2)->first();
+
+        $user = $this->loginAsCustomer();
+        $this->deleteWishlistForCustomer($user->id);
+
+        $this->browse(function (Browser $browser) use ($artwork1, $artwork2, $artwork3) {
+            $browser->visit('/artworks/' . $artwork1->id)
+                    ->clickLink('Add to my Wishlist')
+                    ->visit('/artworks/' . $artwork2->id)
+                    ->clickLink('Add to my Wishlist')
+                    ->visit('/artworks/' . $artwork3->id)
+                    ->clickLink('Add to my Wishlist')
+                    ->assertPathIs('/wishlists/my_wishlist')
+                    ->assertSee('Send Wishlist')
+                    ->type('name', 'Thomas Jones')
+                    ->type('email', 'katherinewyers1@gmail.com')
+                    ->click('input[type="submit"]')
+                    ->assertPathIs('/wishlists/my_wishlist')
+                    ->assertSee('Your wishlist was sent successfully!');
+        });
+
+        $this->deleteWishlistForCustomer($user->id);
+        $this->logout();
+    }
+
+    /**
+     * @group wishlists
+     * @return void
+     */
+    public function testShould_CreateLinkToWishlistReadyToSend_When_CustomerCreatesWishlist()
+    {
+        $artwork1 = Artwork::visible()->first();
+        $artwork2 = Artwork::visible()->skip(1)->first();
+        $artwork3 = Artwork::visible()->skip(2)->first();
+
+        $user = $this->loginAsCustomer();
+        $this->deleteWishlistForCustomer($user->id);
+
+        $this->browse(function (Browser $browser) use ($artwork1, $artwork2, $artwork3) {
+            $browser->visit('/artworks/' . $artwork1->id)
+                    ->clickLink('Add to my Wishlist')
+                    ->visit('/artworks/' . $artwork2->id)
+                    ->clickLink('Add to my Wishlist')
+                    ->visit('/artworks/' . $artwork3->id)
+                    ->clickLink('Add to my Wishlist');
+        });
+
+        $wishlist = $this->getWishlist($user->id);
+
+        $this->logout();
+
+        $this->browse(function (Browser $browser) use ($wishlist, $artwork1, $artwork2, $artwork3) {
+            $browser->visit('/wishlists/' . $wishlist->id)
+                    ->assertSee($artwork1->title)
+                    ->assertSee($artwork2->title)
+                    ->assertSee($artwork3->title);
+        });
+
+        $this->deleteWishlist($wishlist);
+    }
+
     private function loginAsCustomer() 
     {
         $user = User::Customers()->first();
@@ -150,6 +220,22 @@ class WishlistsTest extends DuskTestCase
         }
     }
 
+
+    private function deleteWishlist($wishlist)
+    {
+        DB::table('artwork_wishlists')->where('wishlist_id', '=', $wishlist->id)->delete();
+        DB::table('wishlists')->where('id', '=', $wishlist->id)->delete();
+    }
+
+    private function getWishlist($customer_id)
+    {
+        $wishlist = Wishlist::where('customer_id', '=', $customer_id)->first();
+        if($wishlist == NULL)
+        {
+            $wishlist = Wishlist::create(['customer_id' => $customer_id]);
+        }
+        return $wishlist; 
+    }
 
 }
 

@@ -11,6 +11,8 @@ use Auth;
 
 use Illuminate\Support\Facades\DB;
 
+use Mail;
+
 class WishlistsController extends Controller
 {
 
@@ -19,7 +21,7 @@ class WishlistsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['show']]);
     }
 
     /**
@@ -65,6 +67,43 @@ class WishlistsController extends Controller
         }
            
             
+        return redirect('/wishlists/my_wishlist');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $wishlist=Wishlist::find($id);
+        return view('web-portal.wishlists.show', compact('wishlist'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function send(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:30',
+            'email' => 'max:100',
+            'wishlist_id' => 'required|exists:wishlists,id'
+        ]);
+
+        $user = Auth::user();
+
+        Mail::send('emails.wishlist', ['user' => $user], function ($message) use ($request) {
+            $message->from('contact@morleysgallery.com', 'Morleys Gallery');
+            $message->to($request->input('email'), $request->input('name'))->subject('Your friend sent a wishlist');
+        });
+
+        \Session::flash('flash_message','Your wishlist was sent successfully!');
         return redirect('/wishlists/my_wishlist');
     }
 
