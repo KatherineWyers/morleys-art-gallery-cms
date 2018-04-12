@@ -114,7 +114,6 @@ class WishlistsTest extends DuskTestCase
 
     /**
      * @group wishlists
-     * @group current
      * @return void
      */
     public function testShould_SendWishlist_When_CustomerSendsEmail()
@@ -182,6 +181,66 @@ class WishlistsTest extends DuskTestCase
         $this->deleteWishlist($wishlist);
     }
 
+    /**
+     * @group wishlists
+     * @group current
+     * @return void
+     */
+    public function testShould_SellArtwork_When_FriendOfCustomerClicksPurchaseOnWishlist()
+    {
+        $artwork = Artwork::visible()->first();
+
+        $user = $this->loginAsCustomer();
+        $this->deleteWishlistForCustomer($user->id);
+        $wishlist = $this->createWishlistForCustomer($user->id);
+        $wishlist->artworks()->save($artwork);
+        $this->logout();
+
+        $this->browse(function (Browser $browser) use ($wishlist, $artwork, $user) {
+            $browser->visit('/wishlists/' . $wishlist->id)
+                    ->assertSee($artwork->title)
+                    ->assertSee('Buy')
+                    ->clickLink('Buy')
+                    ->assertPathIs('/pos/' . $artwork->id . '/' . $wishlist->id)
+                    ->assertSee($user->name)
+                    ->assertSee($artwork->title)
+                    ->assertSee($artwork->price)
+                    ->type('purchaser_name', 'Jane Doe')
+                    ->type('purchaser_email', 'katherinewyers1@gmail.com')
+                    ->type('cc_name', 'Jane Doe')
+                    ->type('cc_number', '4444333322221111')
+                    ->type('cc_exp_mm', '01')
+                    ->type('cc_exp_yyyy', '2020')
+                    ->type('cc_cvv', '123')
+                    ->click('input[type="submit"]')
+                    ->assertSee('Item purchased successfully. It is now available for collection by ' . $user->name . ' at the gallery. Thank you')
+                    ->visit('/wishlists/' . $wishlist->id)
+                    ->assertSee($artwork->title)
+                    ->assertDontSee('Buy')
+                    ->assertSee('Item No Longer Available');
+        });
+
+        $this->deleteWishlist($wishlist);
+    }
+
+    /**
+     * @group wishlists
+     * @return void
+     */
+    public function testShould_ShowArtworkInWishlistButNotShowBuyButton_When_ArtworkInWishlistHasAlreadyBeenSold()
+    {
+
+    }
+
+    /**
+     * @group wishlists
+     * @return void
+     */
+    public function testShould_RedirectToWishlistAndShowNotification_When_SoldArtworkLinkUsed()
+    {
+
+    }
+
     private function loginAsCustomer() 
     {
         $user = User::Customers()->first();
@@ -209,6 +268,11 @@ class WishlistsTest extends DuskTestCase
         }); 
     }
 
+    private function createWishlistForCustomer($customer_id)
+    {
+        return Wishlist::create(['customer_id' => $customer_id]);
+    }
+
     private function deleteWishlistForCustomer($customer_id)
     {
         $wishlist = Wishlist::where('customer_id', '=', $customer_id)->first();
@@ -219,7 +283,6 @@ class WishlistsTest extends DuskTestCase
             DB::table('wishlists')->where('id', '=', $wishlist->id)->delete();
         }
     }
-
 
     private function deleteWishlist($wishlist)
     {

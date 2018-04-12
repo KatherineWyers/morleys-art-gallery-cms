@@ -85,7 +85,13 @@ class User extends Authenticatable
         }
         return false;
     }
-        
+            
+      /**
+       * Get the wishlists
+       */
+      public function wishlists() {
+        return $this->hasMany('App\Wishlist', 'wishlists', 'customer_id'); 
+      }
 
     /**
     * Get the sales_reports

@@ -52,6 +52,8 @@ Route::get('/ims', 'ImsController@home');
 Route::get('/ims/pos/{artwork_id}', 'SalesController@create');
 Route::post('/ims/sales', 'SalesController@store');
 Route::get('/ims/sales', 'SalesController@index');
+Route::get('/pos/{artwork_id}/{wishlist_id}', 'SalesController@wishlistSale');
+Route::post('/pos', 'SalesController@storeOnlineSale');
 
 //APPOINTMENTS AND TIMESLOTS: Web
 

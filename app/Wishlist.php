@@ -19,4 +19,11 @@ class Wishlist extends Model
   public function artworks() {
     return $this->belongsToMany('App\Artwork', 'artwork_wishlists', 'wishlist_id'); 
   }
+
+  /**
+   * Get the customer
+   */
+  public function customer() {
+    return $this->belongsTo('App\User', 'customer_id'); 
+  }
 }
