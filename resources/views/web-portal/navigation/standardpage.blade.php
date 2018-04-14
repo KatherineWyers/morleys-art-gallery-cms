@@ -13,7 +13,11 @@
     <!-- Styles -->
     <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    @if (Cookie::get('accessible') == NULL)
+        <link rel="stylesheet" href="/css/style.css">
+    @else
+        <link rel="stylesheet" href="/css/style-accessible.css">
+    @endif
 </head>
 <body>
     <div id="app">
@@ -49,10 +53,24 @@
                             @endguest
                             <li><a href='/gallery'>Gallery</a></li>
                             <li><a href='/contact'>Contact</a></li>
+
+
+
                         </ul>
 
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
+                            {!! Form::open(['url' => '/accessibility', 'files' => 'true']) !!}
+                            @if (Cookie::get('accessible') == NULL)
+                                <input type="hidden" name="accessible" value="TRUE"> 
+                                <input type="hidden" name="url" value="{{ Request::url() }}">
+                                <li>{!! Form::submit('Large Font', ['class' => 'form-control']) !!}</li>
+                            @else
+                                <input type="hidden" name="accessible" value="FALSE">
+                                <input type="hidden" name="url" value="{{ Request::url() }}">
+                                <li>{!! Form::submit('Regular Font', ['class' => 'form-control']) !!}</li>
+                            @endif
+                            {!! Form::close() !!}
                             @guest
                                 <li><a href='/login'>Login</a></li>
                             @else   

@@ -81,3 +81,5 @@ Route::get('/wishlists/add/{artwork_id}', 'WishlistsController@addArtwork');
 Route::get('/wishlists/my_wishlist', 'WishlistsController@myWishlist');
 Route::get('/wishlists/{id}', 'WishlistsController@show');
 Route::post('/wishlists', 'WishlistsController@send');
+
+Route::post('/accessibility', 'AccessibilityController@manageCookie');

@@ -1,0 +1,407 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Raleway');
+
+.wrapper {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+body { 
+	/*position: relative;*/
+	padding-top: 51px;
+	background:url("#");
+	background-size: cover;       /* For flexibility */
+}
+
+.transparency{
+	background-color: rgba(255,255,255,0.8);
+	border-radius: 10px;
+}
+
+img {
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
+.buffer-sm{
+	margin-top: 20px;
+}
+
+.min-height-sm{
+	height: 150px;
+}
+
+.min-height-med{
+	height: 220px;
+}
+
+
+h1 {
+	font-family: 'Raleway', sans-serif;
+	font-weight: bold;
+	color: #171712;
+	font-size: 40px;
+}
+
+h2 {
+	color: #171712;
+	font-size: 30px;
+}
+
+p {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 25px;
+	color: #171712;
+}
+
+/* front-page-1 */
+
+#front-page-1 {
+	padding-top:90px;
+	height:500px;
+	color: #000; 
+
+	background-image: url("/img/site/homepage-gallery-1240x700.jpg");  
+	background-size: cover;
+}
+
+#front-page-1 h1{
+	color: #eaeab4;
+	font-size: 55px;
+	font-weight: bold;
+	text-align: center;
+
+	text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+#front-page-1 h2{
+	color: #eaeab4;
+	font-size: 60px;
+	font-weight: bold;
+	text-align: center;
+
+	text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+#front-page-1 img{
+	margin-left: auto;
+    margin-right: auto;
+}
+
+/* front-page-2 */
+
+#front-page-2 {
+	padding-top:50px;
+	height:1100px;
+	color: #fff; 
+	background-color: #f4f4d9;
+}
+
+#front-page-2 li {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 15px;
+	color: #171712;
+}
+
+/* front-page-3 */
+
+#front-page-3 {
+	padding-top:50px;
+	height: 1300px;
+	color: #000; 
+	background-color: #fff;
+
+	background-image: url("#");  
+	background-size: cover;
+}
+
+/* front-page-4 */
+
+#front-page-4 {
+	padding-top:50px;
+	height:1300px;
+	color: #fff; 
+	background-color: #f4f4d9;
+}
+
+/* front-page-5 */
+
+#front-page-5 {
+	padding-top:50px;
+	height:900px;
+	color: #000; 
+	background-color: #fff;
+
+	background-image: url("#");  
+	background-size: cover;
+}
+
+/* front-page-6 */
+
+#front-page-6 {
+	padding-top:50px;
+	height:700px;
+	color: #000; 
+	background-color: #171712;
+}
+
+#front-page-6 h1, #front-page-6 li, #front-page-6 a, #front-page-6 p {
+	color: #fff; 
+	text-decoration: none;
+}
+
+#front-page-6 li, #front-page-6 a, #front-page-6 p {
+	font-size: 10px;
+}
+
+footer {
+	background-color: #171712;
+	font-size: 10px;
+	padding-bottom: 20px;
+}
+
+footer p{
+	color: #fff;
+	text-align: center;
+}
+
+
+/* standard-page-1 */
+
+#standard-page-1 {
+	padding-top:70px;
+	height:500px;
+	color: #000; 
+
+	background-image: url("/img/placeholders/1240x700.png");  
+	background-size: cover;
+}
+
+#standard-page-1 h1{
+	color: #eaeab4;
+	font-size: 60px;
+	font-weight: bold;
+	text-align: center;
+
+	text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+#standard-page-1 h2{
+	color: #eaeab4;
+	font-size: 40px;
+	font-weight: bold;
+	text-align: center;
+
+	text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+#standard-page-1 img{
+	margin-left: auto;
+    margin-right: auto;
+}
+
+
+/*==================================================
+=            Bootstrap 3 Media Queries             =
+==================================================*/
+
+    /*==========  Mobile First Method  ==========*/
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (min-width : 480px) {
+
+    	.wrapper {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+
+		h1 {
+			font-size: 40px;
+		}
+
+		h2 {
+			font-size: 30px;
+		}
+
+		#front-page-1 {
+			padding-top:110px;
+			height:600px;
+		}
+
+		#front-page-1 h1{
+			font-size: 70px;
+		}
+
+		#front-page-1 h2{
+			font-size: 60px;
+		}
+
+		#front-page-2 {
+			height:800px;
+		}
+
+		#front-page-2 li {
+			font-size: 15px;
+		}
+
+		#front-page-3 {
+			height:1000px;
+		}
+
+		#front-page-4 {
+			height:1100px;
+		}
+
+		#front-page-5 {
+			height:900px;
+		}
+
+		#front-page-6 {
+			height:500px;
+		}
+
+
+
+		#standard-page-1 {
+			padding-top:110px;
+			height:600px;
+		}
+
+		#standard-page-1 h1{
+			font-size: 80px;
+		}
+
+		#standard-page-1 h2{
+			font-size: 50px;
+		}
+
+
+
+
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (min-width : 768px) {
+
+    	.wrapper {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+
+		h1 {
+			font-size: 30px;
+		}
+
+		h2 {
+			font-size: 20px;
+		}
+
+		#front-page-1 {
+			padding-top:110px;
+			height:600px;
+		}
+
+		#front-page-1 h1{
+			font-size: 100px;
+		}
+
+		#front-page-1 h2{
+			font-size: 60px;
+		}
+
+		#front-page-2 {
+			height: 700px;
+		}
+
+		#front-page-2 li {
+			font-size: 15px;
+		}
+
+		#front-page-3 {
+			height:900px;
+		}
+
+		#front-page-4 {
+			height:800px;
+		}
+
+		#front-page-5 {
+			height:600px;
+		}
+
+		#front-page-6 {
+			height:300px;
+		}
+
+
+
+
+		#standard-page-1 {
+			padding-top:110px;
+			height:600px;
+		}
+
+		#standard-page-1 h1{
+			font-size: 100px;
+		}
+
+		#standard-page-1 h2{
+			font-size: 60px;
+		}
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width : 992px) {
+
+    	.wrapper {
+			margin-left: 200px;
+			margin-right: 200px;
+		}
+
+
+		#front-page-1 {
+			padding-top:110px;
+			height:700px;
+		}
+
+		#front-page-1 h1{
+			font-size: 120px;
+		}
+
+		#front-page-1 h2{
+			font-size: 60px;
+		}
+
+		#front-page-2 {
+			height: 700px;
+		}
+
+		#front-page-3 {
+			height:800px;
+		}
+
+		#front-page-4 {
+			height:700px;
+		}
+
+
+		#standard-page-1 {
+			padding-top:110px;
+			height:700px;
+		}
+
+		#standard-page-1 h1{
+			font-size: 40px;
+		}
+
+		#standard-page-1 h2{
+			font-size: 30px;
+		}
+
+
+    }
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width : 1200px) {
+
+    }
