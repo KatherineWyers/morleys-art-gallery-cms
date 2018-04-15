@@ -60,15 +60,15 @@
 
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
-                            {!! Form::open(['url' => '/accessibility', 'files' => 'true']) !!}
+                            {!! Form::open(['url' => '/accessibility']) !!}
                             @if (Cookie::get('accessible') == NULL)
                                 <input type="hidden" name="accessible" value="TRUE"> 
                                 <input type="hidden" name="url" value="{{ Request::url() }}">
-                                <li>{!! Form::submit('Large Font', ['class' => 'form-control']) !!}</li>
+                                <li>{!! Form::submit('Large Font', ['class' => 'btn btn-default', 'name' => 'accessibility']) !!}</li>
                             @else
                                 <input type="hidden" name="accessible" value="FALSE">
                                 <input type="hidden" name="url" value="{{ Request::url() }}">
-                                <li>{!! Form::submit('Regular Font', ['class' => 'form-control']) !!}</li>
+                                <li>{!! Form::submit('Regular Font', ['class' => 'btn btn-default', 'name' => 'accessibility']) !!}</li>
                             @endif
                             {!! Form::close() !!}
                             @guest
@@ -105,10 +105,11 @@
         <footer>
             <div class="wrapper">
                 <p>Morley's Art Gallery (c) 2018
-                @guest
-                 | <a href="/login">Staff Login</a>
+                @if (Cookie::get('accessible') == NULL)
+                        Standard Mode
                 @else
-                @endguest
+                        Accessible Mode
+                @endif
                 </p>
             </div>
         </footer>
