@@ -12,6 +12,7 @@ class ArtistsTest extends DuskTestCase
     /**
      * @group web-portal
      * @group artists
+     * @group current
      *
      * @return void
      */

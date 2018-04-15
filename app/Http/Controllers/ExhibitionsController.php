@@ -9,6 +9,7 @@ use App\Exhibition;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\Visit;
+use App\VisitHandler;
 
 class ExhibitionsController extends Controller
 {
@@ -25,14 +26,14 @@ class ExhibitionsController extends Controller
         $current_exhibitions=Exhibition::current()->get();
         $exhibitions_in_the_next_365_days=Exhibition::inthenext365days()->get();
         $response = response()->view('web-portal.exhibitions.index', compact('current_exhibitions', 'exhibitions_in_the_next_365_days'));
-        return $this->handleVisit($request, $response);
+        return VisitHandler::handleVisit($request, $response);
     }
 
     public function indexByYear(Request $request, $yyyy)
     {        
         $exhibitions_by_year=Exhibition::whereYear('start_date', $yyyy)->paginate(10);
         $response = response()->view('web-portal.exhibitions.by_year.index', compact('yyyy', 'exhibitions_by_year'));
-        return $this->handleVisit($request, $response);
+        return VisitHandler::handleVisit($request, $response);
     }
 
     /**
@@ -98,7 +99,7 @@ class ExhibitionsController extends Controller
     {
         $exhibition=Exhibition::find($id);
         $response = response()->view('web-portal/exhibitions/show', compact('exhibition'));
-        return $this->handleVisit($request, $response);
+        return VisitHandler::handleVisit($request, $response);
     }
 
     /**
@@ -157,21 +158,5 @@ class ExhibitionsController extends Controller
         $exhibition->save();
 
         return redirect('/exhibitions/' . $exhibition->id);
-    }
-
-    private function handleVisit(Request $request, Response $response){
-        $visitor_id = $request->cookie('visitor_id');
-        if(is_null($visitor_id)) {
-            //log visit by new visitor and set cookie
-            $visitor_id = DB::table('visits')->max('visitor_id') + 1;
-            $cookie_notification = "We use cookies to ensure that we give you the best experience on our website. If you continue to use the website, we'll assume that you are happy to receive cookies on the Morley's website.";
-            \Session::flash('flash_message',$cookie_notification);
-            return redirect($request->url())->withCookie(cookie('visitor_id', $visitor_id, 262800));//redirect to this same page without creating a visit
-        } else {
-            //log visit by cookied visitor
-            Visit::create(['visitor_id' => $visitor_id, 'url' => $request->url()]);//create new visit entry
-            $response->withCookie(cookie('visitor_id', $visitor_id, 262800));//update the cookie with the new timer
-        }
-        return $response;
     }
 }

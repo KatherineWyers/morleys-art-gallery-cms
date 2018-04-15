@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Artwork;
 use App\Artist;
+use App\VisitHandler;
 
 class AccessibilityTest extends DuskTestCase
 {

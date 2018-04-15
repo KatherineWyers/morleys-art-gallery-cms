@@ -64,7 +64,7 @@
                             @else
                                 <input type="hidden" name="accessible" value="FALSE">
                                 <input type="hidden" name="url" value="{{ Request::url() }}">
-                                <li>{!! Form::submit('Regular Font', ['class' => 'btn btn-default', 'name' => 'accessibility']) !!}</li>
+                                <li>{!! Form::submit('Regular Font', w) !!}</li>
                             @endif
                             {!! Form::close() !!}
 
