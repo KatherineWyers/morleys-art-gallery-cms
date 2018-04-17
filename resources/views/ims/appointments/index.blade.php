@@ -60,6 +60,9 @@
                                 Customer phone no.: {{ $appointment->phone_number }}<br />
                                 Customer email: {{ $appointment->email }}
                                 <a href="/ims/appointments/delete/{{ $appointment->id }}" class="btn btn-lg btn-danger">Delete</a>
+                                @if ($appointment->led_to_sale == FALSE)
+                                    <a href="/ims/appointments/mark_as_sale/{{ $appointment->id }}" class="btn btn-lg btn-success">Mark As Sale</a>                                    
+                                @endif
                             </p>
 
                         </div>    

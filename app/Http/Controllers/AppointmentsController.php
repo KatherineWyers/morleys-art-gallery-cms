@@ -105,4 +105,22 @@ class AppointmentsController extends Controller
         Appointment::where('id',$id)->delete();
         return redirect('/appointments');
     }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function markAsSale($id)
+    {
+        $appointment=Appointment::find($id);
+        $appointment->led_to_sale = TRUE;
+        $appointment->save();
+        \Session::flash('flash_message', 'The appointment was marked as leading to a sale');
+        return redirect('/ims/appointments');
+    }
+
+
 }

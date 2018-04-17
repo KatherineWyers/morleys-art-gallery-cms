@@ -20,6 +20,7 @@ class CreateAppointmentsTable extends Migration
             $table->string('name');
             $table->string('phone_number');
             $table->string('email')->nullable();
+            $table->boolean('led_to_sale')->default(FALSE);
             $table->timestamps();
         });
     }

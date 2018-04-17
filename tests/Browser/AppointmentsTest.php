@@ -126,6 +126,37 @@ class AppointmentsTest extends DuskTestCase
         $this->logout();
     }
 
+    /**
+     * @group ims
+     * @group appointments
+     * @group current
+     * @return void
+     */
+    public function test_Should_MarkAppointmentAsLeadingToSale_When_StaffLogsAppointmentAsLeadingToSale()
+    {
+        //find first artwork
+        $artwork = Artwork::visible()->first();
+
+        //ensure that the appointment does not already exist
+        DB::table('appointments')->where('datetime', '=', '2100-01-01-14:00')->delete();
+        $appointment = factory(Appointment::class)->create(['name' => 'Test Name', 'phone_number' => '0123456', 'email' => 'test.name@gmail.com', 'datetime' => '2100-01-01-14:00', 'artwork_id' => $artwork->id]);
+
+        $this->loginAsStaff();
+
+        $this->browse(function ($browser) use ($artwork, $appointment) {
+            $browser->visit('/ims/appointments/1/1/2100')
+                    ->clickLink('Mark As Sale')
+                    ->assertPathIs('/ims/appointments')
+                    ->assertSee('The appointment was marked as leading to a sale')
+                    ->visit('/ims/appointments/1/1/2100')
+                    ->assertDontSee('Mark As Sale');
+        });
+
+        $this->logout();
+
+        DB::table('appointments')->where('datetime', '=', '2100-01-01-14:00')->delete();
+    }
+
 
     private function loginAsStaff() 
     {
