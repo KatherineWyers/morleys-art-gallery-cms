@@ -22,9 +22,6 @@
 <body>
     <div id="app">
 
-@if(Session::has('flash_message'))
-    <p class="alert alert-info">{{ Session::get('flash_message') }}</p>
-@endif
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid wrapper">
@@ -97,6 +94,9 @@
                         </ul>
                     </div>
                 </div>
+                @if(Session::has('flash_message'))
+                    <p class="alert alert-info">{{ Session::get('flash_message') }}</p>
+                @endif
             </div>
         </nav> 
 

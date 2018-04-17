@@ -14,7 +14,7 @@ class OnlineSale extends Model
      *
      * @var array
      */
-    protected $fillable = ['purchaser_name', 'purchaser_email', 'customer_id', 'artwork_id'];
+    protected $fillable = ['purchaser_name', 'purchaser_email', 'customer_id', 'artwork_id', 'collected'];
 
 	/**
 	* Get the artwork

@@ -212,5 +212,19 @@ class SalesController extends Controller
     }
 
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function markOnlineSaleAsCollected(Request $request, $online_sale_id)
+    {
+        $online_sale=OnlineSale::find($online_sale_id);
+        $online_sale->collected = TRUE;
+        $online_sale->save();
 
+        \Session::flash('flash_message', 'The online sale was marked as collected');
+        return redirect('/ims/sales/online/' . $online_sale->id);
+    }
 }

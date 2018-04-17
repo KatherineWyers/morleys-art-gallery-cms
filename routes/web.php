@@ -56,6 +56,9 @@ Route::post('/ims/sales', 'SalesController@store');
 Route::get('/ims/sales', 'SalesController@index');
 
 
+Route::get('/ims/sales/online/mark_as_collected/{online_sale_id}', 'SalesController@markOnlineSaleAsCollected');
+
+
 Route::get('/ims/sales/list', 'SalesController@list');
 Route::get('/ims/sales/online/{id}', 'SalesController@showOnlineSale');
 Route::get('/ims/sales/{id}', 'SalesController@showSale');

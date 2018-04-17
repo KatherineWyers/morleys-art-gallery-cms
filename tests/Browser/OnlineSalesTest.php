@@ -74,12 +74,12 @@ class OnlineSalesTest extends DuskTestCase
      */
     public function test_Should_ShowNotificationOnImsDashboard_When_NoOnlineSalesAreAwaitingCollection()
     {
-        $uncollected_online_sales = OnlineSale::uncollected();
+        $uncollected_online_sales = OnlineSale::uncollected()->get();
 
         //temporarily mark as collected
         foreach($uncollected_online_sales as $online_sales)
         {
-            $online_sales->collected == TRUE;
+            $online_sales->collected = TRUE;
             $online_sales->save();
         }
 
@@ -90,12 +90,12 @@ class OnlineSalesTest extends DuskTestCase
                     ->assertSee('Online Sales Awaiting Collection')
                     ->assertSee('No online-sales awaiting collection');
         });
-        $this->logout();    
+        $this->logout();  
 
         //reset to previous state
         foreach($uncollected_online_sales as $online_sales)
         {
-            $online_sales->collected == FALSE;
+            $online_sales->collected = FALSE;
             $online_sales->save();
         }
 
@@ -104,34 +104,23 @@ class OnlineSalesTest extends DuskTestCase
 
     /**
      * @group online-sales
-     * @group current
      *
      * @return void
      */
     public function test_Should_ShowOnlineSaleOnImsDashboardAsAwaitingCollection_When_ArtworkIsSoldOnline()
     {
-        $uncollected_online_sales = OnlineSale::uncollected();
+        $uncollected_online_sales = OnlineSale::uncollected()->get();
 
         //temporarily mark as collected
         foreach($uncollected_online_sales as $online_sales)
         {
-            $online_sales->collected == TRUE;
+            $online_sales->collected = TRUE;
             $online_sales->save();
         }
 
         $artwork = Artwork::visible()->first();
-
-        $user = $this->loginAsCustomer();
-        $this->browse(function ($browser) use ($artwork, $user) {
-            $browser->visit('/artworks/' . $artwork->id)
-                    ->clickLink('Buy Online and Collect')
-                    ->type('cc_name', 'Jane Doe')
-                    ->type('cc_number', '4444333322221111')
-                    ->type('cc_exp_mm', '01')
-                    ->type('cc_exp_yyyy', '2020')
-                    ->type('cc_cvv', '123')
-                    ->click('input[type="submit"]');
-        });
+        $customer = $this->loginAsCustomer();
+        $this->createOnlineSale($customer, $artwork);
         $this->logout();   
 
         $user = $this->loginAsStaff();
@@ -147,10 +136,67 @@ class OnlineSalesTest extends DuskTestCase
         //reset to previous state
         foreach($uncollected_online_sales as $online_sales)
         {
-            $online_sales->collected == FALSE;
+            $online_sales->collected = FALSE;
             $online_sales->save();
         }
 
+    }
+
+
+    /**
+     * @group online-sales
+     * @group current
+     *
+     * @return void
+     */
+    public function test_Should_MarkOnlineSaleAsCollected_When_StaffMemberSelectsMarkAsCollected()
+    {
+        $uncollected_online_sales = OnlineSale::uncollected()->get();
+
+        //temporarily mark as collected
+        foreach($uncollected_online_sales as $online_sales)
+        {
+            $online_sales->collected = TRUE;
+            $online_sales->save();
+        }
+
+        $artwork = Artwork::visible()->first();
+        $customer = $this->loginAsCustomer();
+        $this->createOnlineSale($customer, $artwork);
+        $this->logout();   
+
+        $user = $this->loginAsStaff();
+        $this->browse(function ($browser) use ($artwork) {
+            $browser->visit('/ims')
+                    ->assertSee('Online Sales Awaiting Collection')
+                    ->assertDontSee('No online-sales awaiting collection')
+                    ->assertSee($artwork->title)
+                    ->assertSee('Show')
+                    ->clickLink('Show')
+                    ->assertSee('Mark As Collected')
+                    ->clickLink('Mark As Collected')
+                    ->assertSee('The online sale was marked as collected')
+                    ->assertDontSee('Mark As Collected')
+                    ->visit('/ims')
+                    ->assertDontSee($artwork->title)
+                    ->assertSee('No online-sales awaiting collection');
+        });
+        $this->logout();   
+
+        //reset to previous state
+        foreach($uncollected_online_sales as $online_sales)
+        {
+            $online_sales->collected = FALSE;
+            $online_sales->save();
+        }
+
+    }
+
+
+
+    private function createOnlineSale($customer, $artwork)
+    {
+            return OnlineSale::create(['purchaser_name' => $customer->name, 'purchaser_email' => $customer->email, 'customer_id' => $customer->id, 'artwork_id' => $artwork->id]);
     }
 
 

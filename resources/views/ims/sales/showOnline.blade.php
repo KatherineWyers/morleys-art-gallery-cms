@@ -26,6 +26,10 @@
                         <li>Receiver Email: {{ $online_sale->customer->email }}</li>
                         <li>Price Paid: £{{ $online_sale->artwork->price }}</li>
                     </ul>
+
+                    @if ($online_sale->collected == FALSE)
+                            <a href="/ims/sales/online/mark_as_collected/{{ $online_sale->id }}" class='btn btn-lg btn-warning'>Mark As Collected</a>
+                    @endif
                 </div>
             </div>
         </div>
