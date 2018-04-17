@@ -24,7 +24,7 @@ class SalesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('ismanageroradmin', ['except' => ['wishlistSale', 'storeOnlineSale']]);
+        $this->middleware('ismanageroradmin', ['except' => ['wishlistSale', 'storeOnlineSale', 'onlineSale']]);
     }
 
     /**
@@ -106,6 +106,34 @@ class SalesController extends Controller
         $featured_img = $artwork->img_1;
 
         $response = response()->view('web-portal.pos.create-wishlist-sale', compact('artwork', 'featured_img', 'wishlist'));
+        return VisitHandler::handleVisit($request, $response);
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function onlineSale(Request $request, $artwork_id)
+    {
+        if(Auth::guest())
+            {
+                \Session::flash('flash_message', 'You must be registered and logged in to shop online');
+                return redirect('/register');
+            }
+
+        $artwork=Artwork::find($artwork_id);
+
+        if($artwork->visible==FALSE) {
+            // item is not visible
+            return redirect('/wishlists/' . $wishlist->id);
+        }
+
+        $featured_img = $artwork->img_1;
+
+        $response = response()->view('web-portal.pos.create-online-sale', compact('artwork', 'featured_img'));
         return VisitHandler::handleVisit($request, $response);
     }
 

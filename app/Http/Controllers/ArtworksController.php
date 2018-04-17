@@ -155,7 +155,8 @@ class ArtworksController extends Controller
         $artwork=Artwork::find($id);
 
         if($artwork->visible==FALSE) {
-            return redirect('/');
+            \Session::flash('flash_message', 'The requested artwork is no longer available');
+            return redirect('/artworks');
         }
 
         switch ($img){

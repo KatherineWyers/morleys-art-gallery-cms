@@ -16,7 +16,7 @@
                 <div class="col-xs-12">
                     <p>{{ $artwork->title }} - {{ $artwork->price }} 
                         @if ($artwork->visible)
-                            <a href="/pos/{{ $artwork->id }}/{{ $wishlist->id }}" class="btn btn-warning">Buy</a>
+                            <a href="/pos/w/{{ $artwork->id }}/{{ $wishlist->id }}" class="btn btn-warning">Buy</a>
                         @else
                             <a href="#" class="btn btn-default">Item No Longer Available</a>
                         @endif

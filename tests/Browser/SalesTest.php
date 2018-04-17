@@ -47,7 +47,8 @@ class SalesTest extends DuskTestCase
                     ->click('input[type="submit"]')
                     ->assertSee('Month: ' . $year . '-' . $month .', Total Items Sold: ' . $expected_item_count . ', Sales: ' . $expected_sales_figure)
                     ->visit('/artworks/' . $artwork->id)//attempt to visit the artwork public page
-                    ->assertPathIs('/');//assert that the sold artwork redirects to the homepage
+                    ->assertPathIs('/artworks')
+                    ->assertSee('The requested artwork is no longer available');
         });
 
         $this->logout();
