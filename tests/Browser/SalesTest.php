@@ -10,6 +10,9 @@ use App\User;
 use Carbon\Carbon;
 use App\Artwork;
 
+use App\Sale;
+use App\OnlineSale;
+
 class SalesTest extends DuskTestCase
 {
     /**
@@ -111,6 +114,46 @@ class SalesTest extends DuskTestCase
                 ->assertSee('Name: ' . $user1->name)
                 ->assertSee('Name: ' . $user2->name);
         });
+        $this->logout();
+    }
+
+   /**
+     * @group ims
+     * @return void
+     */
+    public function test_Should_ShowInPersonSalesContract_When_UserIsStaff()
+    {
+        $this->loginAsManager();
+
+        $in_person_sale = Sale::all()->first();
+
+        $this->browse(function ($browser) use ($in_person_sale)
+            {
+                $browser->visit('/ims/sales/' . $in_person_sale->id)
+                    ->assertSee('Sale')
+                    ->assertSee($in_person_sale->artwork->title);  
+                 
+            });
+        
+        $this->logout();
+    }
+
+    /**
+     * @group ims
+     * @return void
+     */
+    public function test_Should_ShowOnlineSalesContract_When_UserIsStaff()
+    {
+        $this->loginAsManager();
+
+        $online_sale = OnlineSale::all()->first();
+        $this->browse(function ($browser) use ($online_sale)
+            {
+                $browser->visit('/ims/sales/online/' . $online_sale->id)
+                    ->assertSee('Online Sale')
+                    ->assertSee($online_sale->artwork->title);  
+                 
+            });
         $this->logout();
     }
 

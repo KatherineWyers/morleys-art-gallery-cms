@@ -174,4 +174,41 @@ class SalesController extends Controller
         return redirect('/');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {
+        $sales_and_online_sales = Sale::getArrayOfSalesAndOnlineSales();
+        return view('ims.sales.list', compact('sales_and_online_sales'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showSale($id)
+    {
+        $sale=Sale::find($id);
+        return view('ims.sales.show', compact('sale'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showOnlineSale($id)
+    {
+        $online_sale=OnlineSale::find($id);
+        return view('ims.sales.showOnline', compact('online_sale'));
+    }
+
+
 }

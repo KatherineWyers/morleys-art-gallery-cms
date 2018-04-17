@@ -49,6 +49,10 @@ Route::resource('news_articles', 'NewsArticlesController');
 Route::get('/ims', 'ImsController@home');
 
 //SALES: Ims
+Route::get('/ims/sales/list', 'SalesController@list');
+Route::get('/ims/sales/online/{id}', 'SalesController@showOnlineSale');
+Route::get('/ims/sales/{id}', 'SalesController@showSale');
+
 Route::get('/ims/pos/{artwork_id}', 'SalesController@create');
 Route::post('/ims/sales', 'SalesController@store');
 Route::get('/ims/sales', 'SalesController@index');
