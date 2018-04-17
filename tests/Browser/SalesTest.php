@@ -12,9 +12,6 @@ use App\Artwork;
 use App\Sale;
 use App\OnlineSale;
 
-use App\Sale;
-use App\OnlineSale;
-
 class SalesTest extends DuskTestCase
 {
     /**

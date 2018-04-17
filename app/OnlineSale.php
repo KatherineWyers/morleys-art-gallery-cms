@@ -4,9 +4,6 @@ namespace App;
 use App\Artwork;
 use App\User;
 
-use App\Artwork;
-use App\User;
-
 
 use Illuminate\Database\Eloquent\Model;
 
