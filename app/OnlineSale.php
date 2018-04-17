@@ -29,4 +29,10 @@ class OnlineSale extends Model
 	public function customer() {
 		return $this->belongsTo('App\User', 'customer_id'); 
 	}
+
+  public function scopeUncollected($query) 
+  {
+    return $query->where('online_sales.collected', FALSE);
+  }
+
 }

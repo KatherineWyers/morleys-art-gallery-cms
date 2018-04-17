@@ -56,5 +56,4 @@ class Artwork extends Model
   {
     return $query->where('artworks.visible', TRUE);
   }
-
 }

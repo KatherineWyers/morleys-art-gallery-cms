@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Artwork;
+use App\OnlineSale;
 
 class ImsController extends Controller
 {
@@ -23,8 +24,7 @@ class ImsController extends Controller
      */
     public function home()
     {        
-        return view('ims.home');
+        $online_sales_awaiting_collection = OnlineSale::uncollected()->get();
+        return view('ims.home', compact('online_sales_awaiting_collection'));
     }
-
-
 }

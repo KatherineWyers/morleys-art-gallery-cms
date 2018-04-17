@@ -19,6 +19,7 @@ class CreateOnlineSalesTable extends Migration
             $table->string('purchaser_email');
             $table->integer('customer_id')->unsigned();
             $table->integer('artwork_id')->unsigned();
+            $table->boolean('collected')->default(FALSE);
             $table->timestamps();
         });
     }

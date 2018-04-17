@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 use App\Artwork;
 use App\User;
+use App\OnlineSale;
 
 class OnlineSalesTest extends DuskTestCase
 {
@@ -65,6 +66,94 @@ class OnlineSalesTest extends DuskTestCase
         });
         $this->logout();    
     }
+
+    /**
+     * @group online-sales
+     *
+     * @return void
+     */
+    public function test_Should_ShowNotificationOnImsDashboard_When_NoOnlineSalesAreAwaitingCollection()
+    {
+        $uncollected_online_sales = OnlineSale::uncollected();
+
+        //temporarily mark as collected
+        foreach($uncollected_online_sales as $online_sales)
+        {
+            $online_sales->collected == TRUE;
+            $online_sales->save();
+        }
+
+        //assert that there is no artwork awaiting collection 
+        $user = $this->loginAsStaff();
+        $this->browse(function ($browser) {
+            $browser->visit('/ims')
+                    ->assertSee('Online Sales Awaiting Collection')
+                    ->assertSee('No online-sales awaiting collection');
+        });
+        $this->logout();    
+
+        //reset to previous state
+        foreach($uncollected_online_sales as $online_sales)
+        {
+            $online_sales->collected == FALSE;
+            $online_sales->save();
+        }
+
+    }
+
+
+    /**
+     * @group online-sales
+     * @group current
+     *
+     * @return void
+     */
+    public function test_Should_ShowOnlineSaleOnImsDashboardAsAwaitingCollection_When_ArtworkIsSoldOnline()
+    {
+        $uncollected_online_sales = OnlineSale::uncollected();
+
+        //temporarily mark as collected
+        foreach($uncollected_online_sales as $online_sales)
+        {
+            $online_sales->collected == TRUE;
+            $online_sales->save();
+        }
+
+        $artwork = Artwork::visible()->first();
+
+        $user = $this->loginAsCustomer();
+        $this->browse(function ($browser) use ($artwork, $user) {
+            $browser->visit('/artworks/' . $artwork->id)
+                    ->clickLink('Buy Online and Collect')
+                    ->type('cc_name', 'Jane Doe')
+                    ->type('cc_number', '4444333322221111')
+                    ->type('cc_exp_mm', '01')
+                    ->type('cc_exp_yyyy', '2020')
+                    ->type('cc_cvv', '123')
+                    ->click('input[type="submit"]');
+        });
+        $this->logout();   
+
+        $user = $this->loginAsStaff();
+        $this->browse(function ($browser) use ($artwork) {
+            $browser->visit('/ims')
+                    ->assertSee('Online Sales Awaiting Collection')
+                    ->assertDontSee('No online-sales awaiting collection')
+                    ->assertSee($artwork->title)
+                    ->assertSee('Show');
+        });
+        $this->logout();   
+
+        //reset to previous state
+        foreach($uncollected_online_sales as $online_sales)
+        {
+            $online_sales->collected == FALSE;
+            $online_sales->save();
+        }
+
+    }
+
+
 
     private function loginAsCustomer() 
     {
