@@ -31,8 +31,6 @@ class Sale extends Model
 
     public static function getArrayOfSalesAndOnlineSales()
     {
-
-
 		$in_person_sales = DB::table('sales')
                      ->select(DB::raw('"Sale" as type, sales.id, sales.created_at, artworks.title as artwork_title'))
                      ->join('artworks', 'artworks.id', '=', 'sales.artwork_id');

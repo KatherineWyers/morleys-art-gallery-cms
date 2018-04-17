@@ -64,6 +64,13 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
+                                <a href="/login">Already have a profile? Login</a>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>

@@ -183,7 +183,6 @@ class WishlistsTest extends DuskTestCase
 
     /**
      * @group wishlists
-     * @group current
      * @return void
      */
     public function testShould_SellArtwork_When_FriendOfCustomerClicksPurchaseOnWishlist()
@@ -201,7 +200,7 @@ class WishlistsTest extends DuskTestCase
                     ->assertSee($artwork->title)
                     ->assertSee('Buy')
                     ->clickLink('Buy')
-                    ->assertPathIs('/pos/' . $artwork->id . '/' . $wishlist->id)
+                    ->assertPathIs('/pos/w/' . $artwork->id . '/' . $wishlist->id)
                     ->assertSee($user->name)
                     ->assertSee($artwork->title)
                     ->assertSee($artwork->price)

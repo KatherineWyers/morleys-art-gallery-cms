@@ -4,6 +4,10 @@ namespace App;
 use App\Artwork;
 use App\User;
 
+use App\Artwork;
+use App\User;
+
+
 use Illuminate\Database\Eloquent\Model;
 
 class OnlineSale extends Model
@@ -15,7 +19,6 @@ class OnlineSale extends Model
      */
     protected $fillable = ['purchaser_name', 'purchaser_email', 'customer_id', 'artwork_id'];
 
-
 	/**
 	* Get the artwork
 	*/
@@ -23,10 +26,10 @@ class OnlineSale extends Model
 		return $this->belongsTo('App\Artwork');
 	}
 
-  /**
-   * Get the customer
-   */
-  public function customer() {
-    return $this->belongsTo('App\User', 'customer_id'); 
-  }
+	/**
+	* Get the customer
+	*/
+	public function customer() {
+		return $this->belongsTo('App\User', 'customer_id'); 
+	}
 }

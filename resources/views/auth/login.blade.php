@@ -60,6 +60,13 @@
                                 </a>
                             </div>
                         </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <a href="/register">Don't have a profile yet? Register</a>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>

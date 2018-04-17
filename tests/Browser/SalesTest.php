@@ -12,6 +12,9 @@ use App\Artwork;
 use App\Sale;
 use App\OnlineSale;
 
+use App\Sale;
+use App\OnlineSale;
+
 class SalesTest extends DuskTestCase
 {
     /**
@@ -49,7 +52,8 @@ class SalesTest extends DuskTestCase
                     ->click('input[type="submit"]')
                     ->assertSee('Month: ' . $year . '-' . $month .', Total Items Sold: ' . $expected_item_count . ', Sales: ' . $expected_sales_figure)
                     ->visit('/artworks/' . $artwork->id)//attempt to visit the artwork public page
-                    ->assertPathIs('/');//assert that the sold artwork redirects to the homepage
+                    ->assertPathIs('/artworks')
+                    ->assertSee('The requested artwork is no longer available');
         });
 
         $this->logout();
@@ -116,8 +120,6 @@ class SalesTest extends DuskTestCase
     }
 
     /**
-     * @group ims
-     * @group current
      * @return void
      */
     public function test_Should_ShowInPersonSalesContract_When_UserIsStaff()
@@ -139,7 +141,6 @@ class SalesTest extends DuskTestCase
 
     /**
      * @group ims
-     * @group current
      * @return void
      */
     public function test_Should_ShowOnlineSalesContract_When_UserIsStaff()
@@ -156,7 +157,6 @@ class SalesTest extends DuskTestCase
             });
         $this->logout();
     }
-
 
     private function loginAsStaff() {
         $this->browse(function ($browser) {

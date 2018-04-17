@@ -52,6 +52,9 @@
                       Add to my Wishlist
                     </a>
 
+                    <a href="/pos/s/{{ $artwork->id }}" class="btn btn-lg btn-success">
+                      Buy Online and Collect
+                    </a>
 
                     <div class="row">
                         <div class="col-xs-6 col-sm-4">

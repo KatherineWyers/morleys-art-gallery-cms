@@ -24,7 +24,7 @@ class SalesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('ismanageroradmin', ['except' => ['wishlistSale', 'storeOnlineSale']]);
+        $this->middleware('ismanageroradmin', ['except' => ['wishlistSale', 'storeOnlineSale', 'onlineSale']]);
     }
 
     /**
@@ -145,6 +145,34 @@ class SalesController extends Controller
         return VisitHandler::handleVisit($request, $response);
     }
 
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function onlineSale(Request $request, $artwork_id)
+    {
+        if(Auth::guest())
+            {
+                \Session::flash('flash_message', 'You must be registered and logged in to shop online');
+                return redirect('/register');
+            }
+
+        $artwork=Artwork::find($artwork_id);
+
+        if($artwork->visible==FALSE) {
+            // item is not visible
+            return redirect('/wishlists/' . $wishlist->id);
+        }
+
+        $featured_img = $artwork->img_1;
+
+        $response = response()->view('web-portal.pos.create-online-sale', compact('artwork', 'featured_img'));
+        return VisitHandler::handleVisit($request, $response);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -181,5 +209,42 @@ class SalesController extends Controller
 
         return redirect('/');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {
+        $sales_and_online_sales = Sale::getArrayOfSalesAndOnlineSales();
+        return view('ims.sales.list', compact('sales_and_online_sales'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showSale($id)
+    {
+        $sale=Sale::find($id);
+        return view('ims.sales.show', compact('sale'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showOnlineSale($id)
+    {
+        $online_sale=OnlineSale::find($id);
+        return view('ims.sales.showOnline', compact('online_sale'));
+    }
+
 
 }

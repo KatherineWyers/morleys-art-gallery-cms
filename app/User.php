@@ -42,7 +42,7 @@ class User extends Authenticatable
         }
         return false;
     }
-
+    
     /**
      * isAdmin
      *
