@@ -25,3 +25,5 @@
 
         </div>
     </section>
+
+@endsection

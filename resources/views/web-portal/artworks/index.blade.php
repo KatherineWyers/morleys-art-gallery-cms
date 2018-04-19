@@ -62,3 +62,4 @@
             {{ $artworks->links()}}
         </div>
     </section>
+@endsection

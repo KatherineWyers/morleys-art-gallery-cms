@@ -1,11 +1,14 @@
 @extends('ims.navigation.standardpage')
 @section('content')
 
-    @if ($errors->any())
-        <p class="text-danger">{{ implode('', $errors->all(':message')) }}</p>
-    @endif
+
     <section id="item" class="container-fluid">
         <div class="wrapper">   
+        <a href="/ims/sales" class="btn btn-info">Sales - Staff</a>&nbsp;
+        <a href="/ims/sales/total_sales_report" class="btn btn-info">Sales - Total</a>&nbsp;
+        <a href="/ims/sales/list" class="btn btn-info">List of Sales</a>
+        
+        <h1>Monthly Sales Report - Total Sales</h1>
         <p>
             <a href="/ims/sales/total_sales_report/{{ Carbon\Carbon::now()->year }}/{{ Carbon\Carbon::now()->month }}/{{ $total_sales_report->taxRate() }}">This Month</a> | 
             <a href="/ims/sales/total_sales_report/{{ Carbon\Carbon::now()->subMonth()->year }}/{{ Carbon\Carbon::now()->subMonth()->month }}/{{ $total_sales_report->taxRate() }}">Last Month</a> | 
@@ -30,3 +33,4 @@
             </div>
         </div>
     </section>
+@endsection

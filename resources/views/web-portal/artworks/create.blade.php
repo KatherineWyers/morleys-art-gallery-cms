@@ -3,10 +3,6 @@
 
     <section id="item" class="container-fluid">
         <div class="wrapper">
-<br /><br /><br /><br />
-    @if ($errors->any())
-        <p class="text-danger">{{ implode('', $errors->all(':message')) }}</p>
-    @endif
 
             <h1>Create a new Artwork</h1>
 
@@ -116,3 +112,4 @@
             {!! Form::close() !!}
         </div>
     </section>
+@endsection

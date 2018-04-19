@@ -3,6 +3,10 @@
 
     <section id="item" class="container-fluid">
         <div class="wrapper">
+        <a href="/ims/sales" class="btn btn-info">Sales - Staff</a>&nbsp;
+        <a href="/ims/sales/total_sales_report" class="btn btn-info">Sales - Total</a>&nbsp;
+        <a href="/ims/sales/list" class="btn btn-info">List of Sales</a>
+        
           <h1>Sales Contract</h1>
             <div class="row">
                 <div class="col-xs-12 col-md-6">      
@@ -31,3 +35,4 @@
             </div>
         </div>
     </section>
+@endsection

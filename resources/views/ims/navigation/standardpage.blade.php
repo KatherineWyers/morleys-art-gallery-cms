@@ -34,7 +34,6 @@
                         <ul class="nav navbar-nav">
                             <li><a href="/ims">IMS-Dashboard</a></li>
                             <li><a href="/ims/sales">Sales</a></li>
-                            <li><a href="/ims/sales/list">ListOfSales</a></li>
                             <li><a href="/ims/weekly_timeslots">WeeklyTimeslots</a></li>
                             <li><a href="/ims/visits">PageVisits</a></li>
                             <!--<li><a href="#">Appointments</a></li>-->
@@ -65,11 +64,24 @@
                         </ul>
                     </div>
                 </div>
-                @if(Session::has('flash_message'))
-                    <p class="alert alert-info">{{ Session::get('flash_message') }}</p>
-                @endif
             </div>
         </nav> 
+
+    @if ($errors->any())
+    <section id="item" class="container-fluid">
+        <div class="row">
+            <p class="text-danger">{{ implode('', $errors->all(':message')) }}</p>
+        </div>
+    </section>
+    @endif
+
+    @if(Session::has('flash_message'))
+    <section id="item" class="container-fluid">
+        <div class="row">
+            <p class="alert alert-info">{{ Session::get('flash_message') }}</p>
+        </div>
+    </section>
+    @endif
 
         @yield('content')
 

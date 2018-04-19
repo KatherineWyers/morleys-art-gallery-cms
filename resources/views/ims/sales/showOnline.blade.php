@@ -1,8 +1,11 @@
 @extends('ims.navigation.standardpage')
 @section('content')
-
     <section id="item" class="container-fluid">
         <div class="wrapper">
+        <a href="/ims/sales" class="btn btn-info">Sales - Staff</a>&nbsp;
+        <a href="/ims/sales/total_sales_report" class="btn btn-info">Sales - Total</a>&nbsp;
+        <a href="/ims/sales/list" class="btn btn-info">List of Sales</a>
+        
           <h1>Sales Contract</h1>
             <div class="row">
                 <div class="col-xs-12 col-md-6">      
@@ -10,7 +13,7 @@
                 </div>
                 <div class="col-xs-4 col-sm-6">
                     <h1>{{ $online_sale->artwork->title }}</h1>
-                    <h2>{{ $online_sale->artwork->artist->name }}</a></h2>
+                    <h2>{{ $online_sale->artwork->artist->name }}</h2>
                     <p>
                         @forelse($online_sale->artwork->categories as $category)
                             {{ $category->title }}, 
@@ -34,3 +37,4 @@
             </div>
         </div>
     </section>
+@endsection

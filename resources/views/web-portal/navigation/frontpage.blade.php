@@ -51,18 +51,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href='/gallery'>Gallery</a></li>
                             <li><a href='/contact'>Contact</a></li>
-                            
-                            {!! Form::open(['url' => '/accessibility']) !!}
-                            @if (Cookie::get('accessible') == NULL)
-                                <input type="hidden" name="accessible" value="TRUE"> 
-                                <input type="hidden" name="url" value="{{ Request::url() }}">
-                                <li>{!! Form::submit('Large Font', ['class' => 'btn btn-default', 'name' => 'accessibility']) !!}</li>
-                            @else
-                                <input type="hidden" name="accessible" value="FALSE">
-                                <input type="hidden" name="url" value="{{ Request::url() }}">
-                                <li>{!! Form::submit('Regular Font', ['class' => 'btn btn-default', 'name' => 'accessibility']) !!}</li>
-                            @endif
-                            {!! Form::close() !!}
+
 
                             @guest
                                 <li><a href='/login'>Login</a></li>
@@ -87,14 +76,28 @@
                                     </div>
                                 </li>
                             @endguest
+
                         </ul>
                     </div>
                 </div>
-                @if(Session::has('flash_message'))
-                    <p class="alert alert-info">{{ Session::get('flash_message') }}</p>
-                @endif
             </div>
         </nav> 
+        
+    @if ($errors->any())
+    <section id="item" class="container-fluid">
+        <div class="row">
+            <p class="text-danger">{{ implode('', $errors->all(':message')) }}</p>
+        </div>
+    </section>
+    @endif
+
+    @if(Session::has('flash_message'))
+    <section id="item" class="container-fluid">
+        <div class="row">
+            <p class="alert alert-info">{{ Session::get('flash_message') }}</p>
+        </div>
+    </section>
+    @endif
 
         @yield('content')
 
@@ -115,7 +118,21 @@
                                 Accessible Mode
                         @endif
                         </p>
-                            
+
+                        <p>
+                        {!! Form::open(['url' => '/accessibility']) !!}
+                        @if (Cookie::get('accessible') == NULL)
+                            <input type="hidden" name="accessible" value="TRUE"> 
+                            <input type="hidden" name="url" value="{{ Request::url() }}">
+                            <li>{!! Form::submit('Large Font', ['class' => 'btn btn-default', 'name' => 'accessibility']) !!}</li>
+                        @else
+                            <input type="hidden" name="accessible" value="FALSE">
+                            <input type="hidden" name="url" value="{{ Request::url() }}">
+                            <li>{!! Form::submit('Regular Font', ['class' => 'btn btn-default', 'name' => 'accessibility']) !!}</li>
+                        @endif
+                        {!! Form::close() !!}
+                        </p>    
+
 
                     </div>
                 </div>
