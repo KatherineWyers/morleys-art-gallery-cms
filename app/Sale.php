@@ -43,4 +43,9 @@ class Sale extends Model
                      ->get();
     	return $sales_and_online_sales;
     }
+
+    public function scopeInMonth($query, $year, $month) 
+    {
+        return $query->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month);
+    }
 }

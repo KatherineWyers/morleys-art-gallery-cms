@@ -78,14 +78,28 @@ $factory->define(App\NewsArticle::class, function (Faker $faker) {
 });
 
 $factory->define(App\Sale::class, function (Faker $faker) {
+    $artwork = App\Artwork::visible()->first();
+    $seller = App\User::Admins()->first();
     return [
         'name' => $faker->name,
         'email' => $faker->email,
         'phone_number' => $faker->phoneNumber, 
-        'artwork_id' => 1,
-        'seller_id' => 1
+        'artwork_id' => $artwork->id,
+        'seller_id' => $seller->id
     ];
 });
+
+$factory->define(App\OnlineSale::class, function (Faker $faker) {
+    $artwork = App\Artwork::visible()->first();
+    $customer = App\User::Customers()->first();
+    return [
+        'purchaser_name' => $faker->name,
+        'purchaser_email' => $faker->email,
+        'customer_id' => $customer->id, 
+        'artwork_id' => $artwork->id
+    ];
+});
+
 
 $factory->define(App\Appointment::class, function (Faker $faker) {
     $artwork = App\Artwork::visible()->first();

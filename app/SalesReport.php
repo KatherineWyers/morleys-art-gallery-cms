@@ -43,5 +43,4 @@ class SalesReport extends Model
         return $this->sales_figure;
     }
 
-
 }

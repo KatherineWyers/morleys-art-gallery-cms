@@ -55,9 +55,9 @@ Route::get('/ims/pos/{artwork_id}', 'SalesController@create');
 Route::post('/ims/sales', 'SalesController@store');
 Route::get('/ims/sales', 'SalesController@index');
 
-
 Route::get('/ims/sales/online/mark_as_collected/{online_sale_id}', 'SalesController@markOnlineSaleAsCollected');
 
+Route::get('/ims/sales/total_sales_report/{year?}/{month?}/{tax_rate?}', 'SalesController@totalSalesReport');
 
 Route::get('/ims/sales/list', 'SalesController@list');
 Route::get('/ims/sales/online/{id}', 'SalesController@showOnlineSale');
