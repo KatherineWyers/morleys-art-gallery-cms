@@ -1,9 +1,6 @@
 @extends('ims.navigation.standardpage')
 @section('content')
 
-    @if ($errors->any())
-        <p class="text-danger">{{ implode('', $errors->all(':message')) }}</p>
-    @endif
 
     <section id="item" class="container-fluid">
         <div class="wrapper">
@@ -21,3 +18,4 @@
         @endforelse
         </div>
     </section>
+@endsection

@@ -6,11 +6,6 @@
 
         <h1>{{ $wishlist->customer->name }} - Wishlist</h1>
 
-    @if ($errors->any())
-        <p class="text-danger">{{ implode('', $errors->all(':message')) }}</p>
-    @endif
-
-
         @forelse($wishlist->artworks as $artwork)
             <div class="row">
                 <div class="col-xs-12">
@@ -32,3 +27,4 @@
         @endforelse
         </div>
     </section>
+@endsection

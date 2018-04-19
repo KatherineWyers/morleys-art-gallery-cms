@@ -6,11 +6,6 @@
         <div class="wrapper">
         <h1>My Wishlist</h1>
 
-    @if ($errors->any())
-        <p class="text-danger">{{ implode('', $errors->all(':message')) }}</p>
-    @endif
-
-
         @forelse($wishlist->artworks as $artwork)
             <div class="row">
                 <div class="col-xs-12">
@@ -62,3 +57,4 @@
 
         </div>
     </section>
+@endsection

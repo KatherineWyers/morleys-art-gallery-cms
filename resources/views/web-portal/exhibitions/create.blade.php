@@ -1,10 +1,6 @@
 @extends('web-portal.navigation.formwithdatepicker')
 @section('content')
 
-    @if ($errors->any())
-        <p class="text-danger">{{ implode('', $errors->all(':message')) }}</p>
-    @endif
-
     <section id="item" class="container-fluid">
         <div class="wrapper">
             <h1>Create a new Exhibition</h1>
@@ -49,3 +45,4 @@
             </div>
         </div>
     </section>
+@endsection
