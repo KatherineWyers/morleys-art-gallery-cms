@@ -75,6 +75,42 @@ class ArtworkTest extends DuskTestCase
      * @group artworks
      * @return void
      */
+    public function test_Should_DisplayNotification_When_NoCategoriesSelected()
+    {
+        $this->loginAsStaff();
+        $this->browse(function ($browser) {
+            $artist = Artist::all()->first();
+            $browser->visit('/artworks/create')
+                    ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('img_2', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('img_3', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('img_sq', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
+                    ->value('input[name=title]','Beautiful Flowers')
+                    ->select('artist_id', $artist->id)
+                    ->type('year_created', 2005)
+                    ->type('medium', 'Oil on canvas')
+                    ->type('width_cm', 7.0)
+                    ->type('height_cm', 8.1)
+                    ->type('width_in', 9.2)
+                    ->type('height_in', 10.3)
+                    ->type('price', 6000)
+                    ->type('desc_1', 'Description Text')
+                    ->click('input[type="submit"]')
+                    ->assertPathIs('/artworks/create')
+                    ->assertSee('The categories field is required');
+        });
+        $this->logout();
+    }
+
+
+
+
+
+    /**
+     * @group cms
+     * @group artworks
+     * @return void
+     */
     public function test_Should_CreateArtwork_When_FormDataIsValid()
     {
         $this->loginAsStaff();

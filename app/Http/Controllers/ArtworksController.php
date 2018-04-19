@@ -77,6 +77,7 @@ class ArtworksController extends Controller
             'title' => 'required|max:30',
             'artist_id' => 'required|exists:artists,id',
             'year_created' => 'required|integer|min:1500|max:2050',
+            'categories' => 'required',
             'desc_1' => 'required|max:1000',
             'medium' => 'required|max:30',
             'width_cm' => 'required|numeric',

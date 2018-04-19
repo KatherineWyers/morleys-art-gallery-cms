@@ -68,7 +68,6 @@ class OnlineSalesTest extends DuskTestCase
 
     /**
      * @group online-sales
-     * @group current
      *
      * @return void
      */

@@ -28,6 +28,4 @@ class PagesController extends Controller
         $response = response()->view('web-portal.frontpage', compact('featured_artworks', 'current_exhibitions', 'latest_news_articles'));
         return VisitHandler::handleVisit($request, $response);
     }
-
-
 }
