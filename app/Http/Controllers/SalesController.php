@@ -57,6 +57,7 @@ class SalesController extends Controller
 
         if($artwork->visible==FALSE) {
             // item is not visible
+            \Session::flash('flash_message', 'Transaction Cancelled. The requested artwork is no longer available');
             return redirect('/');
         }
 
@@ -103,6 +104,7 @@ class SalesController extends Controller
 
         if($artwork->visible==FALSE) {
             // item is not visible
+            \Session::flash('flash_message', 'Transaction Cancelled. The requested artwork is no longer available');
             return redirect('/wishlists/' . $wishlist->id);
         }
 
@@ -131,6 +133,7 @@ class SalesController extends Controller
 
         if($artwork->visible==FALSE) {
             // item is not visible
+            \Session::flash('flash_message', 'Transaction Cancelled. The requested artwork is no longer available');
             return redirect('/wishlists/' . $wishlist->id);
         }
 
