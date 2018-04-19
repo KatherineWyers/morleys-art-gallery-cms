@@ -15,6 +15,7 @@ use App\Visit;
 
 use App\StringHandler;
 use App\VisitHandler;
+use App\AppointmentsReport;
 
 class AppointmentsController extends Controller
 {
@@ -27,8 +28,20 @@ class AppointmentsController extends Controller
         $this->middleware('ismanageroradmin', ['except' => ['create', 'store']]);
     }
 
-    public function indexForDate($date = 26, $month = 3, $year = 2018)
+    public function indexForDate($date = NULL, $month = NULL, $year = NULL)
     {        
+        if(is_null($date)) 
+        {
+            Carbon::now()->day;
+        }       
+        if(is_null($month)) 
+        {
+            Carbon::now()->month;
+        }       
+        if(is_null($year)) 
+        {
+            Carbon::now()->year;
+        }
 
         $calendar = new Calendar;
         $calendar->setDatetime($date, $month, $year);
@@ -120,6 +133,20 @@ class AppointmentsController extends Controller
         $appointment->save();
         \Session::flash('flash_message', 'The appointment was marked as leading to a sale');
         return redirect('/ims/appointments');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reports()
+    {        
+        $report_this_month = AppointmentsReport::getReport(Carbon::now()->year, Carbon::now()->month);
+        $report_last_month = AppointmentsReport::getReport(Carbon::now()->subMonth()->year, Carbon::now()->subMonth()->month); 
+        $report_two_months_ago = AppointmentsReport::getReport(Carbon::now()->subMonths(2)->year, Carbon::now()->subMonths(2)->month);
+        $report_three_months_ago = AppointmentsReport::getReport(Carbon::now()->subMonths(3)->year, Carbon::now()->subMonths(3)->month); 
+        return view('ims.appointments.reports', compact('report_this_month', 'report_last_month', 'report_two_months_ago', 'report_three_months_ago'));
     }
 
 

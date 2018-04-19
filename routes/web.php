@@ -74,6 +74,8 @@ Route::post('/appointments', 'AppointmentsController@store');
 Route::get('/ims/appointments/delete/{id}', 'AppointmentsController@delete');
 Route::get('/ims/appointments/mark_as_sale/{id}', 'AppointmentsController@markAsSale');
 Route::get('/ims/appointments/destroy/{id}', 'AppointmentsController@destroy');
+
+Route::get('/ims/appointments/reports', 'AppointmentsController@reports');
 Route::get('/ims/appointments/{date?}/{month?}/{year?}', 'AppointmentsController@indexForDate');
 
 
