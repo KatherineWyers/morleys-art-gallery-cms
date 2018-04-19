@@ -41,6 +41,8 @@
 
             <h1>Future Exhibitions</h1>
             <div class="row">
+                <?php $index = 1; ?>
+
                 @forelse($exhibitions_in_the_next_365_days as $exhibition)
                 <div class="col-xs-12 col-sm-6">
                     <a href="/exhibitions/{{ $exhibition->id }}"><img src="/img/exhibitions/{{ $exhibition->img_2 }}" class="img-responsive"></a>
@@ -56,6 +58,20 @@
                         </div>
                     </div>
                 </div>
+
+                <?php
+                $oneCol = ($index % 1) == 0;
+                $twoCols  = ($index % 2) == 0;
+
+                if ($oneCol && $twoCols) {
+                ?><div class="clearfix visible-lg visible-md visible-sm visible-xs"></div><?php
+                } 
+                elseif ($twoCols) {
+                ?><div class="clearfix visible-lg visible-md visible-sm hidden-xs"></div><?php
+                }  
+                $index++; 
+                ?>
+
                 @empty
                 @endforelse
             </div>
