@@ -8,6 +8,8 @@ class MathHelper extends Model
 {
     /**
      * Return a percentage, rounded down to the nearest integer
+     * @param num int
+     * @param denom int
      * @var array
      */
     public static function calculatePercentage($num, $denom)
@@ -22,5 +24,17 @@ class MathHelper extends Model
             return 100;
         }
         return (int)(($num/$denom)*100);
+    }
+
+
+    /**
+     * Return a percentage, rounded down to the nearest integer
+     * @param value int
+     * @param percentage int
+     * @var array
+     */
+    public static function calculatePercentageOfValue($value, $percentage)
+    {
+        return (int)(($value / 100)*$percentage);
     }
 }

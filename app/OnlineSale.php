@@ -22,7 +22,7 @@ class OnlineSale extends Model
 	public function artwork() {
 		return $this->belongsTo('App\Artwork');
 	}
-
+	
 	/**
 	* Get the customer
 	*/
@@ -30,9 +30,14 @@ class OnlineSale extends Model
 		return $this->belongsTo('App\User', 'customer_id'); 
 	}
 
-  public function scopeUncollected($query) 
-  {
-    return $query->where('online_sales.collected', FALSE);
-  }
+	public function scopeUncollected($query) 
+	{
+		return $query->where('online_sales.collected', FALSE);
+	}
+
+	public function scopeInMonth($query, $year, $month) 
+	{
+	    return $query->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month);
+	}
 
 }

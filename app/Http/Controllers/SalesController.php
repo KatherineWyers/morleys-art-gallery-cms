@@ -15,6 +15,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\Visit;
 use App\VisitHandler;
+use Carbon\Carbon;
+use App\TotalSalesReport;
 
 
 class SalesController extends Controller
@@ -227,4 +229,31 @@ class SalesController extends Controller
         \Session::flash('flash_message', 'The online sale was marked as collected');
         return redirect('/ims/sales/online/' . $online_sale->id);
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function totalSalesReport($year = NULL, $month = NULL, $tax_rate = NULL)
+    {        
+        if(is_null($year)) 
+        {
+            $year = Carbon::now()->year;
+        }
+
+        if(is_null($month)) 
+        {
+            $month = Carbon::now()->month;
+        }
+
+        if(is_null($tax_rate)) 
+        {
+            $tax_rate = 20;
+        }       
+
+        $total_sales_report = new TotalSalesReport(['year' => $year, 'month' => $month, 'tax_rate' => $tax_rate]); 
+        return view('ims.sales.totalSalesReport', compact('total_sales_report'));
+    }
+
 }
