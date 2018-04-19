@@ -129,7 +129,6 @@ class AppointmentsTest extends DuskTestCase
     /**
      * @group ims
      * @group appointments
-     * @group current
      * @return void
      */
     public function test_Should_MarkAppointmentAsLeadingToSale_When_StaffLogsAppointmentAsLeadingToSale()

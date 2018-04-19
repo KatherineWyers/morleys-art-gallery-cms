@@ -164,6 +164,14 @@ class SalesController extends Controller
         //credit card details are never stored
 
         $online_sale=$request->all();
+
+        $artwork = Artwork::find($request->input('artwork_id'));
+        if(!$artwork->visible)
+        {
+            \Session::flash('flash_message', 'Transaction Cancelled. The requested item is no longer available.');
+            return redirect('/');
+        }
+        
         $online_sale = OnlineSale::create($online_sale);
 
         $artwork = Artwork::find($online_sale->artwork_id);

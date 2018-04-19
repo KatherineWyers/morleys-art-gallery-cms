@@ -42,7 +42,6 @@ class OnlineSalesTest extends DuskTestCase
     public function test_Should_PurchaseArtwork_When_CustomerTriesToMakeAnOnlinePurchase()
     {
         $artwork = Artwork::visible()->first();
-
         $user = $this->loginAsCustomer();
         $this->browse(function ($browser) use ($artwork, $user) {
             $browser->visit('/artworks/' . $artwork->id)
@@ -64,11 +63,12 @@ class OnlineSalesTest extends DuskTestCase
                     ->assertPathIs('/artworks')
                     ->assertSee('The requested artwork is no longer available');
         });
-        $this->logout();    
+        $this->logout();  
     }
 
     /**
      * @group online-sales
+     * @group current
      *
      * @return void
      */
@@ -195,7 +195,9 @@ class OnlineSalesTest extends DuskTestCase
 
     private function createOnlineSale($customer, $artwork)
     {
-            return OnlineSale::create(['purchaser_name' => $customer->name, 'purchaser_email' => $customer->email, 'customer_id' => $customer->id, 'artwork_id' => $artwork->id]);
+        $artwork->visible = FALSE;
+        $artwork->save();
+        return OnlineSale::create(['purchaser_name' => $customer->name, 'purchaser_email' => $customer->email, 'customer_id' => $customer->id, 'artwork_id' => $artwork->id]);
     }
 
 
