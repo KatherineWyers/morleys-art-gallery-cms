@@ -1,4 +1,4 @@
-@extends('web-portal.navigation.standardpage')
+@extends('ims.navigation.standardpage')
 @section('content')
 
     <section id="item" class="container-fluid">
