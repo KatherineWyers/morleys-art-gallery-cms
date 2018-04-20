@@ -241,6 +241,7 @@ class SalesController extends Controller
         return redirect('/ims/sales/online/' . $online_sale->id);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
