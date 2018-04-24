@@ -25,14 +25,12 @@ class AppointmentsReportsTest extends DuskTestCase
      */
     public function test_Should_UpdateAppointmentsReport_When_StaffMarksAppointmentAsLedToSale()
     {
+        //check initial values
         $year = Carbon::now()->year;
         $month = Carbon::now()->month;
-
         $appointments_report = AppointmentsReport::getReport($year, $month);
         $appointments_count_before_this_sale = $appointments_report->appointmentsCount();
         $appointments_led_to_sale_count_before_this_sale = $appointments_report->appointmentsLedToSaleCount();
-
-        //make the appointment
         $artwork = Artwork::where('visible', TRUE)->first();
 
         //create an unsuccessful appointment
@@ -41,6 +39,7 @@ class AppointmentsReportsTest extends DuskTestCase
         //create a successful appointment
         $appointment_successful = factory(Appointment::class)->create(['name' => 'Test Name', 'phone_number' => '0123456', 'email' => 'test.name@gmail.com', 'datetime' => Carbon::now()->format('Y-m-d h:m:s'), 'artwork_id' => $artwork->id, 'led_to_sale' => TRUE]);
 
+        //check the values after appointments created
         $appointments_count_after_this_sale = $appointments_report->appointmentsCount();
         $appointments_led_to_sale_count_after_this_sale = $appointments_report->appointmentsLedToSaleCount();
         $appointments_led_to_sale_percentage_after_this_sale = $appointments_report->appointmentsLedToSalePercentage();

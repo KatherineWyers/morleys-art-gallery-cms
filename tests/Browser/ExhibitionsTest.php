@@ -117,7 +117,7 @@ class ExhibitionsTest extends DuskTestCase
      * @group exhibitions
      * @return void
      */
-    public function test_Should_CreateArtwork_When_FormDataIsValid()
+    public function test_Should_CreateExhibition_When_FormDataIsValid()
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MathHelper extends Model
 {
     /**
-     * Return a percentage, rounded down to the nearest integer
+     * Convert numerator and denominator into integer percentage
      * @param num int
      * @param denom int
      * @var array
@@ -28,7 +28,7 @@ class MathHelper extends Model
 
 
     /**
-     * Return a percentage, rounded down to the nearest integer
+     * Calculate the percentage of a given value
      * @param value int
      * @param percentage int
      * @var array

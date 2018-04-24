@@ -29,19 +29,6 @@ class NewsArticlesTest extends DuskTestCase
      * @group news_articles
      * @return void
      */
-    public function test_Should_DisplayUnauthorizedInCreateForm_When_UserIsGuest()
-    {
-        // $this->browse(function ($browser) {
-        //     $browser->visit('/news_articles/create')
-        //             ->assertSee('Unauthorized'); 
-        // });
-    }
-
-    /**
-     * @group cms
-     * @group news_articles
-     * @return void
-     */
     public function test_Should_NotDisplayCreateButton_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
@@ -62,87 +49,6 @@ class NewsArticlesTest extends DuskTestCase
             $browser->visit('/news_articles/' . $news_article->id)
                     ->assertDontSee("Edit");
         });
-    }
-
-    /**
-     * @group cms
-     * @group news_articles
-     * @return void
-     */
-    public function test_Should_DisplayCreateButton_When_UserIsStaff()
-    {
-        // $this->loginAsStaff();
-        // $this->browse(function ($browser) {
-        //     $browser->visit('/news_articles')
-        //             ->assertSee("+ Add New News Article");
-        // });
-        // $this->logout();
-    }
-
-    /**
-     * @group cms
-     * @group news_articles
-     * @return void
-     */
-    public function test_Should_CreateNewsArticle_When_FormDataIsValid()
-    {
-        // $this->loginAsStaff();
-        // $this->browse(function ($browser) {
-
-
-        //     $title = $this->generateRandomString(10);
-        //     $content = $this->generateRandomString(10);
-
-        //     $news_article = factory(\App\NewsArticle::class)->create([]);
-        //     $next_id = $news_article->id + 1;
-
-        //     $browser->visit('/news_article/create')
-        //             ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
-        //             ->value('input[name=title]',$title)
-        //             ->assertSee($content);
-
-        // });
-        // $this->logout();
-    }
-
-
-    /**
-     * @group cms
-     * @group news_articles
-     * @return void
-     */
-    public function test_Should_DisplayEditButton_When_UserIsStaff()
-    {
-        // $this->loginAsStaff();
-        // $this->browse(function ($browser) {
-        //     $news_article = NewsArticle::all()->first();
-        //     $browser->visit('/news_articles/' . $news_article->id)
-        //             ->assertSee("Edit");
-        // });
-        // $this->logout();
-    }
-
-    /**
-     * @group cms
-     * @group news_articles
-     * @return void
-     */
-    public function test_Should_EditNewsArticle_When_FormDataIsValid()
-    {
-        // $this->loginAsStaff();
-        // $this->browse(function ($browser) {
-        //     $title = $this->generateRandomString(10);
-        //     $content = $this->generateRandomString(10);
-
-        //     $news_article = factory(\App\NewsArticle::class)->create([]);
-
-        //     $browser->visit('/news_articles/' . $news_article->id . '/edit')
-        //             ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
-        //             ->value('input[name=title]',$title)
-        //             ->assertSee($content);
-        // });
-
-        // $this->logout();
     }
 
 

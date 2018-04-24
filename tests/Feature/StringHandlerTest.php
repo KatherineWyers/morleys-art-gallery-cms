@@ -18,7 +18,7 @@ class StringHandlerTest extends TestCase
     {
     	//INTEGER INPUTS
 
-    	// lower boundary
+    	// lower boundary near 0
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99(-1));
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99(0));
         $this->assertTrue("01" == StringHandler::addLeadingZeroFrom0To99(1));
@@ -28,7 +28,7 @@ class StringHandlerTest extends TestCase
         $this->assertTrue("50" == StringHandler::addLeadingZeroFrom0To99(50));
         $this->assertTrue("51" == StringHandler::addLeadingZeroFrom0To99(51));
 
-        // upper boundary 
+        // upper boundary near 100
         $this->assertTrue("98" == StringHandler::addLeadingZeroFrom0To99(98));
         $this->assertTrue("99" == StringHandler::addLeadingZeroFrom0To99(99));
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99(100));
@@ -43,7 +43,7 @@ class StringHandlerTest extends TestCase
     public function testaddLeadingZeroFrom0To99_Should_CorrectlyHandleFloatingPointNumbers()
     {
         //FLOATING POINT INPUTS
-    	// lower boundary
+    	// lower boundary near 0
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99(-1.1));
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99(0.1));
         $this->assertTrue("01" == StringHandler::addLeadingZeroFrom0To99(1.1));
@@ -53,7 +53,7 @@ class StringHandlerTest extends TestCase
         $this->assertTrue("50" == StringHandler::addLeadingZeroFrom0To99(50.1));
         $this->assertTrue("51" == StringHandler::addLeadingZeroFrom0To99(51.1));
 
-        // upper boundary 
+        // upper boundary near 100
         $this->assertTrue("98" == StringHandler::addLeadingZeroFrom0To99(98.1));
         $this->assertTrue("99" == StringHandler::addLeadingZeroFrom0To99(99.1));
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99(100.1));
@@ -69,7 +69,7 @@ class StringHandlerTest extends TestCase
     {
     	//STRING NUMERIC INPUTS
 
-    	// lower boundary
+    	// lower boundary near 0
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99("-1"));
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99("0"));
         $this->assertTrue("01" == StringHandler::addLeadingZeroFrom0To99("1"));
@@ -79,7 +79,7 @@ class StringHandlerTest extends TestCase
         $this->assertTrue("50" == StringHandler::addLeadingZeroFrom0To99("50"));
         $this->assertTrue("51" == StringHandler::addLeadingZeroFrom0To99("51"));
 
-        // upper boundary 
+        // upper boundary near 100
         $this->assertTrue("98" == StringHandler::addLeadingZeroFrom0To99("98"));
         $this->assertTrue("99" == StringHandler::addLeadingZeroFrom0To99("99"));
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99("100"));
@@ -95,7 +95,7 @@ class StringHandlerTest extends TestCase
     public function testaddLeadingZeroFrom0To99_Should_CorrectlyHandleStringFloatingPointNumbers()
     {
         //FLOATING POINT INPUTS
-    	// lower boundary
+    	// lower boundary near 0
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99("-1.1"));
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99("0.1"));
         $this->assertTrue("01" == StringHandler::addLeadingZeroFrom0To99("1.1"));
@@ -105,7 +105,7 @@ class StringHandlerTest extends TestCase
         $this->assertTrue("50" == StringHandler::addLeadingZeroFrom0To99("50.1"));
         $this->assertTrue("51" == StringHandler::addLeadingZeroFrom0To99("51.1"));
 
-        // upper boundary 
+        // upper boundary near 100
         $this->assertTrue("98" == StringHandler::addLeadingZeroFrom0To99("98.1"));
         $this->assertTrue("99" == StringHandler::addLeadingZeroFrom0To99("99.1"));
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99("100.1"));
@@ -113,22 +113,13 @@ class StringHandlerTest extends TestCase
 
 
     /**
-     * Should Correctly Handle Null
+     * Should Correctly Handle Invalid Inputs
      *
      * @return void
      */
-    public function testaddLeadingZeroFrom0To99_Should_CorrectlyHandleNull()
+    public function testaddLeadingZeroFrom0To99_Should_CorrectlyHandleInvalidInput()
     {
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99(NULL));
-    }
-
-    /**
-     * Should Correctly Handle Text String
-     *
-     * @return void
-     */
-    public function testaddLeadingZeroFrom0To99_Should_CorrectlyHandleTextString()
-    {
         $this->assertTrue("00" == StringHandler::addLeadingZeroFrom0To99("ABC"));
     }
 

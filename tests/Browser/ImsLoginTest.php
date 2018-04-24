@@ -136,12 +136,4 @@ class ImsLoginTest extends DuskTestCase
         }); 
     }
 
-    /**
-     * @group ims
-     * @group login
-     * @return void
-     */
-    public function testStaffCanProcessSaleInImsPos() {
-        //
-    }
 }

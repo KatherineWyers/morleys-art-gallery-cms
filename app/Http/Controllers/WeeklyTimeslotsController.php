@@ -59,6 +59,8 @@ class WeeklyTimeslotsController extends Controller
             $weekly_timeslot->save();
         }
 
+        \Session::flash('flash_message','Weekly timeslots updated successfully');
+
         return redirect('/ims/weekly_timeslots');
     }
 

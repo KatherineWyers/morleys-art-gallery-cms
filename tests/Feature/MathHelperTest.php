@@ -9,18 +9,18 @@ use App\MathHelper;
 
 class MathHelperTest extends TestCase
 {
+
     /**
      *
      * @return void
      */
-    public function testCalculatePercentage_Should_ReturnRoundedPercentage()
+    public function testCalculatePercentage_Should_Return0or100forResultsOutsideRange()
     {
-
         //Zero numerator
         $this->assertTrue(0 == MathHelper::calculatePercentage(0, 1));
         $this->assertTrue(0 == MathHelper::calculatePercentage(0, 2));
 
-    	//Zero denominator (divide by zero)
+        //Zero denominator (divide by zero)
         $this->assertTrue(0 == MathHelper::calculatePercentage(0, 0));
         $this->assertTrue(0 == MathHelper::calculatePercentage(1, 0));
 
@@ -28,13 +28,21 @@ class MathHelperTest extends TestCase
         $this->assertTrue(0 == MathHelper::calculatePercentage(-2, 1));
         $this->assertTrue(0 == MathHelper::calculatePercentage(-1, 2));
 
-    	//Negative denominator (outside range)
+        //Negative denominator (outside range)
         $this->assertTrue(0 == MathHelper::calculatePercentage(1, -2));
         $this->assertTrue(0 == MathHelper::calculatePercentage(2, -1));
 
         //Numerator higher than denominator returns 100  (outside range)
         $this->assertTrue(100 == MathHelper::calculatePercentage(50, 49));
 
+    }
+
+    /**
+     *
+     * @return void
+     */
+    public function testCalculatePercentage_Should_ValidInputsReturnRoundedPercentage()
+    {
         //Whole-number percentages
         $this->assertTrue(25 == MathHelper::calculatePercentage(1, 4));
         $this->assertTrue(25 == MathHelper::calculatePercentage(2, 8));
@@ -69,10 +77,14 @@ class MathHelperTest extends TestCase
      */
     public function testCalculatePercentageOfValue_Should_ReturnRoundedInteger()
     {
-        $this->assertTrue(0 == MathHelper::calculatePercentageOfValue(0, 50));//Zero value
-        $this->assertTrue(0 == MathHelper::calculatePercentageOfValue(1000, 0));//Zero perc
-        $this->assertTrue(-500 == MathHelper::calculatePercentageOfValue(-1000, 50));//Negative value
-        $this->assertTrue(-500 == MathHelper::calculatePercentageOfValue(1000, -50));//Negative percentage
+        //Zero value
+        $this->assertTrue(0 == MathHelper::calculatePercentageOfValue(0, 50));
+        //Zero percentage
+        $this->assertTrue(0 == MathHelper::calculatePercentageOfValue(1000, 0));
+        //Negative Value
+        $this->assertTrue(-500 == MathHelper::calculatePercentageOfValue(-1000, 50));
+        //Negative percentage
+        $this->assertTrue(-500 == MathHelper::calculatePercentageOfValue(1000, -50));
 
         //whole numbers
         $this->assertTrue(100 == MathHelper::calculatePercentageOfValue(1000, 10));
@@ -80,15 +92,20 @@ class MathHelperTest extends TestCase
         $this->assertTrue(500 == MathHelper::calculatePercentageOfValue(1000, 50));
         $this->assertTrue(1000 == MathHelper::calculatePercentageOfValue(1000, 100));
 
-        //decimal values
+        //decimal values round down
         $this->assertTrue(1 == MathHelper::calculatePercentageOfValue(10.1, 10));
         $this->assertTrue(1 == MathHelper::calculatePercentageOfValue(10.5, 10));
         $this->assertTrue(1 == MathHelper::calculatePercentageOfValue(10.9, 10));
 
-        //decimal percentages
+        //decimal percentages round down
         $this->assertTrue(101 == MathHelper::calculatePercentageOfValue(1000, 10.111111));
         $this->assertTrue(105 == MathHelper::calculatePercentageOfValue(1000, 10.555555));
         $this->assertTrue(109 == MathHelper::calculatePercentageOfValue(1000, 10.999999));
+
+        //negative decimal results round up towards zero
+        $this->assertTrue(-101 == MathHelper::calculatePercentageOfValue(-1000, 10.111111));
+        $this->assertTrue(-105 == MathHelper::calculatePercentageOfValue(-1000, 10.555555));
+        $this->assertTrue(-109 == MathHelper::calculatePercentageOfValue(-1000, 10.999999));
     }
 
 }

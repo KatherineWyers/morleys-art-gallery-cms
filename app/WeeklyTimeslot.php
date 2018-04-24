@@ -18,6 +18,11 @@ class WeeklyTimeslot extends Model
         return $this->day . " - " . $this->hour . ":00";
     }
 
+    public function scopeChecked($query) 
+    {
+        return $query->where('checked', '=', TRUE)->orderBy('id', 'asc');
+    }
+
     public function scopeOnDay($query, $day) 
     {
         return $query->where('day', '=', $day)->where('checked', '=', TRUE)->orderBy('hour', 'asc');
