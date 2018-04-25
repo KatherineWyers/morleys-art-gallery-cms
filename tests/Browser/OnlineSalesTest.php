@@ -59,7 +59,7 @@ class OnlineSalesTest extends DuskTestCase
                     ->type('cc_exp_mm', '01')
                     ->type('cc_exp_yyyy', '2020')
                     ->type('cc_cvv', '123')
-                    ->click('input[type="submit"]')
+                    ->click('input[name="submit"]')
                     ->assertSee('Item purchased successfully. It is now available for collection by ' . $user->name . ' at the gallery. Thank you')
                     ->visit('/artworks/' . $artwork->id)
                     ->assertPathIs('/artworks')

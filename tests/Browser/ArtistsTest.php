@@ -93,6 +93,7 @@ class ArtistsTest extends DuskTestCase
     /**
      * @group cms
      * @group artists
+     * @group current
      * @return void
      */
     public function test_Should_CreateArtist_When_FormDataIsValid()
@@ -111,7 +112,7 @@ class ArtistsTest extends DuskTestCase
                     ->attach('featured_artwork_img_sm', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
                     ->type('name', 'Random Name')
                     ->type('desc_1', 'Lorum ipsum Text')
-                    ->click('input[type="submit"]')
+                    ->click('.btn-success')
                     ->assertPathIs('/artists/' . $next_id);
         });
 
@@ -139,7 +140,7 @@ class ArtistsTest extends DuskTestCase
                     ->attach('featured_artwork_img_sm', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
                     ->type('name', 'Random Name')
                     ->type('desc_1', 'Lorum ipsum Text')
-                    ->click('input[type="submit"]')
+                    ->click('input[name="submit"]')
                     ->assertSee('The featured artwork img lg has invalid image dimensions');
         });
 
@@ -165,7 +166,7 @@ class ArtistsTest extends DuskTestCase
                     ->visit('/artists/' . $artist->id . '/edit')
                     ->type('name', 'Test Name')
                     ->type('desc_1', 'Test Description of the Artist')
-                    ->click('input[type="submit"]')
+                    ->click('input[name="submit"]')
                     ->visit('/artists/' . $artist->id)
                     ->assertSee('Test Name')
                     ->assertSee('Test Description of the Artist');
@@ -194,7 +195,7 @@ class ArtistsTest extends DuskTestCase
                     ->attach('featured_artwork_img_sm', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
                     ->type('name', 'Random Name')
                     ->type('desc_1', 'Lorum ipsum Text')
-                    ->click('input[type="submit"]')
+                    ->click('input[name="submit"]')
                     ->assertSee('The profile img has invalid image dimensions')
                     ->assertSee('The featured artwork img lg has invalid image dimensions')
                     ->assertSee('The featured artwork img sm has invalid image dimensions');

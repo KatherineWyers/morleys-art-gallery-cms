@@ -64,7 +64,7 @@
                         {!! Form::text('cc_cvv', null,['class'=>'form-control', 'required' => 'required']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Complete Transaction', ['class' => 'btn btn-warning form-control']) !!}
+                        {!! Form::submit('Complete Transaction', ['class' => 'btn btn-warning form-control', 'name' => 'submit']) !!}
                     </div>
                     {!! Form::close() !!}
                 </div>

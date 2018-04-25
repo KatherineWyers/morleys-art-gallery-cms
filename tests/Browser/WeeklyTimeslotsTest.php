@@ -90,7 +90,7 @@ class WeeklyTimeslotsTest extends DuskTestCase
             $browser->resize(1366, 768)
                     ->visit('/ims/weekly_timeslots/edit')
                     ->check("input[name='weekly_timeslots[]']")
-                    ->click('input[type="submit"]')
+                    ->click('input[name="submit"]')
                     ->assertPathIs('/ims/weekly_timeslots')
                     ->assertSee('Weekly timeslots updated successfully');
         });

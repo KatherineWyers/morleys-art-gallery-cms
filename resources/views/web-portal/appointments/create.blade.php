@@ -34,7 +34,7 @@
                             {!! Form::text('email',null,['class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::submit('Complete Booking', ['class' => 'btn btn-warning form-control']) !!}
+                            {!! Form::submit('Complete Booking', ['class' => 'btn btn-warning form-control', 'name' => 'submit']) !!}
                         </div>
                     {!! Form::close() !!}
                 </div>

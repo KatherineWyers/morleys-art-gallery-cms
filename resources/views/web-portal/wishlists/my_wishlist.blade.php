@@ -46,7 +46,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-4">
                 <div class="form-group">
-                    {!! Form::submit('Save', ['class' => 'btn btn-success form-control']) !!}
+                    {!! Form::submit('Save', ['class' => 'btn btn-success form-control', 'name' => 'submit']) !!}
                 </div>
             </div>
         </div>

@@ -47,7 +47,7 @@ class SalesTest extends DuskTestCase
                     ->type('email', 'jgodfrey@gmail.com')
                     ->type('phone_number', '0123456')
                     ->type('amount', $sale_price)//sell the item at a 100 pound discount
-                    ->click('input[type="submit"]')
+                    ->click('input[name="submit"]')
                     ->assertSee('Month: ' . $year . '-' . $month .', Total Items Sold: ' . $expected_item_count . ', Sales: ' . $expected_sales_figure)
                     ->visit('/artworks/' . $artwork->id)//attempt to visit the artwork public page
                     ->assertPathIs('/artworks')

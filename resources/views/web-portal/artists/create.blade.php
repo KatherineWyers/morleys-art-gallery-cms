@@ -38,7 +38,7 @@
                         {{ Form::textarea('desc_1', null, ['id' => 'desc1', 'size' => '30x10','class'=>'form-control', 'required' => 'required']) }}
                     </div>
                     <div class="form-group">
-                        {!! Form::submit('Save', ['class' => 'btn btn-success form-control']) !!}
+                        {!! Form::submit('Save', ['class' => 'btn btn-success form-control', 'name' => 'submit']) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}

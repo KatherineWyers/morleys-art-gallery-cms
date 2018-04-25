@@ -18,6 +18,7 @@ class AppointmentsTest extends DuskTestCase
     /**
      * @group web-portal
      * @group appointments
+     * @group current
      * @return void
      */
     public function test_Should_CreateAppointment_When_UserIsGuest()
@@ -36,7 +37,7 @@ class AppointmentsTest extends DuskTestCase
                     ->type('name', 'Test Name')
                     ->type('phone_number', '0123456')
                     ->type('email', 'test.name@gmail.com')
-                    ->click('input[type="submit"]');
+                    ->click('input[name="submit"]');
         });
 
         //find first artwork

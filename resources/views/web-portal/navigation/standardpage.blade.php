@@ -49,9 +49,20 @@
                             @endguest
                             <li><a href='/gallery'>Gallery</a></li>
                             <li><a href='/contact'>Contact</a></li>
+                        </ul>
 
-
-
+                        <ul class="nav navbar-nav">
+                        {!! Form::open(['url' => '/accessibility']) !!}
+                        @if (Cookie::get('accessible') == NULL)
+                            <input type="hidden" name="accessible" value="TRUE"> 
+                            <input type="hidden" name="url" value="{{ Request::url() }}">
+                            <li>{!! Form::submit('Large Font', ['class' => 'btn btn-info', 'name' => 'accessibility']) !!}</li>
+                        @else
+                            <input type="hidden" name="accessible" value="FALSE">
+                            <input type="hidden" name="url" value="{{ Request::url() }}">
+                            <li>{!! Form::submit('Regular Font', ['class' => 'btn btn-info', 'name' => 'accessibility']) !!}</li>
+                        @endif
+                        {!! Form::close() !!}
                         </ul>
 
                         <!-- Right Side Of Navbar -->
@@ -116,21 +127,6 @@
                         Accessible Mode
                 @endif
                 </p>
-
-                <p>
-                {!! Form::open(['url' => '/accessibility']) !!}
-                @if (Cookie::get('accessible') == NULL)
-                    <input type="hidden" name="accessible" value="TRUE"> 
-                    <input type="hidden" name="url" value="{{ Request::url() }}">
-                    <li>{!! Form::submit('Large Font', ['class' => 'btn btn-default', 'name' => 'accessibility']) !!}</li>
-                @else
-                    <input type="hidden" name="accessible" value="FALSE">
-                    <input type="hidden" name="url" value="{{ Request::url() }}">
-                    <li>{!! Form::submit('Regular Font', ['class' => 'btn btn-default', 'name' => 'accessibility']) !!}</li>
-                @endif
-                {!! Form::close() !!}
-                </p>
-
 
             </div>
         </footer>

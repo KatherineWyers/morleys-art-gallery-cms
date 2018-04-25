@@ -100,7 +100,7 @@ class ArtworkTest extends DuskTestCase
                     ->type('height_in', 10.3)
                     ->type('price', 6000)
                     ->type('desc_1', 'Description Text')
-                    ->click('input[type="submit"]')
+                    ->click('input[name="submit"]')
                     ->assertPathIs('/artworks/create')
                     ->assertSee('The categories field is required');
         });
@@ -141,7 +141,7 @@ class ArtworkTest extends DuskTestCase
                     ->type('height_in', 10.3)
                     ->type('price', 6000)
                     ->type('desc_1', 'Description Text')
-                    ->click('input[type="submit"]')
+                    ->click('input[name="submit"]')
                     ->assertPathIs('/artworks/' . $next_id)
                     ->assertSee('Beautiful Flowers')
                     ->assertSee($artist->name)
@@ -226,7 +226,7 @@ class ArtworkTest extends DuskTestCase
                     ->type('height_in', 10.3)
                     ->type('price', $price)
                     ->type('desc_1', $desc_1)
-                    ->click('input[type="submit"]')
+                    ->click('input[name="submit"]')
                     ->assertPathIs('/artworks/' . $artwork->id)
                     ->assertSee($title)
                     ->assertSee($artist->name)
