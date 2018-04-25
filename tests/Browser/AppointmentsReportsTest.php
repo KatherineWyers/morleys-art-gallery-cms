@@ -49,7 +49,7 @@ class AppointmentsReportsTest extends DuskTestCase
         $expected_appointments_led_to_sale_count = $appointments_led_to_sale_count_before_this_sale + 1;
         $expected_appointments_led_to_sale_percentage = MathHelper::calculatePercentage($expected_appointments_led_to_sale_count, $expected_appointments_count);
 
-        $appointments_report_string = 'Month: ' . $year . '-' . $month . ', Total Appointments: ' . $expected_appointments_count . ', Appointments Led To Sale Count: ' . $expected_appointments_led_to_sale_count . ' Appointments Led To Sale Percentage: ' . $expected_appointments_led_to_sale_percentage;
+        $appointments_report_string = 'Month: ' . $year . '-' . $month . ', Total Appointments: ' . $expected_appointments_count . ', Appointments Led To Sale Count: ' . $expected_appointments_led_to_sale_count . ' Appointments Led To Sale Percentage: ' . $expected_appointments_led_to_sale_percentage . '%';
 
         $this->loginAsManager();
         $this->browse(function ($browser) use($appointments_report_string) {
@@ -63,6 +63,33 @@ class AppointmentsReportsTest extends DuskTestCase
         DB::table('appointments')->where('id', '=', $appointment_successful->id)->delete();
 
     }
+
+    /**
+     * @group ims
+     * @group appointments-reports
+     * @return void
+     */
+    public function test_Should_DisplayLinkToAppointmentsReports_When_ManagerViewsAppointments()
+    {
+        $this->loginAsManager();
+        $this->browse(function ($browser) {
+            $artist = Artist::all()->first();
+            $browser->resize(1366, 768)
+                    ->visit('/ims')
+                    ->clickLink("Appointments")
+                    ->assertSee('Appointments Schedule')
+                    ->assertSee('Appointments Reports')
+                    ->clickLink('Appointments Reports')
+                    ->assertPathIs('/ims/appointments/reports')
+                    ->assertSee('Appointments Reports')
+                    ->assertSee('This Month')
+                    ->assertSee('Last Month')
+                    ->clickLink('Appointments Schedule')
+                    ->assertPathIs('/ims/appointments');
+        });
+        $this->logout();
+    }
+
 
     private function loginAsManager() 
     {

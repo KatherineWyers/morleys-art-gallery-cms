@@ -88,6 +88,8 @@ class SalesController extends Controller
         $artwork->visible = FALSE;
         $artwork->save();
 
+        \Session::flash('flash_message', 'Sale processed successfully');
+
         return redirect('/ims/sales');
     }
 

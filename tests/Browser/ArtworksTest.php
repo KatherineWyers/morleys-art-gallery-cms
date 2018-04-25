@@ -109,6 +109,25 @@ class ArtworkTest extends DuskTestCase
 
 
 
+    /**
+     * @group web-portal
+     * @group artworks
+     * @return void
+     */
+    public function test_Should_RedirectToArtworksIndexAndDisplayDisplayNotification_When_NonVisibleArtworkUrlRequested()
+    {
+        $this->browse(function ($browser) {
+            $artwork = Artwork::notVisible()->first();
+            $browser->resize(1366, 768)
+                    ->visit('/')
+                    ->visit('/artworks/' . $artwork->id)
+                    ->assertPathIs('/artworks')
+                    ->assertSee('The requested artwork is no longer available');
+        });
+        $this->logout();
+    }
+
+
 
 
     /**
@@ -157,6 +176,49 @@ class ArtworkTest extends DuskTestCase
         });
         $this->logout();
     }
+
+
+
+
+
+    /**
+     * @group cms
+     * @group artworks
+     * @return void
+     */
+    public function test_ShouldNot_CreateArtwork_When_FormDataIsNotValid()
+    {
+        $this->loginAsStaff();
+        $this->browse(function ($browser) {
+            $artwork = factory(\App\Artwork::class)->create([]);
+            $next_id = $artwork->id + 1;
+
+            $artist = Artist::all()->first();
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/create')
+                    ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('img_2', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('img_3', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('img_sq', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->value('input[name=title]','Beautiful Flowers')
+                    ->check("input[name='categories[]']")
+                    ->select('artist_id', $artist->id)
+                    ->type('year_created', 2005)
+                    ->type('medium', 'Oil on canvas')
+                    ->type('width_cm', 7.0)
+                    ->type('height_cm', 8.1)
+                    ->type('width_in', 9.2)
+                    ->type('height_in', 10.3)
+                    ->type('price', 6000)
+                    ->type('desc_1', 'Description Text')
+                    ->click('input[name="submit"]')
+                    ->assertPathIs('/artworks/create')
+                    ->assertSee('The img sq has invalid image dimensions');
+
+        });
+        $this->logout();
+    }
+
 
     /**
      * @group cms
@@ -241,6 +303,50 @@ class ArtworkTest extends DuskTestCase
         });
     	$this->logout();
     }
+
+
+
+    /**
+     * @group cms
+     * @group artworks
+     * @return void
+     */
+    public function test_ShouldNot_EditArtwork_When_FormDataIsNotValid()
+    {
+        $this->loginAsStaff();
+        $this->browse(function ($browser) {
+
+            $title = $this->generateRandomString(10);
+            $year_created = rand(2000,2010);
+            $price = rand(500,8000);
+            $desc_1 = $this->generateRandomString(10);
+
+            $artist = Artist::all()->first();
+            $artwork = Artwork::where('visible', TRUE)->first();
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id . '/edit')
+                    ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('img_2', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('img_3', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->attach('img_sq', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
+                    ->value('input[name=title]',$title)
+                    ->check("input[name='categories[]']")
+                    ->select('artist_id', $artist->id)
+                    ->type('year_created', $year_created)
+                    ->type('medium', 'Oil on canvas')
+                    ->type('width_cm', 7.0)
+                    ->type('height_cm', 8.1)
+                    ->type('width_in', 9.2)
+                    ->type('height_in', 10.3)
+                    ->type('price', $price)
+                    ->type('desc_1', $desc_1)
+                    ->click('input[name="submit"]')
+                    ->assertPathIs('/artworks/' . $artwork->id . '/edit')
+                    ->assertSee('The img sq has invalid image dimensions');
+        });
+        $this->logout();
+    }
+
 
 
 	private function loginAsStaff() {

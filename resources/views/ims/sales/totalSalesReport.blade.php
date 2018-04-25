@@ -25,7 +25,6 @@
                 <p>Online Sales: £{{ $total_sales_report->onlineSales() }}</p>
                 <hr />
                 <p>Total Sales: £{{ $total_sales_report->totalSales() }}</p>
-                <p>In-person Sales: £{{ $total_sales_report->sales() }}</p>
                 <p>Tax Liability (@ {{ $total_sales_report->taxRate() }}%) : £{{ $total_sales_report->taxLiability() }}</p>
                 <hr />
                 <p>Total Sales Less Tax Liability : £{{ $total_sales_report->totalSalesLessTaxLiability() }}</p>

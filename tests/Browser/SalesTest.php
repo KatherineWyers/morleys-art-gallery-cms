@@ -49,6 +49,7 @@ class SalesTest extends DuskTestCase
                     ->type('amount', $sale_price)//sell the item at a 100 pound discount
                     ->click('input[name="submit"]')
                     ->assertSee('Month: ' . $year . '-' . $month .', Total Items Sold: ' . $expected_item_count . ', Sales: ' . $expected_sales_figure)
+                    ->assertSee('Sale processed successfully')
                     ->visit('/artworks/' . $artwork->id)//attempt to visit the artwork public page
                     ->assertPathIs('/artworks')
                     ->assertSee('The requested artwork is no longer available');
@@ -57,6 +58,66 @@ class SalesTest extends DuskTestCase
         $this->logout();
 
     }
+
+
+
+
+    /**
+     * System test for the sales process
+     * @group ims
+     * @return void
+     */
+    public function test_Should_ProcessSale_When_StaffMakesSale()
+    {
+        $this->loginAsStaff();
+
+        $this->browse(function ($browser) {
+
+            $user = User::Admins()->first();
+            $year = Carbon::now()->year;
+            $month = Carbon::now()->month;
+            $sales_report = $user->sales_report($year, $month);
+            $sales_figure_before_this_sale = $sales_report->salesFigure();
+            $item_count_before_this_sale = $sales_report->itemCount();
+
+            //make the sale
+            $artwork = Artwork::where('visible', TRUE)->first();
+
+            //set the expected sales report
+            $expected_sales_figure = $sales_figure_before_this_sale + $artwork->price;
+            $expected_item_count = $item_count_before_this_sale + 1;
+
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id)
+                    ->clickLink('Process Sale')
+                    ->type('name', 'James Godfrey')
+                    ->type('email', 'jgodfrey@gmail.com')
+                    ->type('phone_number', '0123456')
+                    ->type('amount', $artwork->price)//sell the item at a 100 pound discount
+                    ->click('input[name="submit"]')
+                    ->assertSee('Month: ' . $year . '-' . $month .', Total Items Sold: ' . $expected_item_count . ', Sales: ' . $expected_sales_figure)
+                    ->assertSee('Sale processed successfully')
+                    ->visit('/artworks/' . $artwork->id)//attempt to visit the artwork public page
+                    ->assertPathIs('/artworks')
+                    ->assertSee('The requested artwork is no longer available');
+        });
+
+        $this->logout();
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * @group ims

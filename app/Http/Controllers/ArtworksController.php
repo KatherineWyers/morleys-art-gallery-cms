@@ -31,15 +31,14 @@ class ArtworksController extends Controller
      */
     public function index(Request $request, $category_id = 0)
     {
-        $categories = Category::orderBy('id', 'asc')->get();
+        $categories = Category::all();
         if($category_id >= 1 && $category_id <= 6){
             $category = Category::find($category_id);
             $category_title = ': ' . $category->title;
-            $artworks = $category->artworks()->visible()->paginate(50);
         } else {
-            $artworks = Artwork::visible()->orderBy('created_at', 'desc')->paginate(50);
             $category_title = '';
         }
+        $artworks = Artwork::getArtworksFilteredByCategory($category_id)->paginate(50);
         $response = response()->view('web-portal.artworks.index', compact('artworks', 'categories', 'category_title'));
         return VisitHandler::handleVisit($request, $response);
     }

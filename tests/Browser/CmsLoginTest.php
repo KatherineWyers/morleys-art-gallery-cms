@@ -18,7 +18,7 @@ class CmsLoginTest extends DuskTestCase
      * @group cms
      * @return void
      */
-    public function testStaffLogsInSeesAppointmentsLinkAndLogsOut() {
+    public function test_Should_LoginAsStaff_When_UserLoginCredentialsAreValid() {
         $this->browse(function ($browser) {
             $browser->resize(1366, 768)
                     ->visit('/')
@@ -38,7 +38,7 @@ class CmsLoginTest extends DuskTestCase
      * @group cms
      * @return void
      */
-    public function testShouldNot_ShowStaffLinksInArtworks_When_CustomerLogsIn() {
+    public function testShouldNot_GrantAccessForCMSAndIMS_When_LoggedInAsCustomer() {
         $user = $this->loginAsCustomer();
         $this->browse(function ($browser) use ($user) {
             $browser->resize(1366, 768)
@@ -50,8 +50,59 @@ class CmsLoginTest extends DuskTestCase
                     ->assertPathIs('/artworks')
                     ->assertSee($user->name)
                     ->assertDontSee('IMS')
-                    ->assertDontSee('(Customer)')
-                    ->assertDontSee('Add New Artwork');
+                    ->assertDontSee('Add New Artwork')
+                    ->visit('/ims')
+                    ->assertSee('Unauthorized')
+                    ->visit('/artworks/create')
+                    ->assertSee('Unauthorized');
+        }); 
+        $this->logout();
+    }
+
+    /**
+     * @group cms
+     * @return void
+     */
+    public function testShould_GrantAccessForCMSAndIMS_When_LoggedInAsStaff() {
+        $user = $this->loginAsStaff();
+        $this->browse(function ($browser) use ($user) {
+            $browser->resize(1366, 768)
+                    ->visit('/')
+                    ->assertSee($user->name)
+                    ->assertSee('IMS')
+                    ->visit('/artworks')
+                    ->assertPathIs('/artworks')
+                    ->assertSee($user->name)
+                    ->assertSee('IMS')
+                    ->assertSee('Add New Artwork')
+                    ->visit('/ims')
+                    ->assertDontSee('Unauthorized')
+                    ->visit('/artworks/create')
+                    ->assertDontSee('Unauthorized');
+        }); 
+        $this->logout();
+    }
+
+    /**
+     * @group cms
+     * @return void
+     */
+    public function testShould_GrantAccessForCMSAndIMS_When_LoggedInAsManager() {
+        $user = $this->loginAsManager();
+        $this->browse(function ($browser) use ($user) {
+            $browser->resize(1366, 768)
+                    ->visit('/')
+                    ->assertSee($user->name)
+                    ->assertSee('IMS')
+                    ->visit('/artworks')
+                    ->assertPathIs('/artworks')
+                    ->assertSee($user->name)
+                    ->assertSee('IMS')
+                    ->assertSee('Add New Artwork')
+                    ->visit('/ims')
+                    ->assertDontSee('Unauthorized')
+                    ->visit('/artworks/create')
+                    ->assertDontSee('Unauthorized');
         }); 
         $this->logout();
     }
@@ -201,6 +252,15 @@ class CmsLoginTest extends DuskTestCase
             $browser->loginAs($user);
         }); 
         return $user;
+    }
+
+    private function loginAsManager() 
+    {
+        $user = User::Managers()->first();
+        $this->browse(function ($browser) use ($user) {
+            $browser->loginAs($user);
+        }); 
+        return $user; 
     }
 
     private function loginAsStaff() 

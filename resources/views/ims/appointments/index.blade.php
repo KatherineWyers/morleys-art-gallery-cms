@@ -4,11 +4,14 @@
     <section id="item" class="container-fluid">
         <div class="wrapper">
 
+        <a href="/ims/appointments" class="btn btn-info">Appointments Schedule</a>&nbsp;
+        <a href="/ims/appointments/reports" class="btn btn-info">Appointments Reports</a>
+
             <div class = "row">
 
                 <div class = "col-sm-12">
 
-                    <h1>Appointments</h1>  
+                    <h1>Appointments Schedule</h1>  
 
                     <p>Select Date</p>
                     <a href="/ims/appointments/{{ $calendar->datetime->copy()->subMonth()->day }}/{{ $calendar->datetime->copy()->subMonth()->month }}/{{ $calendar->datetime->copy()->subMonth()->year }}"><< </a> | 

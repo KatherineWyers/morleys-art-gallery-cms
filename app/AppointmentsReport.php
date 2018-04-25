@@ -45,7 +45,7 @@ class AppointmentsReport extends Model
      */
     public function toString()
     {
-    	return 'Month: ' . $this->year . '-' . $this->month . ', Total Appointments: ' . $this->appointments_count . ', Appointments Led To Sale Count: ' . $this->appointments_led_to_sale_count . ' Appointments Led To Sale Percentage: ' . $this->appointmentsLedToSalePercentage();
+    	return 'Month: ' . $this->year . '-' . $this->month . ', Total Appointments: ' . $this->appointments_count . ', Appointments Led To Sale Count: ' . $this->appointments_led_to_sale_count . ' Appointments Led To Sale Percentage: ' . $this->appointmentsLedToSalePercentage() . '%';;
     }
 
     /**

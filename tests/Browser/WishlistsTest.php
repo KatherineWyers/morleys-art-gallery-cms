@@ -41,7 +41,9 @@ class WishlistsTest extends DuskTestCase
                     ->assertDontSee('My Wishlist')
                     ->visit('/artworks/' . $artwork->id)
                     ->clickLink('Add to my Wishlist')
-                    ->assertPathIs('/login');
+                    ->assertPathIs('/register')
+                    ->assertSee('Please register or log in to add artwork to your wishlist')
+                    ->assertSee('Already have a profile? Login');
         });
     }
 
@@ -98,7 +100,7 @@ class WishlistsTest extends DuskTestCase
      * @group wishlists
      * @return void
      */
-    public function testShould_ShowArtworkOnce_When_GuestAddsArtworkToTheWishlistTwice()
+    public function testShould_ShowArtworkOnce_When_CustomerAddsTheSameArtworkToTheWishlistTwice()
     {
         $artwork = Artwork::visible()->first();
         $user = $this->loginAsCustomer();

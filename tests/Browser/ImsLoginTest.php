@@ -16,10 +16,12 @@ class ImsLoginTest extends DuskTestCase
      * @group login
      * @return void
      */
-    public function testGuestCannotAccessIms() {
+    public function test_ShouldNot_GrantAccessToIMSAndCMS_When_VisitorIsGuest() {
         $this->browse(function ($browser) {
             $browser->resize(1366, 768)
                     ->visit('/ims')
+                    ->assertSee('Unauthorized')
+                    ->visit('/artworks/create')
                     ->assertSee('Unauthorized');
         }); 
     }

@@ -25,7 +25,7 @@ class WishlistsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['show']]);
+        $this->middleware('auth', ['except' => ['show', 'addArtwork']]);
     }
 
     /**
@@ -48,6 +48,12 @@ class WishlistsController extends Controller
      */
     public function addArtwork(Request $request, $artwork_id)
     {
+        if (Auth::guest())
+        {
+            \Session::flash('flash_message','Please register or log in to add artwork to your wishlist');
+            return redirect('/register');
+        }
+
         $wishlist = $this->getWishlist(Auth::user()->id);
 
         $artwork = Artwork::find($artwork_id);

@@ -23,7 +23,7 @@ class TotalSalesReportTest extends DuskTestCase
      * @group total-sales-report
      * @return void
      */
-    public function test_Should_UpdateTotalSalesReport_When_SaleAndOnlineSaleAreMade()
+    public function test_Should_UpdateTotalSalesReport_When_SaleOrOnlineSaleAreMade()
     {
         $year = Carbon::now()->year;
         $month = Carbon::now()->month;

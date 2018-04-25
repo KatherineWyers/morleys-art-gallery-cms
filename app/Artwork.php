@@ -56,4 +56,20 @@ class Artwork extends Model
   {
     return $query->where('artworks.visible', TRUE);
   }
+
+  public function scopeNotVisible($query) 
+  {
+    return $query->where('artworks.visible', FALSE);
+  }
+
+  public static function getArtworksFilteredByCategory($category_id)
+  {
+    if($category_id >= 1 && $category_id <= 6){
+      $category = Category::find($category_id);
+      $artworks = $category->artworks()->visible();
+    } else {
+      $artworks = Artwork::visible()->orderBy('created_at', 'desc');
+    }
+    return $artworks;
+  }
 }
