@@ -19,7 +19,8 @@ class ArtistsTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $artist = Artist::first();
-            $browser->visit('/artists')
+            $browser->resize(1366, 768)
+                    ->visit('/artists')
                     ->assertSee($artist->name)
                     ->clickLink($artist->name)
                     ->assertPathIs('/artists/' . $artist->id)
@@ -35,7 +36,8 @@ class ArtistsTest extends DuskTestCase
     public function test_Should_DisplayUnauthorized_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/artists/create')
+            $browser->resize(1366, 768)
+                    ->visit('/artists/create')
                     ->assertSee('Unauthorized'); 
         });
     }
@@ -48,7 +50,8 @@ class ArtistsTest extends DuskTestCase
     public function test_Should_NotDisplayCreateButton_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Artists')
                     ->assertDontSee("+ Add New Artist");
         });
@@ -63,7 +66,8 @@ class ArtistsTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $artist = Artist::all()->first();
-            $browser->visit('/artists/' . $artist->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artists/' . $artist->id)
                     ->assertDontSee("Edit");
         });
     }
@@ -77,7 +81,8 @@ class ArtistsTest extends DuskTestCase
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Artists')
                     ->assertSee("+ Add New Artist");
         });
@@ -99,7 +104,8 @@ class ArtistsTest extends DuskTestCase
             $next_id = $artist->id + 1;
 
             // create a new artist
-            $browser->visit('/artists/create')
+            $browser->resize(1366, 768)
+                    ->visit('/artists/create')
                     ->attach('profile_img', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
                     ->attach('featured_artwork_img_lg', 'C:/Databases/morleys/public/img/placeholders/1240x700.png')
                     ->attach('featured_artwork_img_sm', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
@@ -126,7 +132,8 @@ class ArtistsTest extends DuskTestCase
             $next_id = $artist->id + 1;
 
             // create a new artist
-            $browser->visit('/artists/create')
+            $browser->resize(1366, 768)
+                    ->visit('/artists/create')
                     ->attach('profile_img', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
                     ->attach('featured_artwork_img_lg', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
                     ->attach('featured_artwork_img_sm', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
@@ -154,7 +161,8 @@ class ArtistsTest extends DuskTestCase
             $artist = factory(\App\Artist::class)->create([]);
 
             // create a new artist
-            $browser->visit('/artists/' . $artist->id . '/edit')
+            $browser->resize(1366, 768)
+                    ->visit('/artists/' . $artist->id . '/edit')
                     ->type('name', 'Test Name')
                     ->type('desc_1', 'Test Description of the Artist')
                     ->click('input[type="submit"]')
@@ -179,7 +187,8 @@ class ArtistsTest extends DuskTestCase
             $artist = factory(\App\Artist::class)->create([]);
 
             // edit the new artist
-            $browser->visit('/artists/' . $artist->id . '/edit')
+            $browser->resize(1366, 768)
+                    ->visit('/artists/' . $artist->id . '/edit')
                     ->attach('profile_img', 'C:/Databases/morleys/public/img/placeholders/300x300.png')
                     ->attach('featured_artwork_img_lg', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
                     ->attach('featured_artwork_img_sm', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
@@ -205,7 +214,8 @@ class ArtistsTest extends DuskTestCase
         $this->loginAsStaff();
         $this->browse(function ($browser) {
             $artist = Artist::all()->first();
-            $browser->visit('/artists/' . $artist->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artists/' . $artist->id)
                     ->assertSee("Edit");
         });
         $this->logout();
@@ -213,7 +223,8 @@ class ArtistsTest extends DuskTestCase
 
     private function loginAsStaff() {
         $this->browse(function ($browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->assertPathIs('/login')
                     ->value('#email', 'staff1@morleysgallery.com')
@@ -225,7 +236,8 @@ class ArtistsTest extends DuskTestCase
 
     private function logout() {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         }); 

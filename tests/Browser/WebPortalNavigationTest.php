@@ -17,7 +17,8 @@ class WebPortalNavigationTest extends DuskTestCase
     public function testFrontpageArtworks()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Artworks')
                     ->assertPathIs('/');
         });
@@ -31,7 +32,8 @@ class WebPortalNavigationTest extends DuskTestCase
     public function testFrontpageExhibitions()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Exhibitions')
                     ->assertPathIs('/');
         });
@@ -45,7 +47,8 @@ class WebPortalNavigationTest extends DuskTestCase
     public function testFrontpageNewsArticles()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('News')
                     ->assertPathIs('/');
         });
@@ -59,7 +62,8 @@ class WebPortalNavigationTest extends DuskTestCase
     public function testFrontpageGallery()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Gallery')
                     ->assertPathIs('/gallery')
                     ->assertSee('Gallery');
@@ -75,7 +79,8 @@ class WebPortalNavigationTest extends DuskTestCase
     public function testFrontpageContact()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Contact')
                     ->assertPathIs('/contact')
                     ->assertSee('Contact');
@@ -90,7 +95,8 @@ class WebPortalNavigationTest extends DuskTestCase
     public function testStandardpageArtists()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/artists')
+            $browser->resize(1366, 768)
+                    ->visit('/artists')
                     ->clickLink('Artists')
                     ->assertPathIs('/artists')
                     ->assertSee('Artists');
@@ -105,7 +111,8 @@ class WebPortalNavigationTest extends DuskTestCase
     public function testStandardpageArtworks()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/artists')
+            $browser->resize(1366, 768)
+                    ->visit('/artists')
                     ->clickLink('Artworks')
                     ->assertPathIs('/artworks')
                     ->assertSee('Artworks');
@@ -120,7 +127,8 @@ class WebPortalNavigationTest extends DuskTestCase
     public function testStandardpageExhibitions()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/artists')
+            $browser->resize(1366, 768)
+                    ->visit('/artists')
                     ->clickLink('Exhibitions')
                     ->assertPathIs('/exhibitions')
                     ->assertSee('Exhibitions');
@@ -135,7 +143,8 @@ class WebPortalNavigationTest extends DuskTestCase
     public function testStandardpageNewsArticles()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/artists')
+            $browser->resize(1366, 768)
+                    ->visit('/artists')
                     ->clickLink('News')
                     ->assertPathIs('/news_articles')
                     ->assertSee('News');
@@ -150,7 +159,8 @@ class WebPortalNavigationTest extends DuskTestCase
     public function testStandardpageGallery()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/artists')
+            $browser->resize(1366, 768)
+                    ->visit('/artists')
                     ->clickLink('Gallery')
                     ->assertPathIs('/gallery')
                     ->assertSee('Gallery');
@@ -166,7 +176,8 @@ class WebPortalNavigationTest extends DuskTestCase
     public function testStandardpageContact()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/artists')
+            $browser->resize(1366, 768)
+                    ->visit('/artists')
                     ->clickLink('Contact')
                     ->assertPathIs('/contact')
                     ->assertSee('Contact');

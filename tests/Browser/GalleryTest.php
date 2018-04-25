@@ -16,7 +16,8 @@ class GalleryTest extends DuskTestCase
     public function testCorrectBodyText()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/gallery')
+            $browser->resize(1366, 768)
+                    ->visit('/gallery')
                     ->assertSee('Gallery');
         });
     }

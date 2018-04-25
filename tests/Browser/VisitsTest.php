@@ -24,7 +24,8 @@ class VisitsTest extends DuskTestCase
         $visitor_id = $this->getNextVisitorId();
 
         $this->browse(function (Browser $browser) use ($artwork) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee('We use cookies to ensure that we give you the best experience on our website')
                     ->visit('/artworks/'. $artwork->id)
                     ->assertDontSee('We use cookies to ensure that we give you the best experience on our website')
@@ -38,7 +39,8 @@ class VisitsTest extends DuskTestCase
         $this->assertTrue($visit_count == 1);
 
         $this->browse(function (Browser $browser) use ($artwork) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertDontSee('We use cookies to ensure that we give you the best experience on our website')
                     ->visit('/artworks/'. $artwork->id)
                     ->assertDontSee('We use cookies to ensure that we give you the best experience on our website')
@@ -59,7 +61,8 @@ class VisitsTest extends DuskTestCase
     public function test_Should_DisplayUnauthorized_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/ims/visits')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/visits')
                     ->assertSee('Unauthorized'); 
         });
     }
@@ -77,14 +80,16 @@ class VisitsTest extends DuskTestCase
         $visit_count_artwork_before_test = DB::table('visits')->where('url', '=', 'http://localhost/artworks/' . $artwork->id)->count();
         $this->loginAsStaff();
         $this->browse(function (Browser $browser) use ($artwork, $visit_count_homepage_before_test, $visit_count_artwork_before_test) {
-            $browser->visit('/ims/visits')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/visits')
                     ->assertSee('URL: http://localhost => Visits: ' . $visit_count_homepage_before_test)
                     ->assertSee('URL: http://localhost/artworks/' . $artwork->id . ' => Visits: ' . $visit_count_artwork_before_test);
         });
         $this->logout();
 
         $this->browse(function (Browser $browser) use ($artwork) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->visit('/artworks/'. $artwork->id)
                     ->visit('/')
                     ->visit('/artworks/'. $artwork->id)
@@ -99,7 +104,8 @@ class VisitsTest extends DuskTestCase
 
         $this->loginAsStaff();
         $this->browse(function (Browser $browser) use ($artwork, $visit_count_homepage_after_test, $visit_count_artwork_after_test) {
-            $browser->visit('/ims/visits')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/visits')
                     ->assertSee('URL: http://localhost => Visits: ' . $visit_count_homepage_after_test)
                     ->assertSee('URL: http://localhost/artworks/' . $artwork->id . ' => Visits: ' . $visit_count_artwork_after_test);
         });
@@ -121,7 +127,8 @@ class VisitsTest extends DuskTestCase
     private function logout() 
     {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         }); 

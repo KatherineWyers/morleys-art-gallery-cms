@@ -36,7 +36,6 @@
                     <div class="collapse navbar-collapse" id="mainNav">
                         <!-- Left Side Of Navbar -->
                         <ul class="nav navbar-nav">
-                            <li><a href="/">Home</a></li>
                             <li><a href='/artists'>Artists</a></li>
                             <li><a href='/artworks'>Artworks</a></li>
                             <li><a href='/exhibitions'>Exhibitions</a></li>

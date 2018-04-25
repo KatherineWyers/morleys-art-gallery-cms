@@ -36,7 +36,7 @@
                             <li><a href="/ims/sales">Sales</a></li>
                             <li><a href="/ims/weekly_timeslots">WeeklyTimeslots</a></li>
                             <li><a href="/ims/visits">PageVisits</a></li>
-                            <!--<li><a href="#">Appointments</a></li>-->
+                            <li><a href="/ims/appointments">Appointments</a></li>
                         </ul>
 
                         <!-- Right Side Of Navbar -->

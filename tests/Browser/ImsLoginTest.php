@@ -18,7 +18,8 @@ class ImsLoginTest extends DuskTestCase
      */
     public function testGuestCannotAccessIms() {
         $this->browse(function ($browser) {
-            $browser->visit('/ims')
+            $browser->resize(1366, 768)
+                    ->visit('/ims')
                     ->assertSee('Unauthorized');
         }); 
     }
@@ -31,7 +32,8 @@ class ImsLoginTest extends DuskTestCase
     public function testGuestCannotAccessImsPos() {
         $this->browse(function ($browser) {
             $artwork = Artwork::where('visible', TRUE)->first();
-            $browser->visit('/ims/pos/' . $artwork->id)
+            $browser->resize(1366, 768)
+                    ->visit('/ims/pos/' . $artwork->id)
                     ->assertSee('Unauthorized');
         }); 
     }
@@ -44,7 +46,8 @@ class ImsLoginTest extends DuskTestCase
     public function testGuestCannotAccessImsAppointments() {
         $this->browse(function ($browser) {
             $artwork = Artwork::where('visible', TRUE)->first();
-            $browser->visit('/ims/appointments')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/appointments')
                     ->assertSee('Unauthorized');
         }); 
     }
@@ -57,7 +60,8 @@ class ImsLoginTest extends DuskTestCase
      */
     public function testStaffCanSeeImsAndLogout() {
         $this->browse(function ($browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->assertPathIs('/login')
                     ->value('#email', 'staff1@morleysgallery.com')
@@ -83,7 +87,8 @@ class ImsLoginTest extends DuskTestCase
     public function testStaffLoginsInCanSeeSalesBtnInArtworksShowAndLogout() {
         $this->browse(function ($browser) {
             $artwork = Artwork::where('visible', TRUE)->first();
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->value('#email', 'staff1@morleysgallery.com')
                     ->value('#password', 'secret')
@@ -102,7 +107,8 @@ class ImsLoginTest extends DuskTestCase
     public function testStaffCanReachImsPos() {
         $this->browse(function ($browser) {
             $artwork = Artwork::where('visible', TRUE)->first();
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->value('#email', 'staff1@morleysgallery.com')
                     ->value('#password', 'secret')
@@ -124,7 +130,8 @@ class ImsLoginTest extends DuskTestCase
     public function testStaffCanReachImsAppointments() {
         $this->browse(function ($browser) {
             $artwork = Artwork::where('visible', TRUE)->first();
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->value('#email', 'staff1@morleysgallery.com')
                     ->value('#password', 'secret')

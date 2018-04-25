@@ -13,10 +13,11 @@ class TimeslotsTest extends DuskTestCase
      *
      * @return void
      */
-    public function test_Should_DisplayRegularFont_When_FirstVisit()
+    public function testExample()
     {
-        $this->browse(function (Browser $browser) use ($artwork, $artist) {
-            $browser->visit('/')
+        $this->browse(function (Browser $browser) {
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee('Gallery');
         });
     }

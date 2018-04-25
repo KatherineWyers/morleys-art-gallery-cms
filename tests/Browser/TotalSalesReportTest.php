@@ -53,7 +53,8 @@ class TotalSalesReportTest extends DuskTestCase
         //test page to see if displayed values are correct
         $this->loginAsManager();
         $this->browse(function ($browser) use ($expected_sales, $expected_online_sales, $expected_total_sales, $expected_tax_rate, $expected_tax_liability, $expected_total_sales_less_tax_liability) {
-            $browser->visit('/ims/sales/total_sales_report')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/sales/total_sales_report')
                     ->assertSee('In-person Sales: £' . $expected_sales)
                     ->assertSee('Online Sales: £' . $expected_online_sales)
                     ->assertSee('Total Sales: £' . $expected_total_sales)
@@ -75,7 +76,8 @@ class TotalSalesReportTest extends DuskTestCase
     private function logout() 
     {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         }); 

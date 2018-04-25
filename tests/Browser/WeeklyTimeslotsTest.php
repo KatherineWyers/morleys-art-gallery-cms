@@ -18,7 +18,8 @@ class WeeklyTimeslotsTest extends DuskTestCase
      */
     public function testGuestCannotAccessWeeklyTimeslots() {
         $this->browse(function ($browser) {
-            $browser->visit('/ims/weekly_timeslots')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/weekly_timeslots')
                     ->assertSee('Unauthorized');
         }); 
     }
@@ -30,7 +31,8 @@ class WeeklyTimeslotsTest extends DuskTestCase
      */
     public function testGuestCannotAccessWeeklyTimeslotsEditPage() {
         $this->browse(function ($browser) {
-            $browser->visit('/ims/weekly_timeslots/edit')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/weekly_timeslots/edit')
                     ->assertSee('Unauthorized');
         }); 
     }
@@ -44,7 +46,8 @@ class WeeklyTimeslotsTest extends DuskTestCase
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
-            $browser->visit('/ims/weekly_timeslots')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/weekly_timeslots')
                     ->assertSee("Weekly Timeslots");
         });
         $this->logout();
@@ -59,7 +62,8 @@ class WeeklyTimeslotsTest extends DuskTestCase
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
-            $browser->visit('/ims/weekly_timeslots/edit')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/weekly_timeslots/edit')
                     ->assertSee("Edit Weekly Timeslots");
         });
         $this->logout();
@@ -68,7 +72,6 @@ class WeeklyTimeslotsTest extends DuskTestCase
     /**
      * @group ims
      * @group weekly-timeslots
-     * @group current
      * @return void
      */
     public function test_Should_UpdateWeeklyTimeslots_When_StaffSelectsWeeklyTimeslots()
@@ -84,7 +87,8 @@ class WeeklyTimeslotsTest extends DuskTestCase
 
         $this->loginAsStaff();
         $this->browse(function ($browser) {
-            $browser->visit('/ims/weekly_timeslots/edit')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/weekly_timeslots/edit')
                     ->check("input[name='weekly_timeslots[]']")
                     ->click('input[type="submit"]')
                     ->assertPathIs('/ims/weekly_timeslots')
@@ -105,7 +109,8 @@ class WeeklyTimeslotsTest extends DuskTestCase
 
     private function loginAsStaff() {
         $this->browse(function ($browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->assertPathIs('/login')
                     ->value('#email', 'staff1@morleysgallery.com')
@@ -117,7 +122,8 @@ class WeeklyTimeslotsTest extends DuskTestCase
 
     private function logout() {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         }); 

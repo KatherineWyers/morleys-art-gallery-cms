@@ -53,7 +53,8 @@ class AppointmentsReportsTest extends DuskTestCase
 
         $this->loginAsManager();
         $this->browse(function ($browser) use($appointments_report_string) {
-            $browser->visit('/ims/appointments/reports')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/appointments/reports')
                     ->assertSee($appointments_report_string);
         });
         $this->logout();
@@ -75,7 +76,8 @@ class AppointmentsReportsTest extends DuskTestCase
     private function logout() 
     {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         }); 

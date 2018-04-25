@@ -22,7 +22,8 @@ class AccessibilityTest extends DuskTestCase
         $artwork = Artwork::visible()->first();
         $artist = Artist::all()->first();
         $this->browse(function (Browser $browser) use ($artwork, $artist) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee('Standard Mode')
                     ->visit('/artworks')
                     ->assertSee('Standard Mode')
@@ -47,7 +48,8 @@ class AccessibilityTest extends DuskTestCase
         $artwork = Artwork::visible()->first();
         $artist = Artist::all()->first();
         $this->browse(function (Browser $browser) use ($artwork, $artist) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee('Standard Mode')
                     ->click('input[name="accessibility"]')
                     ->assertSee('Accessible Mode')
@@ -76,7 +78,8 @@ class AccessibilityTest extends DuskTestCase
         $artwork = Artwork::visible()->first();
         $artist = Artist::all()->first();
         $this->browse(function (Browser $browser) use ($artwork, $artist) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee('Standard Mode')
                     ->click('input[name="accessibility"]')
                     ->assertSee('Accessible Mode')

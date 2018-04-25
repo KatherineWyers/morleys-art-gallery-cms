@@ -18,7 +18,8 @@ class ExhibitionsTest extends DuskTestCase
     public function test_Should_DisplayCurrentExhibitionText_When_UserIsGuest()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/exhibitions')
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions')
                     ->assertSee('Current Exhibition');
         });
     }
@@ -32,7 +33,8 @@ class ExhibitionsTest extends DuskTestCase
     public function test_Should_DisplayFutureExhibitionsText_When_UserIsGuest()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/exhibitions')
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions')
                     ->assertSee('Future Exhibitions');
         });
     }
@@ -46,7 +48,8 @@ class ExhibitionsTest extends DuskTestCase
     public function test_Should_DisplayExhibitionsByYear_When_UserIsGuest()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/exhibitions')
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions')
                     ->assertSee('Exhibitions By Year')
                     ->assertSee('2015')
                     ->assertSee('2016')
@@ -65,7 +68,8 @@ class ExhibitionsTest extends DuskTestCase
     public function test_Should_DisplayUnauthorizedInCreateForm_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/exhibitions/create')
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions/create')
                     ->assertSee('Unauthorized'); 
         });
     }
@@ -78,7 +82,8 @@ class ExhibitionsTest extends DuskTestCase
     public function test_Should_NotDisplayCreateButton_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/exhibitions')
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions')
                     ->assertDontSee("+ Add New Exhibition");
         });
     }
@@ -92,7 +97,8 @@ class ExhibitionsTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $exhibition = Exhibition::all()->first();
-            $browser->visit('/exhibitions/' . $exhibition->id)
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions/' . $exhibition->id)
                     ->assertDontSee("Edit");
         });
     }
@@ -106,7 +112,8 @@ class ExhibitionsTest extends DuskTestCase
     {
         $this->loginAsStaff();
         $this->browse(function ($browser) {
-            $browser->visit('/exhibitions')
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions')
                     ->assertSee("+ Add New Exhibition");
         });
         $this->logout();
@@ -129,7 +136,8 @@ class ExhibitionsTest extends DuskTestCase
             $exhibition = factory(\App\Exhibition::class)->create([]);
             $next_id = $exhibition->id + 1;
 
-            $browser->visit('/exhibitions/create')
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions/create')
                     ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/1200x300.png')
                     ->attach('img_2', 'C:/Databases/morleys/public/img/placeholders/600x300.png')
                     ->value('input[name=title]',$title)
@@ -158,7 +166,8 @@ class ExhibitionsTest extends DuskTestCase
         $this->loginAsStaff();
         $this->browse(function ($browser) {
             $exhibition = Exhibition::all()->first();
-            $browser->visit('/exhibitions/' . $exhibition->id)
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions/' . $exhibition->id)
                     ->assertSee("Edit");
         });
         $this->logout();
@@ -178,7 +187,8 @@ class ExhibitionsTest extends DuskTestCase
 
             $exhibition = factory(\App\Exhibition::class)->create([]);
 
-            $browser->visit('/exhibitions/' . $exhibition->id . '/edit')
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions/' . $exhibition->id . '/edit')
                     ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/1200x300.png')
                     ->attach('img_2', 'C:/Databases/morleys/public/img/placeholders/600x300.png')
                     ->value('input[name=title]',$title)
@@ -200,7 +210,8 @@ class ExhibitionsTest extends DuskTestCase
 
     private function loginAsStaff() {
         $this->browse(function ($browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->assertPathIs('/login')
                     ->value('#email', 'staff1@morleysgallery.com')
@@ -212,7 +223,8 @@ class ExhibitionsTest extends DuskTestCase
 
     private function logout() {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         }); 

@@ -17,7 +17,8 @@ class FrontpageTest extends DuskTestCase
     public function testHasFeaturedArtworks()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee('Featured Artworks');
         });
     }
@@ -30,7 +31,8 @@ class FrontpageTest extends DuskTestCase
     public function testHasCurrentExhibition()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee('Current Exhibition');
         });
     }
@@ -43,7 +45,8 @@ class FrontpageTest extends DuskTestCase
     public function testHasNews()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee('Latest News');
         });
     }
@@ -56,7 +59,8 @@ class FrontpageTest extends DuskTestCase
     public function testHasContactDetails()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee('+44 1234 5678')
                     ->assertSee('37 Marlborough Court')
                     ->assertSee('Stratford-upon-Avon')

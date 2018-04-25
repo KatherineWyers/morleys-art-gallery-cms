@@ -21,7 +21,8 @@ class ArtworkTest extends DuskTestCase
     public function test_Should_DisplayUnauthorized_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/artworks/create')
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/create')
                     ->assertSee('Unauthorized'); 
         });
     }
@@ -34,7 +35,8 @@ class ArtworkTest extends DuskTestCase
     public function test_Should_NotDisplayCreateButton_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/artworks')
+            $browser->resize(1366, 768)
+                    ->visit('/artworks')
                     ->assertDontSee("+ Add New Artwork");
         });
     }
@@ -48,7 +50,8 @@ class ArtworkTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $artwork = Artwork::where('visible', TRUE)->first();
-            $browser->visit('/artworks/' . $artwork->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id)
                     ->assertDontSee("Edit");
         });
     }
@@ -63,7 +66,8 @@ class ArtworkTest extends DuskTestCase
     	$this->loginAsStaff();
 
         $this->browse(function ($browser) {
-            $browser->visit('/artworks')
+            $browser->resize(1366, 768)
+                    ->visit('/artworks')
                     ->assertSee("+ Add New Artwork");
         });
     	$this->logout();
@@ -80,7 +84,8 @@ class ArtworkTest extends DuskTestCase
         $this->loginAsStaff();
         $this->browse(function ($browser) {
             $artist = Artist::all()->first();
-            $browser->visit('/artworks/create')
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/create')
                     ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
                     ->attach('img_2', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
                     ->attach('img_3', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
@@ -119,7 +124,8 @@ class ArtworkTest extends DuskTestCase
             $next_id = $artwork->id + 1;
 
             $artist = Artist::all()->first();
-            $browser->visit('/artworks/create')
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/create')
                     ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
                     ->attach('img_2', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
                     ->attach('img_3', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
@@ -162,7 +168,8 @@ class ArtworkTest extends DuskTestCase
         $this->loginAsStaff();
         $this->browse(function ($browser) {
             $artwork = Artwork::where('visible', TRUE)->first();
-            $browser->visit('/artworks/' . $artwork->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id)
                     ->assertSee("Edit");
         });
         $this->logout();
@@ -178,7 +185,8 @@ class ArtworkTest extends DuskTestCase
         $this->loginAsStaff();
         $this->browse(function ($browser) {
             $artwork = Artwork::where('visible', TRUE)->first();
-            $browser->visit('/artworks/' . $artwork->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id)
                     ->assertSee("Process Sale");
         });
         $this->logout();
@@ -201,7 +209,8 @@ class ArtworkTest extends DuskTestCase
 
             $artist = Artist::all()->first();
             $artwork = Artwork::where('visible', TRUE)->first();
-            $browser->visit('/artworks/' . $artwork->id . '/edit')
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id . '/edit')
                     ->attach('img_1', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
                     ->attach('img_2', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
                     ->attach('img_3', 'C:/Databases/morleys/public/img/placeholders/400x600.png')
@@ -236,7 +245,8 @@ class ArtworkTest extends DuskTestCase
 
 	private function loginAsStaff() {
         $this->browse(function ($browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->assertPathIs('/login')
                     ->value('#email', 'staff1@morleysgallery.com')
@@ -248,7 +258,8 @@ class ArtworkTest extends DuskTestCase
 
 	private function logout() {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         });	

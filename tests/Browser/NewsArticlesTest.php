@@ -18,7 +18,8 @@ class NewsArticlesTest extends DuskTestCase
     public function test_Should_DisplayNewsText_When_UserIsGuest()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/news_articles')
+            $browser->resize(1366, 768)
+                    ->visit('/news_articles')
                     ->assertSee('News');
         });
     }
@@ -32,7 +33,8 @@ class NewsArticlesTest extends DuskTestCase
     public function test_Should_NotDisplayCreateButton_When_UserIsGuest()
     {
         $this->browse(function ($browser) {
-            $browser->visit('/news_articles')
+            $browser->resize(1366, 768)
+                    ->visit('/news_articles')
                     ->assertDontSee("+ Add New Exhibition");
         });
     }
@@ -46,7 +48,8 @@ class NewsArticlesTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $news_article = NewsArticle::all()->first();
-            $browser->visit('/news_articles/' . $news_article->id)
+            $browser->resize(1366, 768)
+                    ->visit('/news_articles/' . $news_article->id)
                     ->assertDontSee("Edit");
         });
     }
@@ -55,7 +58,8 @@ class NewsArticlesTest extends DuskTestCase
 
     private function loginAsStaff() {
         $this->browse(function ($browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->assertPathIs('/login')
                     ->value('#email', 'staff1@morleysgallery.com')
@@ -67,7 +71,8 @@ class NewsArticlesTest extends DuskTestCase
 
     private function logout() {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         }); 

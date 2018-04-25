@@ -22,7 +22,8 @@ class WishlistsTest extends DuskTestCase
     {
         $artwork = Artwork::visible()->first();
         $this->browse(function (Browser $browser) use ($artwork) {
-            $browser->visit('/artworks/' . $artwork->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id)
                     ->assertSee('Add to my Wishlist');
         });
     }
@@ -35,7 +36,8 @@ class WishlistsTest extends DuskTestCase
     {
         $artwork = Artwork::visible()->first();
         $this->browse(function (Browser $browser) use ($artwork) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertDontSee('My Wishlist')
                     ->visit('/artworks/' . $artwork->id)
                     ->clickLink('Add to my Wishlist')
@@ -54,7 +56,8 @@ class WishlistsTest extends DuskTestCase
         $this->deleteWishlistForCustomer($user->id);
 
         $this->browse(function (Browser $browser) use ($artwork) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee('My Wishlist')
                     ->clickLink('My Wishlist')
                     ->assertSee('There is nothing in your wishlist! View artwork and add it to start making your wishlist.');
@@ -75,7 +78,8 @@ class WishlistsTest extends DuskTestCase
         $this->deleteWishlistForCustomer($user->id);
 
         $this->browse(function (Browser $browser) use ($artwork) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee('My Wishlist')
                     ->clickLink('My Wishlist')
                     ->assertDontSee($artwork->title)
@@ -101,7 +105,8 @@ class WishlistsTest extends DuskTestCase
         $this->deleteWishlistForCustomer($user->id);
 
         $this->browse(function (Browser $browser) use ($artwork) {
-            $browser->visit('/artworks/' . $artwork->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id)
                     ->clickLink('Add to my Wishlist')
                     ->visit('/artworks/' . $artwork->id)
                     ->clickLink('Add to my Wishlist')
@@ -126,7 +131,8 @@ class WishlistsTest extends DuskTestCase
         $this->deleteWishlistForCustomer($user->id);
 
         $this->browse(function (Browser $browser) use ($artwork1, $artwork2, $artwork3) {
-            $browser->visit('/artworks/' . $artwork1->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork1->id)
                     ->clickLink('Add to my Wishlist')
                     ->visit('/artworks/' . $artwork2->id)
                     ->clickLink('Add to my Wishlist')
@@ -139,7 +145,8 @@ class WishlistsTest extends DuskTestCase
         $this->logout();
 
         $this->browse(function (Browser $browser) use ($wishlist, $artwork1, $artwork2, $artwork3) {
-            $browser->visit('/wishlists/' . $wishlist->id)
+            $browser->resize(1366, 768)
+                    ->visit('/wishlists/' . $wishlist->id)
                     ->assertSee($artwork1->title)
                     ->assertSee($artwork2->title)
                     ->assertSee($artwork3->title);
@@ -163,7 +170,8 @@ class WishlistsTest extends DuskTestCase
         $this->logout();
 
         $this->browse(function (Browser $browser) use ($wishlist, $artwork, $user) {
-            $browser->visit('/wishlists/' . $wishlist->id)
+            $browser->resize(1366, 768)
+                    ->visit('/wishlists/' . $wishlist->id)
                     ->assertSee($artwork->title)
                     ->assertSee('Buy')
                     ->clickLink('Buy')
@@ -210,7 +218,8 @@ class WishlistsTest extends DuskTestCase
     private function logout() 
     {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         }); 

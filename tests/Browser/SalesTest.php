@@ -40,7 +40,8 @@ class SalesTest extends DuskTestCase
             $expected_sales_figure = $sales_figure_before_this_sale + $sale_price;
             $expected_item_count = $item_count_before_this_sale + 1;
 
-            $browser->visit('/artworks/' . $artwork->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id)
                     ->clickLink('Process Sale')
                     ->type('name', 'James Godfrey')
                     ->type('email', 'jgodfrey@gmail.com')
@@ -70,7 +71,8 @@ class SalesTest extends DuskTestCase
             $user = User::Admins()->first();
             $year = Carbon::now()->year;
             $month = Carbon::now()->month;
-            $browser->visit('/ims/sales')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/sales')
                 ->assertSee('Name: ' . $user->name)
                 ->assertSee($user->sales_report($year, $month)->toString());
         });
@@ -90,7 +92,8 @@ class SalesTest extends DuskTestCase
         $this->browse(function ($browser) {
             $user = User::Admins()->first();
             $another_user = User::Admins()->skip(1)->first();//get second Admin. 
-            $browser->visit('/ims/sales')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/sales')
                     ->assertSee('Name: ' . $user->name)
                     ->assertDontSee('Name: ' . $another_user->name);
         });
@@ -109,7 +112,8 @@ class SalesTest extends DuskTestCase
             $user1 = User::AdminsAndManagers()->first();
             $user2 = User::AdminsAndManagers()->skip(1)->first();
 
-            $browser->visit('/ims/sales')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/sales')
                 ->assertSee('Name: ' . $user1->name)
                 ->assertSee('Name: ' . $user2->name);
         });
@@ -127,7 +131,8 @@ class SalesTest extends DuskTestCase
 
         $this->browse(function ($browser) use ($in_person_sale)
             {
-                $browser->visit('/ims/sales/' . $in_person_sale->id)
+                $browser->resize(1366, 768)
+                    ->visit('/ims/sales/' . $in_person_sale->id)
                     ->assertSee('Sale')
                     ->assertSee($in_person_sale->artwork->title);  
                  
@@ -147,7 +152,8 @@ class SalesTest extends DuskTestCase
         $online_sale = OnlineSale::all()->first();
         $this->browse(function ($browser) use ($online_sale)
             {
-                $browser->visit('/ims/sales/online/' . $online_sale->id)
+                $browser->resize(1366, 768)
+                    ->visit('/ims/sales/online/' . $online_sale->id)
                     ->assertSee('Online Sale')
                     ->assertSee($online_sale->artwork->title);  
                  
@@ -160,7 +166,8 @@ class SalesTest extends DuskTestCase
 
             $user = User::Admins()->first();
 
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->assertPathIs('/login')
                     ->value('#email', $user->email)
@@ -175,7 +182,8 @@ class SalesTest extends DuskTestCase
 
             $user = User::Managers()->first();
 
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->assertPathIs('/login')
                     ->value('#email', $user->email)
@@ -188,7 +196,8 @@ class SalesTest extends DuskTestCase
 
     private function logout() {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         }); 

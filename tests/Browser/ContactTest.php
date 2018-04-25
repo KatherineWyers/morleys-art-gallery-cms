@@ -16,7 +16,8 @@ class ContactTest extends DuskTestCase
     public function testHasCorrectContactDetails()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/contact')
+            $browser->resize(1366, 768)
+                    ->visit('/contact')
                 ->assertSee('+44 1234 5678')
                 ->assertSee('37 Marlborough Court')
                 ->assertSee('Stratford-upon-Avon')

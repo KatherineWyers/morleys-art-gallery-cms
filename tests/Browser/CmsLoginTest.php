@@ -20,7 +20,8 @@ class CmsLoginTest extends DuskTestCase
      */
     public function testStaffLogsInSeesAppointmentsLinkAndLogsOut() {
         $this->browse(function ($browser) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->assertPathIs('/login')
                     ->value('#email', 'staff1@morleysgallery.com')
@@ -40,7 +41,8 @@ class CmsLoginTest extends DuskTestCase
     public function testShouldNot_ShowStaffLinksInArtworks_When_CustomerLogsIn() {
         $user = $this->loginAsCustomer();
         $this->browse(function ($browser) use ($user) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee($user->name)
                     ->assertDontSee('IMS')
                     ->assertDontSee('(Customer)')
@@ -62,7 +64,8 @@ class CmsLoginTest extends DuskTestCase
         $user = $this->loginAsCustomer();
         $artwork = Artwork::visible()->first();
         $this->browse(function ($browser) use ($user, $artwork) {
-            $browser->visit('/artworks/' . $artwork->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id)
                     ->assertPathIs('/artworks/' . $artwork->id)
                     ->assertSee($user->name)
                     ->assertDontSee('IMS')
@@ -80,7 +83,8 @@ class CmsLoginTest extends DuskTestCase
     public function testShouldNot_ShowStaffLinksInArtists_When_CustomerLogsIn() {
         $user = $this->loginAsCustomer();
         $this->browse(function ($browser) use ($user) {
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->assertSee($user->name)
                     ->assertDontSee('IMS')
                     ->assertDontSee('(Customer)')
@@ -102,7 +106,8 @@ class CmsLoginTest extends DuskTestCase
         $user = $this->loginAsCustomer();
         $artist = Artist::all()->first();
         $this->browse(function ($browser) use ($user, $artist) {
-            $browser->visit('/artists/' . $artist->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artists/' . $artist->id)
                     ->assertPathIs('/artists/' . $artist->id)
                     ->assertSee($user->name)
                     ->assertDontSee('IMS')
@@ -120,7 +125,8 @@ class CmsLoginTest extends DuskTestCase
     public function testShouldNot_ShowStaffLinksInExhibitions_When_CustomerLogsIn() {
         $user = $this->loginAsCustomer();
         $this->browse(function ($browser) use ($user) {
-            $browser->visit('/exhibitions')
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions')
                     ->assertPathIs('/exhibitions')
                     ->assertSee($user->name)
                     ->assertDontSee('IMS')
@@ -138,7 +144,8 @@ class CmsLoginTest extends DuskTestCase
         $user = $this->loginAsCustomer();
         $exhibition = Exhibition::all()->first();
         $this->browse(function ($browser) use ($user, $exhibition) {
-            $browser->visit('/exhibitions/' . $exhibition->id)
+            $browser->resize(1366, 768)
+                    ->visit('/exhibitions/' . $exhibition->id)
                     ->assertPathIs('/exhibitions/' . $exhibition->id)
                     ->assertSee($user->name)
                     ->assertDontSee('IMS')
@@ -156,7 +163,8 @@ class CmsLoginTest extends DuskTestCase
     public function testShouldNot_ShowStaffLinksInNewsArticles_When_CustomerLogsIn() {
         $user = $this->loginAsCustomer();
         $this->browse(function ($browser) use ($user) {
-            $browser->visit('/news_articles')
+            $browser->resize(1366, 768)
+                    ->visit('/news_articles')
                     ->assertPathIs('/news_articles')
                     ->assertSee($user->name)
                     ->assertDontSee('IMS')
@@ -174,7 +182,8 @@ class CmsLoginTest extends DuskTestCase
         $user = $this->loginAsCustomer();
         $news_article = NewsArticle::all()->first();
         $this->browse(function ($browser) use ($user, $news_article) {
-            $browser->visit('/news_articles/' . $news_article->id)
+            $browser->resize(1366, 768)
+                    ->visit('/news_articles/' . $news_article->id)
                     ->assertPathIs('/news_articles/' . $news_article->id)
                     ->assertSee($user->name)
                     ->assertDontSee('IMS')
@@ -206,7 +215,8 @@ class CmsLoginTest extends DuskTestCase
     private function logout() 
     {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout();
         }); 
     }

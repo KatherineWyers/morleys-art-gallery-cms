@@ -31,7 +31,8 @@ class AppointmentsTest extends DuskTestCase
             DB::table('appointments')->where('datetime', '=', '2100-01-01-14:00')->delete();
 
             //create appointment on 2100-01-01
-            $browser->visit('/appointments/create/' . $artwork->id . '/2100/1/1/14')
+            $browser->resize(1366, 768)
+                    ->visit('/appointments/create/' . $artwork->id . '/2100/1/1/14')
                     ->type('name', 'Test Name')
                     ->type('phone_number', '0123456')
                     ->type('email', 'test.name@gmail.com')
@@ -63,7 +64,8 @@ class AppointmentsTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $artwork = Artwork::all()->first();
-            $browser->visit('/ims/appointments/edit/' . $artwork->id)
+            $browser->resize(1366, 768)
+                    ->visit('/ims/appointments/edit/' . $artwork->id)
                     ->assertSee('Unauthorized');
         }); 
     }
@@ -85,7 +87,8 @@ class AppointmentsTest extends DuskTestCase
             //ensure that the appointment does not already exist
             DB::table('appointments')->where('datetime', '=', '2100-01-01-14:00')->delete();
             $appointment = factory(Appointment::class)->create(['name' => 'Test Name', 'phone_number' => '0123456', 'email' => 'test.name@gmail.com', 'datetime' => '2100-01-01-14:00', 'artwork_id' => $artwork->id]);
-            $browser->visit('/ims/appointments/1/1/2100')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/appointments/1/1/2100')
                     ->assertSee('Test Name')
                     ->assertSee('0123456')
                     ->assertSee('test.name@gmail.com')
@@ -115,7 +118,8 @@ class AppointmentsTest extends DuskTestCase
             DB::table('appointments')->where('datetime', '=', '2100-01-01-14:00')->delete();
             $appointment = factory(Appointment::class)->create(['name' => 'Test Name', 'phone_number' => '0123456', 'email' => 'test.name@gmail.com', 'datetime' => '2100-01-01-14:00', 'artwork_id' => $artwork->id]);
 
-            $browser->visit('/ims/appointments/1/1/2100')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/appointments/1/1/2100')
                     ->clickLink('Delete')
                     ->assertPathIs('/ims/appointments/delete/' . $appointment->id)
                     ->clickLink('Confirm Delete')
@@ -143,7 +147,8 @@ class AppointmentsTest extends DuskTestCase
         $this->loginAsStaff();
 
         $this->browse(function ($browser) use ($artwork, $appointment) {
-            $browser->visit('/ims/appointments/1/1/2100')
+            $browser->resize(1366, 768)
+                    ->visit('/ims/appointments/1/1/2100')
                     ->clickLink('Mark As Sale')
                     ->assertPathIs('/ims/appointments')
                     ->assertSee('The appointment was marked as leading to a sale')
@@ -163,7 +168,8 @@ class AppointmentsTest extends DuskTestCase
 
             $user = User::Admins()->first();
 
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->assertPathIs('/login')
                     ->value('#email', $user->email)
@@ -179,7 +185,8 @@ class AppointmentsTest extends DuskTestCase
 
             $user = User::Managers()->first();
 
-            $browser->visit('/')
+            $browser->resize(1366, 768)
+                    ->visit('/')
                     ->clickLink('Login')
                     ->assertPathIs('/login')
                     ->value('#email', $user->email)
@@ -193,7 +200,8 @@ class AppointmentsTest extends DuskTestCase
     private function logout() 
     {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         }); 

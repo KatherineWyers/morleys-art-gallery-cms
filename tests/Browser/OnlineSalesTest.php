@@ -22,7 +22,8 @@ class OnlineSalesTest extends DuskTestCase
         $artwork = Artwork::visible()->first();
 
         $this->browse(function ($browser) use ($artwork) {
-            $browser->visit('/artworks/' . $artwork->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id)
                     ->assertSee('Buy Online and Collect')
                     ->clickLink('Buy Online and Collect')
                     ->assertPathIs('/register')
@@ -44,7 +45,8 @@ class OnlineSalesTest extends DuskTestCase
         $artwork = Artwork::visible()->first();
         $user = $this->loginAsCustomer();
         $this->browse(function ($browser) use ($artwork, $user) {
-            $browser->visit('/artworks/' . $artwork->id)
+            $browser->resize(1366, 768)
+                    ->visit('/artworks/' . $artwork->id)
                     ->assertSee($artwork->title)
                     ->assertSee('Buy Online and Collect')
                     ->clickLink('Buy Online and Collect')
@@ -85,7 +87,8 @@ class OnlineSalesTest extends DuskTestCase
         //assert that there is no artwork awaiting collection 
         $user = $this->loginAsStaff();
         $this->browse(function ($browser) {
-            $browser->visit('/ims')
+            $browser->resize(1366, 768)
+                    ->visit('/ims')
                     ->assertSee('Online Sales Awaiting Collection')
                     ->assertSee('No online-sales awaiting collection');
         });
@@ -124,7 +127,8 @@ class OnlineSalesTest extends DuskTestCase
 
         $user = $this->loginAsStaff();
         $this->browse(function ($browser) use ($artwork) {
-            $browser->visit('/ims')
+            $browser->resize(1366, 768)
+                    ->visit('/ims')
                     ->assertSee('Online Sales Awaiting Collection')
                     ->assertDontSee('No online-sales awaiting collection')
                     ->assertSee($artwork->title)
@@ -165,7 +169,8 @@ class OnlineSalesTest extends DuskTestCase
 
         $user = $this->loginAsStaff();
         $this->browse(function ($browser) use ($artwork) {
-            $browser->visit('/ims')
+            $browser->resize(1366, 768)
+                    ->visit('/ims')
                     ->assertSee('Online Sales Awaiting Collection')
                     ->assertDontSee('No online-sales awaiting collection')
                     ->assertSee($artwork->title)
@@ -222,7 +227,8 @@ class OnlineSalesTest extends DuskTestCase
     private function logout() 
     {
         $this->browse(function ($browser) {
-            $browser->visit('/logout')
+            $browser->resize(1366, 768)
+                    ->visit('/logout')
                     ->logout()
                     ->assertDontSee("IMS");
         }); 
