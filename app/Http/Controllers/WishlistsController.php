@@ -109,8 +109,8 @@ class WishlistsController extends Controller
         ]);
 
         $user = Auth::user();
-
-        Mail::send('emails.wishlist', ['user' => $user], function ($message) use ($request) {
+            $url = 'http://ec2-34-245-225-127.eu-west-1.compute.amazonaws.com/wishlists/' . $request->input('wishlist_id');
+        Mail::send('emails.wishlist', ['user' => $user, 'sender_name' => $user->name, 'recipient_name' => $request->input('name'), 'url' => $url], function ($message) use ($request) {
             $message->from('contact@morleysgallery.com', 'Morleys Gallery');
             $message->to($request->input('email'), $request->input('name'))->subject('Your friend sent a wishlist');
         });
