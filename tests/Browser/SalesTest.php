@@ -109,10 +109,38 @@ class SalesTest extends DuskTestCase
 
 
 
+    /**
+     * @group ims
+     * @return void
+     */
+    public function test_Should_ShowFormattedSalesDetailsInList_When_UserIsStaff()
+    {
+        $sale_1 = Sale::orderBy('created_at', 'desc')->first();
+        $sale_2 = Sale::orderBy('created_at', 'desc')->skip(1)->first();
+        $online_sale_1 = OnlineSale::orderBy('created_at', 'desc')->first();
+        $online_sale_2 = OnlineSale::orderBy('created_at', 'desc')->skip(1)->first();
+
+        $this->loginAsStaff();
+        $this->browse(function ($browser) use ($sale_1, $sale_2, $online_sale_1, $online_sale_2) {
+            
+
+            $browser->resize(1366, 768)
+                    ->visit('/')
+                    ->visit('/ims/sales/list')
+                ->assertSee($this->convertDatetimeStringToFormattedDate($sale_1->created_at) . ': ' . $sale_1->artwork->title . ': In-person Sale: £' . $sale_1->amount)
+                ->assertSee($this->convertDatetimeStringToFormattedDate($sale_2->created_at) . ': ' . $sale_2->artwork->title . ': In-person Sale: £' . $sale_2->amount)
+                ->assertSee($this->convertDatetimeStringToFormattedDate($online_sale_1->created_at) . ': ' . $online_sale_1->artwork->title . ': Online Sale: £' . $online_sale_1->artwork->price)
+                ->assertSee($this->convertDatetimeStringToFormattedDate($online_sale_2->created_at) . ': ' . $online_sale_2->artwork->title . ': Online Sale: £' . $online_sale_2->artwork->price);
+        });
 
 
+        $this->logout();
+    }
 
-
+    private function convertDatetimeStringToFormattedDate($datetime_string)
+    {
+        return Carbon::parse($datetime_string)->toRfc7231String();
+    }
 
 
 

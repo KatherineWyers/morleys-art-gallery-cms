@@ -32,14 +32,14 @@ class Sale extends Model
     public static function getArrayOfSalesAndOnlineSales()
     {
 		$in_person_sales = DB::table('sales')
-                     ->select(DB::raw('"Sale" as type, sales.id, sales.created_at, artworks.title as artwork_title'))
+                     ->select(DB::raw('"Sale" as type, sales.id, sales.created_at as datetime, sales.amount as amount, artworks.title as artwork_title'))
                      ->join('artworks', 'artworks.id', '=', 'sales.artwork_id');
 
 		$sales_and_online_sales = DB::table('online_sales')
-                     ->select(DB::raw('"Online Sale" as type, online_sales.id, online_sales.created_at, artworks.title as artwork_title'))
+                     ->select(DB::raw('"Online Sale" as type, online_sales.id, online_sales.created_at as datetime, artworks.price as amount, artworks.title as artwork_title'))
                      ->join('artworks', 'artworks.id', '=', 'online_sales.artwork_id')
                      ->union($in_person_sales)
-                     ->orderBy('created_at', 'desc')
+                     ->orderBy('datetime', 'desc')
                      ->get();
     	return $sales_and_online_sales;
     }
