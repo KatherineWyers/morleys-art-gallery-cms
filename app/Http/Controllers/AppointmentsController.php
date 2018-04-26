@@ -32,15 +32,15 @@ class AppointmentsController extends Controller
     {        
         if(is_null($date)) 
         {
-            Carbon::now()->day;
+            $date = Carbon::now()->day;
         }       
         if(is_null($month)) 
         {
-            Carbon::now()->month;
+            $month = Carbon::now()->month;
         }       
         if(is_null($year)) 
         {
-            Carbon::now()->year;
+            $year = Carbon::now()->year;
         }
 
         $calendar = new Calendar;
@@ -91,6 +91,7 @@ class AppointmentsController extends Controller
         
         $appointment=$request->all();
         $appointment = Appointment::create($appointment);
+        \Session::flash('flash_message', 'The appointment was created successfully');
 
         return redirect('/artworks');
     }
@@ -116,7 +117,8 @@ class AppointmentsController extends Controller
     public function destroy($id)
     {
         Appointment::where('id',$id)->delete();
-        return redirect('/appointments');
+        \Session::flash('flash_message', 'The appointment was deleted successfully');
+        return redirect('/ims/appointments');
     }
 
 

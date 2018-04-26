@@ -8,8 +8,9 @@
 
         @forelse($wishlist->artworks as $artwork)
             <div class="row">
-                <div class="col-xs-12">
-                    <p>{{ $artwork->title }} - {{ $artwork->price }}</p>
+                <div class="col-xs-4 col-sm-3">
+                    <img src="/img/artworks/{{ $artwork->img_sq }}" class="img-responsive">
+                    <p>{{ $artwork->title }} - £{{ $artwork->price }}</p>
                 </div>
             </div>
         @empty

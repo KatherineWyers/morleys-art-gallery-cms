@@ -18,7 +18,6 @@ class AppointmentsTest extends DuskTestCase
     /**
      * @group web-portal
      * @group appointments
-     * @group current
      * @return void
      */
     public function test_Should_CreateAppointment_When_UserIsGuest()

@@ -32,7 +32,7 @@ class WishlistsTest extends DuskTestCase
      * @group wishlists
      * @return void
      */
-    public function testShould_RedirectToLoginPage_When_GuestClicksAddToMyWishlist()
+    public function testShould_RedirectToRegisterPage_When_GuestClicksAddToMyWishlist()
     {
         $artwork = Artwork::visible()->first();
         $this->browse(function (Browser $browser) use ($artwork) {

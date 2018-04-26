@@ -18,8 +18,21 @@ use App\VisitHandler;
 class TimeslotsController extends Controller
 {
 
-    public function indexForDate(Request $request, $artwork_id, $date = 5, $month = 4, $year = 2018)
+    public function indexForDate(Request $request, $artwork_id, $date = NULL, $month = NULL, $year = NULL)
     {        
+
+        if(is_null($date)) 
+        {
+            $date = Carbon::now()->day;
+        }       
+        if(is_null($month)) 
+        {
+            $month = Carbon::now()->month;
+        }       
+        if(is_null($year)) 
+        {
+            $year = Carbon::now()->year;
+        }
 
         $calendar = new Calendar;
         $calendar->setDatetime($date, $month, $year);

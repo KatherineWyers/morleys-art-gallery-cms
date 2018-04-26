@@ -47,7 +47,7 @@ class ArtworksController extends Controller
     {
         $categories = Category::orderBy('id', 'asc')->get();
         $category_title = ': Under £' . $max_price;
-        $artworks = Artwork::visible()->where('price', '<=', $max_price)->orderBy('created_at', 'desc')->paginate(50);
+        $artworks = Artwork::getVisibleArtworksFilteredByMaxPrice($max_price)->paginate(50);
         $response = response()->view('web-portal.artworks.index', compact('artworks', 'categories', 'category_title'));
         return VisitHandler::handleVisit($request, $response);
     }
@@ -205,6 +205,7 @@ class ArtworksController extends Controller
             'title' => 'required|max:30',
             'artist_id' => 'required|exists:artists,id',
             'year_created' => 'required|integer|min:1500|max:2050',
+            'categories' => 'required',
             'desc_1' => 'required|max:1000',
             'medium' => 'required|max:30',
             'width_cm' => 'required|numeric',

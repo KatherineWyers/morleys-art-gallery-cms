@@ -14,7 +14,7 @@ class MathHelperTest extends TestCase
      *
      * @return void
      */
-    public function testCalculatePercentage_Should_Return0or100forResultsOutsideRange()
+    public function testCalculatePercentage_Should_Return0or100_When_ResultsOutsideRange()
     {
         //Zero numerator
         $this->assertTrue(0 == MathHelper::calculatePercentage(0, 1));
@@ -41,7 +41,7 @@ class MathHelperTest extends TestCase
      *
      * @return void
      */
-    public function testCalculatePercentage_Should_ValidInputsReturnRoundedPercentage()
+    public function testCalculatePercentage_Should_ReturnRoundedPercentage_When_InputsValid()
     {
         //Whole-number percentages
         $this->assertTrue(25 == MathHelper::calculatePercentage(1, 4));

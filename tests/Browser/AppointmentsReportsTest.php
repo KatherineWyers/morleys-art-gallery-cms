@@ -14,6 +14,7 @@ use App\Artwork;
 use App\Appointment;
 use App\User;
 use App\MathHelper;
+use App\Artist;
 
 class AppointmentsReportsTest extends DuskTestCase
 {

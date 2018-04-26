@@ -72,4 +72,9 @@ class Artwork extends Model
     }
     return $artworks;
   }
+
+  public static function getVisibleArtworksFilteredByMaxPrice($max_price)
+  {
+    return Artwork::visible()->where('price', '<=', $max_price)->orderBy('created_at', 'desc');
+  }
 }
